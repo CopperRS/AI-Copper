@@ -37,6 +37,7 @@ impl Tensor {
     }
 
     pub fn print(&self) {
+        println!("Variable[CPUFloatType {{{}, {}}}]", self.rows, self.cols);
         let slice = self.as_slice();
         for r in 0..self.rows {
             for c in 0..self.cols {
@@ -44,7 +45,6 @@ impl Tensor {
                 print!("{:.4} ", val);
             }
             println!();
-            println!("Variable[CPUFloatType]{{{}, {}}}", self.rows, self.cols);
         }
     }
 }
