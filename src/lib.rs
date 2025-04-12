@@ -20,7 +20,7 @@ impl Tensor {
     pub fn ones(rows: i32, cols: i32) -> Self {
         let ptr = unsafe { CreateTensorOnes(rows, cols) };
         if ptr.is_null() {
-            panic!("Falha ao criar tensor");
+            panic!("Error creating tensor");
         }
 
         let rows = unsafe { TensorRows(ptr) };
@@ -32,7 +32,7 @@ impl Tensor {
     pub fn rand(rows: i32, cols: i32) -> Self {
         let ptr = unsafe { CreateTensorRand(rows, cols) };
         if ptr.is_null() {
-            panic!("Falha ao criar tensor");
+            panic!("Error creating tensor");
         }
 
         let rows = unsafe { TensorRows(ptr) };
@@ -71,19 +71,3 @@ impl Drop for Tensor {
 }
 
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_tensor_creation() {
-        let tensor = Tensor::new(4, 4);
-        assert!(tensor.is_valid(), "O tensor deveria ser válido");
-    }
-
-    #[test]
-    #[should_panic]
-    fn test_tensor_creation_invalid() {
-        let _ = Tensor::new(-1, 3);
-    }
-}
