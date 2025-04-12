@@ -8,7 +8,7 @@ license = "MIT"
 repository = "https://github.com/seu_usuario/ai_copper"
 readme = "README.md"
 keywords = ["Rust", "C++", "libtorch"]
-categories = ["Science"]
+categories = ["machine-learning-libraries"]
 
 [dependencies]
 libc = "0.2"   
