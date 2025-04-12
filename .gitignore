@@ -2,6 +2,7 @@
 /target/
 /Cargo.lock
 
+
 /build/
 /CMakeFiles/
 CMakeCache.txt
@@ -11,7 +12,7 @@ Makefile
 
 libtorch/
 
-
+.vscode
 *.so
 *.a
 *.o
