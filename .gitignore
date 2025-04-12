@@ -4,6 +4,7 @@
 
 
 /build/
+/.vscode/
 /CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
@@ -12,7 +13,6 @@ Makefile
 
 libtorch/
 
-.vscode
 *.so
 *.a
 *.o

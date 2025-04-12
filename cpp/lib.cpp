@@ -1,8 +1,15 @@
 #include <torch/torch.h>
+#include <torch/script.h>
+#include <ATen/ATen.h>
 
 extern "C" {
 
-void* CreateTensor(int rows, int cols) {
+void* CreateTensorOnes(int rows, int cols) {
+    at::Tensor* tensor = new at::Tensor(torch::ones({rows, cols}, torch::kFloat32));
+    return static_cast<void*>(tensor);
+}
+
+void* CreateTensorRand(int rows, int cols) {
     at::Tensor* tensor = new at::Tensor(torch::rand({rows, cols}, torch::kFloat32));
     return static_cast<void*>(tensor);
 }

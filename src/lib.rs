@@ -2,7 +2,8 @@ use libc::c_void;
 
 #[link(name = "ai_copper")]
 extern "C" {
-    fn CreateTensor(rows: i32, cols: i32) -> *mut c_void;
+    fn CreateTensorOnes(rows: i32, cols: i32) -> *mut c_void;
+    fn CreateTensorRand(rows: i32, cols: i32) -> *mut c_void;
     fn FreeTensor(ptr: *mut c_void);
     fn TensorData(ptr: *mut c_void) -> *const f32;
     fn TensorRows(ptr: *mut c_void) -> i32;
@@ -16,8 +17,20 @@ pub struct Tensor {
 }
 
 impl Tensor {
-    pub fn new(rows: i32, cols: i32) -> Self {
-        let ptr = unsafe { CreateTensor(rows, cols) };
+    pub fn ones(rows: i32, cols: i32) -> Self {
+        let ptr = unsafe { CreateTensorOnes(rows, cols) };
+        if ptr.is_null() {
+            panic!("Falha ao criar tensor");
+        }
+
+        let rows = unsafe { TensorRows(ptr) };
+        let cols = unsafe { TensorCols(ptr) };
+
+        Tensor { ptr, rows, cols }
+    }
+
+    pub fn rand(rows: i32, cols: i32) -> Self {
+        let ptr = unsafe { CreateTensorRand(rows, cols) };
         if ptr.is_null() {
             panic!("Falha ao criar tensor");
         }
