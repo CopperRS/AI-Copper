@@ -1,0 +1,3 @@
+/home/moonx02/Documentos/copper_ai/cpp/build/CMakeFiles/ai_copper.dir
+/home/moonx02/Documentos/copper_ai/cpp/build/CMakeFiles/edit_cache.dir
+/home/moonx02/Documentos/copper_ai/cpp/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,18 @@
+[package]
+name = "ai_copper"
+version = "0.1.0"
+edition = "2021"
+authors = ["Ryan Lima <ryan2020gary@gmail,com>"]
+description = "Binding Rust para C++ usando a libtorch"
+license = "MIT"
+repository = "https://github.com/seu_usuario/ai_copper"
+readme = "README.md"
+keywords = ["Rust", "C++", "libtorch"]
+categories = ["machine-learning", "bindings"]
+
+[dependencies]
+libc = "0.2"   
+bindgen = "0.59" 
+
+[build-dependencies]
+cc = "1.0"  
