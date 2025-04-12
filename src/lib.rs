@@ -44,6 +44,7 @@ impl Tensor {
                 print!("{:.4} ", val);
             }
             println!();
+            println!("Variable[CPUFloatType]{{{}, {}}}", self.rows, self.cols);
         }
     }
 }
