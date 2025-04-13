@@ -16,11 +16,12 @@
 
 ## Installation
 
-To add `ai_copper` to your Rust project, include the following line in your `Cargo.toml`:
+To add `ai_copper` to your Rust project:
 
 ```bash
 cargo add ai_copper
 ```
+Include the following line in your `Cargo.toml`:
 
 ```toml
 [dependencies]
