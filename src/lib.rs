@@ -1,6 +1,6 @@
 use libc::c_void;
 
-#[link(name = "ai_copper")]
+#[link(name = "ai_copper", kind = "dylib")]
 extern "C" {
     fn CreateTensorOnes(rows: i32, cols: i32) -> *mut c_void;
     fn CreateTensorRand(rows: i32, cols: i32) -> *mut c_void;

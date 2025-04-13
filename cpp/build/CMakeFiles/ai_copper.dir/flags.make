@@ -6,5 +6,5 @@ CXX_DEFINES = -DUSE_C10D_GLOO -DUSE_DISTRIBUTED -DUSE_RPC -DUSE_TENSORPIPE -Dai_
 
 CXX_INCLUDES = -I/home/moonx02/Documentos/copper_ai/cpp/../include -isystem /home/moonx02/Documentos/libtorch/include -isystem /home/moonx02/Documentos/libtorch/include/torch/csrc/api/include
 
-CXX_FLAGS =  -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -fvisibility=hidden -D_GLIBCXX_USE_CXX11_ABI=0 -std=gnu++17
+CXX_FLAGS =  -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -D_GLIBCXX_USE_CXX11_ABI=0 -std=gnu++17
 

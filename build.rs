@@ -29,4 +29,5 @@ fn main() {
 
     println!("cargo:rustc-link-lib=dylib=ai_copper");
     println!("cargo:rustc-link-search=native={}", cmake_build_dir.display());
+
 }
