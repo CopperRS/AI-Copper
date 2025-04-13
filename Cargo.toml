@@ -1,6 +1,6 @@
 [package]
 name = "ai_copper"
-version = "0.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Ryan Lima <ryan2020gary@gmail,com>"]
 description = "Binding Rust para C++ usando a libtorch"
