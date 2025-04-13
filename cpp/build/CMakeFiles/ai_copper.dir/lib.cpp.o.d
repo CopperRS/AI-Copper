@@ -4926,4 +4926,31 @@ CMakeFiles/ai_copper.dir/lib.cpp.o: \
  /home/moonx02/Documentos/libtorch/include/torch/csrc/api/include/torch/sparse.h \
  /home/moonx02/Documentos/libtorch/include/torch/csrc/api/include/torch/special.h \
  /home/moonx02/Documentos/libtorch/include/torch/csrc/api/include/torch/version.h \
- /home/moonx02/Documentos/libtorch/include/torch/csrc/api/include/torch/xpu.h
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/api/include/torch/xpu.h \
+ /home/moonx02/Documentos/libtorch/include/torch/script.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/autograd/InferenceMode.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/runtime/custom_operator.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/serialization/import.h \
+ /home/moonx02/Documentos/libtorch/include/caffe2/serialize/inline_container.h \
+ /usr/include/c++/12/fstream \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++io.h \
+ /usr/include/c++/12/bits/fstream.tcc \
+ /home/moonx02/Documentos/libtorch/include/caffe2/serialize/istream_adapter.h \
+ /home/moonx02/Documentos/libtorch/include/caffe2/serialize/read_adapter_interface.h \
+ /home/moonx02/Documentos/libtorch/include/caffe2/serialize/versions.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/serialization/pickle.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/serialization/pickler.h \
+ /home/moonx02/Documentos/libtorch/include/c10/util/FbcodeMaps.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/serialization/unpickler.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/script_type_parser.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/resolver.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/sugared_value.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/error_report.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/tree.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/lexer.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/parser_constants.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/strtod.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/schema_matching.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/versioned_symbols.h \
+ /home/moonx02/Documentos/libtorch/include/torch/csrc/jit/frontend/tree_views.h

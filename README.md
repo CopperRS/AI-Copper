@@ -18,6 +18,10 @@
 
 To add `ai_copper` to your Rust project, include the following line in your `Cargo.toml`:
 
+```bash
+cargo add ai_copper
+```
+
 ```toml
 [dependencies]
 ai_copper = "0.1"

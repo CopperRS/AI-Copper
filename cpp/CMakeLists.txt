@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Caminho para o libtorch instalado
+
 if(NOT DEFINED ENV{LIBTORCH})
   message(FATAL_ERROR "Defina a variável de ambiente LIBTORCH com o caminho para libtorch.")
 endif()
@@ -20,3 +20,5 @@ include_directories(${CMAKE_SOURCE_DIR}/../include)
 add_library(ai_copper SHARED lib.cpp)
 target_link_libraries(ai_copper "${TORCH_LIBRARIES}")
 target_include_directories(ai_copper PRIVATE "${TORCH_INCLUDE_DIRS}")
+set_target_properties(ai_copper PROPERTIES CXX_VISIBILITY_PRESET hidden VISIBILITY_INLINES_HIDDEN YES)
+target_compile_options(ai_copper PRIVATE -fvisibility=hidden)
