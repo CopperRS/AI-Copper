@@ -18,11 +18,9 @@
 
 To add `ai_copper` to your Rust project:
 
-```bash
-cargo add ai_copper
-```
 Include the following line in your `Cargo.toml`:
 
 ```toml
 [dependencies]
-ai_copper = "0.1"
+ai_copper = { git = "https://github.com/CopperRS/ai_copper.git" }
+```
