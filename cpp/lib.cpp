@@ -1,53 +1,139 @@
 #include <torch/torch.h>
 #include <torch/script.h>
 #include <ATen/ATen.h>
+#include <ATen/Tensor.h>
 
+
+// Exemplo para todas as funções FFI
 extern "C" {
 
-//This method allows the creation of custom tensors    
+void* CreateLinear(int in_features, int out_features) {
+    try {
+        auto* linear = new torch::nn::LinearImpl(in_features, out_features);
+        return static_cast<void*>(linear);
+    } catch (...) {
+        return nullptr;
+    }
+}
+
+void* LinearForward(void* linear_ptr, void* input_tensor_ptr) {
+    try {
+        auto* linear = static_cast<torch::nn::LinearImpl*>(linear_ptr);
+        auto* input = static_cast<at::Tensor*>(input_tensor_ptr);
+        at::Tensor* output = new at::Tensor(linear->forward(*input));
+        return static_cast<void*>(output);
+    } catch (...) {
+        return nullptr;
+    }
+}
+
+void* MSELoss(void* prediction_ptr, void* target_ptr) {
+    try {
+        auto* prediction = static_cast<at::Tensor*>(prediction_ptr);
+        auto* target = static_cast<at::Tensor*>(target_ptr);
+        at::Tensor* loss = new at::Tensor(torch::mse_loss(*prediction, *target));
+        return static_cast<void*>(loss);
+    } catch (...) {
+        return nullptr;
+    }
+}
+
+void* CreateSGD(void* linear_ptr, float lr) {
+    try {
+        auto* linear = static_cast<torch::nn::LinearImpl*>(linear_ptr);
+        auto* optimizer = new torch::optim::SGD(linear->parameters(), lr);
+        return static_cast<void*>(optimizer);
+    } catch (...) {
+        return nullptr;
+    }
+}
+
+void Backward(void* loss_ptr) {
+    try {
+        auto* loss = static_cast<at::Tensor*>(loss_ptr);
+        loss->backward();
+    } catch (...) {
+        // Do nothing
+    }
+}
+
+void OptimizerStep(void* optimizer_ptr) {
+    try {
+        auto* optimizer = static_cast<torch::optim::Optimizer*>(optimizer_ptr);
+        optimizer->step();
+    } catch (...) {
+        // Do nothing
+    }
+}
+
+void FreeOptimizer(void* ptr) {
+    try {
+        delete static_cast<torch::optim::Optimizer*>(ptr);
+    } catch (...) {
+        // Do nothing
+    }
+}
+
 void* CreateMatrixTensor(float* values, int rows, int cols) {
-    at::Tensor* tensor = new at::Tensor(torch::from_blob(values, {rows, cols}, torch::kFloat32).clone());
-    return static_cast<void*>(tensor);
+    try {
+        at::Tensor* tensor = new at::Tensor(torch::from_blob(values, {rows, cols}, torch::kFloat32).clone());
+        return static_cast<void*>(tensor);
+    } catch (...) {
+        return nullptr;
+    }
 }
 
-//This method creates tensors with values ​​1
 void* CreateTensorOnes(int rows, int cols) {
-    at::Tensor* tensor = new at::Tensor(torch::ones({rows, cols}, torch::kFloat32));
-    return static_cast<void*>(tensor);
+    try {
+        at::Tensor* tensor = new at::Tensor(torch::ones({rows, cols}, torch::kFloat32));
+        return static_cast<void*>(tensor);
+    } catch (...) {
+        return nullptr;
+    }
 }
 
-//This method creates tensors with values ​​randomly generated
 void* CreateTensorRand(int rows, int cols) {
-    at::Tensor* tensor = new at::Tensor(torch::rand({rows, cols}, torch::kFloat32));
-    return static_cast<void*>(tensor);
+    try {
+        at::Tensor* tensor = new at::Tensor(torch::rand({rows, cols}, torch::kFloat32));
+        return static_cast<void*>(tensor);
+    } catch (...) {
+        return nullptr;
+    }
 }
 
-//This method clear the memory of the tensor
 void FreeTensor(void* ptr) {
-    delete static_cast<at::Tensor*>(ptr);
+    try {
+        delete static_cast<at::Tensor*>(ptr);
+    } catch (...) {
+        // Do nothing
+    }
 }
 
-
-
-/*This method returns a pointer to the data stored in the tensor.
-Used to directly access the numeric values ​​stored in the tensor*/
 float* TensorData(void* ptr) {
-    at::Tensor* tensor = static_cast<at::Tensor*>(ptr);
-    return tensor->data_ptr<float>();
+    try {
+        at::Tensor* tensor = static_cast<at::Tensor*>(ptr);
+        return tensor->data_ptr<float>();
+    } catch (...) {
+        return nullptr;
+    }
 }
 
-//This method returns the number of rows in the tensor.
 int TensorRows(void* ptr) {
-    at::Tensor* tensor = static_cast<at::Tensor*>(ptr);
-    return tensor->size(0);
+    try {
+        at::Tensor* tensor = static_cast<at::Tensor*>(ptr);
+        return tensor->size(0);
+    } catch (...) {
+        return -1;
+    }
 }
 
-//This method returns the number of columns in the tensor.
 int TensorCols(void* ptr) {
-    at::Tensor* tensor = static_cast<at::Tensor*>(ptr);
-    return tensor->size(1);
-
+    try {
+        at::Tensor* tensor = static_cast<at::Tensor*>(ptr);
+        return tensor->size(1);
+    } catch (...) {
+        return -1;
+    }
 }
-
 
 }

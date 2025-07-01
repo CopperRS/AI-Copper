@@ -5,7 +5,14 @@ use crate::tensor::ffi::{
     TensorData, 
     TensorRows, 
     TensorCols, 
-    FreeTensor
+    FreeTensor,
+    CreateLinear,
+    LinearForward,
+    MSELoss,
+    CreateSGD,
+    Backward,
+    OptimizerStep,
+    FreeOptimizer,
 };
 
 pub struct Tensor {
@@ -70,6 +77,20 @@ impl Tensor {
             println!();
         }
     }
+
+    pub fn mse_loss(&self, target: &Tensor) -> Tensor {
+        let loss_ptr = unsafe { MSELoss(self.ptr, target.ptr) };
+        if loss_ptr.is_null() {
+            panic!("Error calculating MSELoss");
+        }
+        let rows = unsafe { TensorRows(loss_ptr) };
+        let cols = unsafe { TensorCols(loss_ptr) };
+        Tensor { ptr: loss_ptr, rows, cols }
+    }
+
+    pub fn backward(&self) {
+        unsafe { Backward(self.ptr) };
+    }
 }
 
 impl Clone for Tensor {
@@ -84,5 +105,61 @@ impl Drop for Tensor {
         unsafe {
             FreeTensor(self.ptr);
         }
+    }
+}
+
+pub struct Linear {
+    pub ptr: *mut libc::c_void,
+    pub in_features: i32,
+    pub out_features: i32,
+}
+
+impl Linear {
+    pub fn new(in_features: i32, out_features: i32) -> Self {
+        let ptr = unsafe { CreateLinear(in_features, out_features) };
+        if ptr.is_null() {
+            panic!("Error creating Linear layer");
+        }
+        Linear { ptr, in_features, out_features }
+    }
+
+    pub fn forward(&self, input: &Tensor) -> Tensor {
+        let out_ptr = unsafe { LinearForward(self.ptr, input.ptr) };
+        if out_ptr.is_null() {
+            panic!("Error in Linear forward");
+        }
+        let rows = unsafe { TensorRows(out_ptr) };
+        let cols = unsafe { TensorCols(out_ptr) };
+        Tensor { ptr: out_ptr, rows, cols }
+    }
+}
+
+impl Drop for Linear {
+    fn drop(&mut self) {
+        // Optionally implement a FreeLinear if you add it to the C++ side
+    }
+}
+
+pub struct Optimizer {
+    pub ptr: *mut libc::c_void,
+}
+
+impl Optimizer {
+    pub fn sgd(linear: &Linear, lr: f32) -> Self {
+        let ptr = unsafe { CreateSGD(linear.ptr, lr) };
+        if ptr.is_null() {
+            panic!("Error creating SGD optimizer");
+        }
+        Optimizer { ptr }
+    }
+
+    pub fn step(&self) {
+        unsafe { OptimizerStep(self.ptr) };
+    }
+}
+
+impl Drop for Optimizer {
+    fn drop(&mut self) {
+        unsafe { FreeOptimizer(self.ptr) };
     }
 }
