@@ -34,3 +34,38 @@ fn main() {
     // Specify the directory where the dynamic library is located
     println!("cargo:rustc-link-search=native={}", cmake_build_dir.display());
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Como dizia meu amigo Rodrigo Dias de Paula, "A Brenda é safada"
