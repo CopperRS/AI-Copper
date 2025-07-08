@@ -4,7 +4,6 @@
 #include <ATen/Tensor.h>
 
 
-// Exemplo para todas as funções FFI
 extern "C" {
 
 void* CreateLinear(int in_features, int out_features) {
