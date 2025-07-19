@@ -3,10 +3,18 @@
 #include <ATen/ATen.h>
 #include <ATen/Tensor.h>
 
-
 extern "C" {
 
-void* CreateLinear(int in_features, int out_features) {
+
+#if defined(_WIN32)
+  #define EXPORT __declspec(dllexport)
+#elif defined(__GNUC__)
+  #define EXPORT __attribute__((visibility("default")))
+#else
+  #define EXPORT
+#endif
+
+EXPORT void* CreateLinear(int in_features, int out_features) {
     try {
         auto* linear = new torch::nn::LinearImpl(in_features, out_features);
         return static_cast<void*>(linear);
@@ -15,7 +23,7 @@ void* CreateLinear(int in_features, int out_features) {
     }
 }
 
-void* LinearForward(void* linear_ptr, void* input_tensor_ptr) {
+EXPORT void* LinearForward(void* linear_ptr, void* input_tensor_ptr) {
     try {
         auto* linear = static_cast<torch::nn::LinearImpl*>(linear_ptr);
         auto* input = static_cast<at::Tensor*>(input_tensor_ptr);
@@ -26,7 +34,7 @@ void* LinearForward(void* linear_ptr, void* input_tensor_ptr) {
     }
 }
 
-void* MSELoss(void* prediction_ptr, void* target_ptr) {
+EXPORT void* MSELoss(void* prediction_ptr, void* target_ptr) {
     try {
         auto* prediction = static_cast<at::Tensor*>(prediction_ptr);
         auto* target = static_cast<at::Tensor*>(target_ptr);
@@ -37,7 +45,7 @@ void* MSELoss(void* prediction_ptr, void* target_ptr) {
     }
 }
 
-void* CreateSGD(void* linear_ptr, float lr) {
+EXPORT void* CreateSGD(void* linear_ptr, float lr) {
     try {
         auto* linear = static_cast<torch::nn::LinearImpl*>(linear_ptr);
         auto* optimizer = new torch::optim::SGD(linear->parameters(), lr);
@@ -47,7 +55,7 @@ void* CreateSGD(void* linear_ptr, float lr) {
     }
 }
 
-void Backward(void* loss_ptr) {
+EXPORT void Backward(void* loss_ptr) {
     try {
         auto* loss = static_cast<at::Tensor*>(loss_ptr);
         loss->backward();
@@ -56,7 +64,7 @@ void Backward(void* loss_ptr) {
     }
 }
 
-void OptimizerStep(void* optimizer_ptr) {
+EXPORT void OptimizerStep(void* optimizer_ptr) {
     try {
         auto* optimizer = static_cast<torch::optim::Optimizer*>(optimizer_ptr);
         optimizer->step();
@@ -65,7 +73,7 @@ void OptimizerStep(void* optimizer_ptr) {
     }
 }
 
-void FreeOptimizer(void* ptr) {
+EXPORT void FreeOptimizer(void* ptr) {
     try {
         delete static_cast<torch::optim::Optimizer*>(ptr);
     } catch (...) {
@@ -73,7 +81,7 @@ void FreeOptimizer(void* ptr) {
     }
 }
 
-void* CreateMatrixTensor(float* values, int rows, int cols) {
+EXPORT void* CreateMatrixTensor(float* values, int rows, int cols) {
     try {
         at::Tensor* tensor = new at::Tensor(torch::from_blob(values, {rows, cols}, torch::kFloat32).clone());
         return static_cast<void*>(tensor);
@@ -82,7 +90,7 @@ void* CreateMatrixTensor(float* values, int rows, int cols) {
     }
 }
 
-void* CreateTensorOnes(int rows, int cols) {
+EXPORT void* CreateTensorOnes(int rows, int cols) {
     try {
         at::Tensor* tensor = new at::Tensor(torch::ones({rows, cols}, torch::kFloat32));
         return static_cast<void*>(tensor);
@@ -91,7 +99,7 @@ void* CreateTensorOnes(int rows, int cols) {
     }
 }
 
-void* CreateTensorRand(int rows, int cols) {
+EXPORT void* CreateTensorRand(int rows, int cols) {
     try {
         at::Tensor* tensor = new at::Tensor(torch::rand({rows, cols}, torch::kFloat32));
         return static_cast<void*>(tensor);
@@ -100,7 +108,7 @@ void* CreateTensorRand(int rows, int cols) {
     }
 }
 
-void FreeTensor(void* ptr) {
+EXPORT void FreeTensor(void* ptr) {
     try {
         delete static_cast<at::Tensor*>(ptr);
     } catch (...) {
@@ -108,7 +116,7 @@ void FreeTensor(void* ptr) {
     }
 }
 
-float* TensorData(void* ptr) {
+EXPORT float* TensorData(void* ptr) {
     try {
         at::Tensor* tensor = static_cast<at::Tensor*>(ptr);
         return tensor->data_ptr<float>();
@@ -117,7 +125,7 @@ float* TensorData(void* ptr) {
     }
 }
 
-int TensorRows(void* ptr) {
+EXPORT int TensorRows(void* ptr) {
     try {
         at::Tensor* tensor = static_cast<at::Tensor*>(ptr);
         return tensor->size(0);
@@ -126,7 +134,7 @@ int TensorRows(void* ptr) {
     }
 }
 
-int TensorCols(void* ptr) {
+EXPORT int TensorCols(void* ptr) {
     try {
         at::Tensor* tensor = static_cast<at::Tensor*>(ptr);
         return tensor->size(1);
@@ -135,4 +143,4 @@ int TensorCols(void* ptr) {
     }
 }
 
-}
+} 
