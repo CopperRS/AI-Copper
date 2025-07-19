@@ -60,7 +60,7 @@ EXPORT void Backward(void* loss_ptr) {
         auto* loss = static_cast<at::Tensor*>(loss_ptr);
         loss->backward();
     } catch (...) {
-        // Do nothing
+    
     }
 }
 
@@ -69,7 +69,7 @@ EXPORT void OptimizerStep(void* optimizer_ptr) {
         auto* optimizer = static_cast<torch::optim::Optimizer*>(optimizer_ptr);
         optimizer->step();
     } catch (...) {
-        // Do nothing
+    
     }
 }
 
@@ -77,7 +77,7 @@ EXPORT void FreeOptimizer(void* ptr) {
     try {
         delete static_cast<torch::optim::Optimizer*>(ptr);
     } catch (...) {
-        // Do nothing
+    
     }
 }
 
@@ -112,7 +112,7 @@ EXPORT void FreeTensor(void* ptr) {
     try {
         delete static_cast<at::Tensor*>(ptr);
     } catch (...) {
-        // Do nothing
+        
     }
 }
 

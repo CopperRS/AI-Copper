@@ -9,7 +9,6 @@ fn main() {
 
     let cmake_build_dir = Path::new("cpp").join("build");
 
-    // Remove build antigo (evita conflito Win32/x64)
     if cmake_build_dir.exists() {
         std::fs::remove_dir_all(&cmake_build_dir).expect("Failed to clean cmake build directory");
     }
@@ -68,7 +67,6 @@ fn main() {
         println!("cargo:rustc-link-lib=dylib=torch");
         println!("cargo:rustc-link-lib=dylib=torch_cpu");
 
-        // Para rodar via cargo run no terminal:
         println!("cargo:rustc-env=LD_LIBRARY_PATH={}", build_dir_abs.display());
     }
 }
