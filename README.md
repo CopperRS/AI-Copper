@@ -56,6 +56,7 @@ Then, run:
 cargo build
 cargo run
 ```
+---
 
 **Linux**
 
