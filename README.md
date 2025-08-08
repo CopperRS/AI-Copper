@@ -18,7 +18,7 @@
 
 `Windows`
 
-Extract libtorch to `C:\libtorch`(CPU), in **PATH** add the variables **C:\libtorch** and **C:\libtorch\bin**
+Extract libtorch to `C:\libtorch`(CPU), in **PATH** add the variables **C:\libtorch**, **C:\libtorch\lib** and **C:\libortch\include**
 
 ---
 
