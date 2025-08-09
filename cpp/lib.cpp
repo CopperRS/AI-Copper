@@ -1,3 +1,6 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <tensorflow/c/c_api.h>
+#include <string>
 #include <torch/torch.h>
 #include <torch/script.h>
 #include <ATen/ATen.h>
@@ -13,6 +16,18 @@ extern "C" {
 #else
   #define EXPORT
 #endif
+
+
+
+// TensorFlow C API functions
+EXPORT const char* VersionTF() { 
+    return TF_Version();
+}
+
+
+
+
+// Torch C++ API functions
 
 EXPORT void* CreateLinear(int in_features, int out_features) {
     try {

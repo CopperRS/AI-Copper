@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/moonx02/Documentos/ai_copper/cpp/lib.cpp" "CMakeFiles/ai_copper.dir/lib.cpp.o" "gcc" "CMakeFiles/ai_copper.dir/lib.cpp.o.d"
+  "/home/moonx02/Documentos/ai_copper_tensorflow/ai_copper/cpp/lib.cpp" "CMakeFiles/ai_copper.dir/lib.cpp.o" "gcc" "CMakeFiles/ai_copper.dir/lib.cpp.o.d"
   )
 
 # Targets to which this target links.

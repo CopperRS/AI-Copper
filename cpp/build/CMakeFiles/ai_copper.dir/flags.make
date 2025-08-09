@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DUSE_C10D_GLOO -DUSE_DISTRIBUTED -DUSE_RPC -DUSE_TENSORPIPE -Dai_copper_EXPORTS
 
-CXX_INCLUDES = -I/home/moonx02/Documentos/ai_copper/cpp/../include -isystem /home/moonx02/Documentos/libtorch/include -isystem /home/moonx02/Documentos/libtorch/include/torch/csrc/api/include
+CXX_INCLUDES = -I/home/moonx02/Documentos/ai_copper_tensorflow/ai_copper/cpp/../include -I/home/moonx02/Documentos/libtensor/include -isystem /home/moonx02/Documentos/libtorch/include -isystem /home/moonx02/Documentos/libtorch/include/torch/csrc/api/include
 
-CXX_FLAGS = -O3 -DNDEBUG -fPIC -D_GLIBCXX_USE_CXX11_ABI=0 -std=gnu++17
+CXX_FLAGS = -g -fPIC -D_GLIBCXX_USE_CXX11_ABI=0 -std=gnu++17
 
