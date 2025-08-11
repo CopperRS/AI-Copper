@@ -1,6 +1,6 @@
 # ai_copper
 
-`ai_copper` is a Rust library that provides bindings to the C++ `libtorch` library from PyTorch, allowing the use of tensors and machine learning operations directly in Rust. This library is designed to facilitate the integration between Rust and C++ for projects that utilize `libtorch` for machine learning implementations.
+**`ai_copper`** is a library developed for the **`Copper language`**, written in Rust with revamped C++ functions, which provides connections to **`PyTorch's`** libtorch C++ library and **`TensorFlow's`** C++ library. It allows you to create and manipulate tensors, perform machine learning operations, and use pre-trained TensorFlow models directly in Copper. The library is designed to facilitate integration between Copper, Rust, and C++ in projects that use libtorch and TensorFlow for machine learning implementations.
 
 ## Features
 
@@ -9,12 +9,14 @@
 - Easy integration with PyTorch for running machine learning models in Rust.
 - Support for TensorFlow C++ library integration.
 
+
 ## Requirements
 
 - **Rust**: The library is designed to work with the latest version of Rust.
-- **C++**: A C++ compiler must be installed on your system.
+- **C++**: A C++ compiler (such as g++ or Clang) must be installed on the system.
 - **libtorch**: The PyTorch C++ library (CPU version) must be installed on your system.
 - **TensorFlow C++**: The TensorFlow C++ library (CPU version) must be installed on your system (optional, for TensorFlow integration).
+- **Copper**: The Copper language must be configured in the environment to use the library.
 
 ## Environment variables
 
@@ -45,14 +47,16 @@ export TENSORFLOW_ROOT=/home/yourname/libtensorflow
 export LD_LIBRARY_PATH=$LIBTORCH_PATH/lib:$TENSORFLOW_ROOT/lib:$LD_LIBRARY_PATH
 ```
 
-To make these changes permanent, add them to your `~/.bashrc` or `~/.zshrc:`
+To make these changes permanent, add them to your `nano .bashrc` or `nano .zshrc:` in terminal.
 
 ```
-echo 'export LIBTORCH_PATH=/home/yourname/libtorch' >> ~/.bashrc
-echo 'export TENSORFLOW_ROOT=/home/yourname/libtensorflow' >> ~/.bashrc
-echo 'export LD_LIBRARY_PATH=$LIBTORCH_PATH/lib:$TENSORFLOW_ROOT/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
-source ~/.bashrc
+export LIBTORCH_PATH=/home/yourname/libtorch
+export TENSORFLOW_ROOT=/home/yourname/libtensorflow
+export LD_LIBRARY_PATH=$LIBTORCH_PATH/lib:$TENSORFLOW_ROOT/lib:$LD_LIBRARY_PATH
 ```
+Then put this at the end of the bashrc file, save it.
+
+In the terminal, `source .bashr`
 
 ## Installation
 
@@ -88,7 +92,34 @@ git clone https://github.com/CopperRS/ai_copper.git
 cd ai_copper
 ```
 
-2. Add as a Local Dependency: In your project's `Cargo.toml`, add `ai_copper` as a path dependency, pointing to the cloned repository:
+2. Install to cmake and g++ or clang
+
+**`Terminal`**
+
+```
+#g++
+sudo apt-get install build-essential
+
+#clang 
+sudo apt-get install clang
+
+#cmake 
+sudo apt-get install cmake
+```
+
+3. Create the .so file to use the lib.
+
+**`Terminal`**
+```
+cd cpp
+mkdir build && cd build
+cmake ..
+cmake --build .
+cd ../..
+cargo build
+```
+
+4. Add as a Local Dependency: In your project's `Cargo.toml`, add `ai_copper` as a path dependency, pointing to the cloned repository:
 
 ```toml
 [dependencies]
@@ -97,7 +128,7 @@ ai_copper = { path = "/path/to/ai_copper" }
 
 Replace `/path/to/ai_copper` with the actual path where you cloned the repository
 
-3. Build the Project: Run the following command in your project directory to build the project and generate the `libai_copper.so` file
+5. Build the Project: Run the following command in your project directory to build the project and generate the `libai_copper.so` file
 
 ```bash
 cargo build
@@ -105,7 +136,9 @@ cargo build
 
 This will create the shared library in `/path/to/ai_copper/cpp/build`.
 
-4. Run the Project: Before running your project, set the `LD_LIBRARY_PATH` to include the directory containing `libai_copper.so`, libtorch, and TensorFlow libs:
+6. Run the Project: Before running your project, set the `LD_LIBRARY_PATH` to include the directory containing `libai_copper.so`, libtorch, and TensorFlow libs:
+
+***If you haven't defined the variables permanently, you can temporarily set them to run at runtime.***
 
 ```bash
 export LIBTORCH_PATH=/home/yourname/libtorch
