@@ -9,54 +9,57 @@
 - Easy integration with PyTorch for running machine learning models in Rust.
 - Support for TensorFlow C++ library integration.
 
-
 ## Requirements
 
 - **Rust**: The library is designed to work with the latest version of Rust.
 - **C++**: A C++ compiler (such as g++ or Clang) must be installed on the system.
+- **CMake**: You must have [CMake](https://cmake.org/download/) installed and available in your PATH.
+- **MSVC/Build Tools (Windows)**: On Windows, you need the [Microsoft Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) (MSVC) with the C++ workload enabled.
 - **libtorch**: The PyTorch C++ library (CPU version) must be installed on your system.
 - **TensorFlow C++**: The TensorFlow C++ library (CPU version) must be installed on your system (optional, for TensorFlow integration).
 - **Copper**: The Copper language must be configured in the environment to use the library.
 
 ## Environment variables
 
-`Windows`
+### Windows
 
-Extract libtorch to `C:\libtorch` (CPU), extract TensorFlow C++ to `C:\libtensorflow` (CPU).  
-In **PATH**, add the variables:
+You must set the environment variables correctly for the build to work:
 
-```
-C:\libtorch
-C:\libtorch\lib
-C:\libtorch\include
-C:\libtensorflow\lib
-```
+- `LIBTORCH` — Path to the root of libtorch (e.g., `C:\libtorch`)
+- `TENSORFLOW_ROOT` — Path to the root of TensorFlow C++ (e.g., `C:\libtensorflow`)
 
-> Even if TensorFlow DLLs are inside the `lib` folder, Windows requires this folder in PATH to find the DLLs at runtime.
+How to set (temporary, for the current terminal only):
 
----
-
-`Linux`
-
-Extract libtorch(CPU) and TensorFlow C++ (CPU) into the directories you want.  
-Add **libtorch/lib** and **libtensorflow/lib** to LD_LIBRARY_PATH
-
-```
-export LIBTORCH_PATH=/home/yourname/libtorch
-export TENSORFLOW_ROOT=/home/yourname/libtensorflow
-export LD_LIBRARY_PATH=$LIBTORCH_PATH/lib:$TENSORFLOW_ROOT/lib:$LD_LIBRARY_PATH
+```powershell
+$env:LIBTORCH = "C:\libtorch"
+$env:TENSORFLOW_ROOT = "C:\libtensorflow"
 ```
 
-To make these changes permanent, add them to your `nano .bashrc` or `nano .zshrc:` in terminal.
+Or set permanently via Control Panel → System → Advanced → Environment Variables.
 
-```
-export LIBTORCH_PATH=/home/yourname/libtorch
-export TENSORFLOW_ROOT=/home/yourname/libtensorflow
-export LD_LIBRARY_PATH=$LIBTORCH_PATH/lib:$TENSORFLOW_ROOT/lib:$LD_LIBRARY_PATH
-```
-Then put this at the end of the bashrc file, save it.
+> The build.rs will automatically copy the required DLLs from `libtorch/lib` and `libtensorflow/lib` to the executable directory.
 
-In the terminal, `source .bashr`
+### Linux
+
+Set the environment variables:
+
+```bash
+export LIBTORCH=/home/youruser/libtorch
+export TENSORFLOW_ROOT=/home/youruser/libtensorflow
+```
+
+For temporary use, run the commands above in the terminal before building.
+
+To make it permanent, add to the end of your `~/.bashrc` or `~/.zshrc`:
+
+```bash
+export LIBTORCH=/home/youruser/libtorch
+export TENSORFLOW_ROOT=/home/youruser/libtensorflow
+```
+
+> The build.rs will automatically copy the required .so libraries from `libtorch/lib` and `libtensorflow/lib` to the executable directory.
+
+**Attention:** If the variables are not set correctly, the build will fail or the executable will not find the required libraries at runtime.
 
 ## Installation
 
@@ -100,16 +103,17 @@ cd ai_copper
 #g++
 sudo apt-get install build-essential
 
-#clang 
+#clang
 sudo apt-get install clang
 
-#cmake 
+#cmake
 sudo apt-get install cmake
 ```
 
 3. Create the .so file to use the lib.
 
 **`Terminal`**
+
 ```
 cd cpp
 mkdir build && cd build
@@ -138,7 +142,7 @@ This will create the shared library in `/path/to/ai_copper/cpp/build`.
 
 6. Run the Project: Before running your project, set the `LD_LIBRARY_PATH` to include the directory containing `libai_copper.so`, libtorch, and TensorFlow libs:
 
-***If you haven't defined the variables permanently, you can temporarily set them to run at runtime.***
+**_If you haven't defined the variables permanently, you can temporarily set them to run at runtime._**
 
 ```bash
 export LIBTORCH_PATH=/home/yourname/libtorch

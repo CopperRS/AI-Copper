@@ -2,6 +2,7 @@
 //TensorFlow
 pub mod tensor_tensorflow;
 pub use tensor_tensorflow::tensors_flow::FlowTensors;
+pub use tensor_tensorflow::tensors_flow::TensorFlowModel;
 
 
 // LibTorch
