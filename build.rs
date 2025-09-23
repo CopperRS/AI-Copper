@@ -80,7 +80,7 @@ fn main() {
                         if let Some(file_name) = path.file_name() {
                             let file_name = file_name.to_string_lossy();
 
-                            if file_name.ends_with("d.lib") || file_name.contains("-lited") {
+                            if file_name.contains("ittnotify") || file_name.ends_with("d.lib") || file_name.contains("-lited") {
                                 continue;
                             }
                             if let Some(file_stem) = path.file_stem() {
@@ -186,3 +186,4 @@ fn main() {
         println!("cargo:rustc-env=LD_LIBRARY_PATH={}", build_dir_abs.display());
     }
 }
+
