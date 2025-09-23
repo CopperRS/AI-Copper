@@ -8,55 +8,51 @@ if(MSVC)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
 endif()
 
-if(NOT DEFINED LIBTORCH AND NOT DEFINED ENV{LIBTORCH})
-    message(FATAL_ERROR "Você precisa definir a variável LIBTORCH como -DLIBTORCH=... ou exportar no ambiente.")
+if(NOT DEFINED ENV{LIBTORCH})
+    message(FATAL_ERROR "Variável de ambiente LIBTORCH não definida.")
+endif()
+if(NOT DEFINED ENV{TENSORFLOW_ROOT})
+    message(FATAL_ERROR "Variável de ambiente TENSORFLOW_ROOT não definida.")
 endif()
 
-if(NOT DEFINED LIBTORCH)
-    set(LIBTORCH $ENV{LIBTORCH})
-endif()
+set(LIBTORCH "$ENV{LIBTORCH}")
+set(TENSORFLOW_ROOT "$ENV{TENSORFLOW_ROOT}")
 
 set(Torch_DIR "${LIBTORCH}/share/cmake/Torch")
-find_package(Torch REQUIRED)
+find_package(Torch REQUIRED PATHS ${Torch_DIR} NO_DEFAULT_PATH)
 
-# Configuração do TensorFlow
 find_library(TF_LIBRARY
     NAMES tensorflow tensorflow.lib
-    HINTS
-        $ENV{TENSORFLOW_ROOT}/lib
-        "C:/libtensorflow/lib"
-        "/usr/local/lib"
-        "/usr/lib"
+    HINTS ${TENSORFLOW_ROOT}/lib
+    NO_DEFAULT_PATH
     DOC "Caminho para a biblioteca TensorFlow"
 )
 
 find_path(TF_INCLUDE_DIR
     NAMES tensorflow/c/c_api.h
-    HINTS
-        $ENV{TENSORFLOW_ROOT}/include
-        "C:/libtensorflow/include"
-        "/usr/local/include"
-        "/usr/include"
+    HINTS ${TENSORFLOW_ROOT}/include
+    NO_DEFAULT_PATH
     DOC "Caminho para os cabeçalhos do TensorFlow"
 )
 
 if(NOT TF_LIBRARY OR NOT TF_INCLUDE_DIR)
-    message(FATAL_ERROR "TensorFlow não encontrado. Verifique TENSORFLOW_ROOT ou instale em C:/libtensorflow.")
+    message(FATAL_ERROR "TensorFlow não encontrado. Verifique TENSORFLOW_ROOT.")
 endif()
 
 include_directories(${CMAKE_SOURCE_DIR}/../include)
 include_directories(${TORCH_INCLUDE_DIRS})
 include_directories(${TF_INCLUDE_DIR})
 
-set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE) # Usar Debug para alinhar com o Rust
+set(TORCH_DISABLE_MKL ON CACHE BOOL "Desabilita MKL para evitar ittnotify.lib")
+set(TORCH_DISABLE_TBB ON CACHE BOOL "Desabilita TBB para evitar ittnotify.lib")
 
 if(WIN32)
-    add_library(ai_copper STATIC lib.cpp)
+    add_library(ai_copper SHARED lib.cpp) # Usar SHARED para linkagem dinâmica
 else()
     add_library(ai_copper SHARED lib.cpp)
 endif()
 
-target_link_libraries(ai_copper "${TORCH_LIBRARIES}" ${TF_LIBRARY})
+target_link_libraries(ai_copper PRIVATE "${TORCH_LIBRARIES}" ${TF_LIBRARY})
 target_include_directories(ai_copper PRIVATE "${TORCH_INCLUDE_DIRS}" "${TF_INCLUDE_DIR}")
 
 message(STATUS "Torch include dirs: ${TORCH_INCLUDE_DIRS}")
