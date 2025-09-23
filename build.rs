@@ -26,7 +26,7 @@ fn main() {
     println!("cargo:rerun-if-changed=cpp/CMakeLists.txt");
 
     let cmake_build_dir = Path::new("cpp").join("build");
-
+    println!("cargo:rustc-link-arg=/NODEFAULTLIB:ittnotify.lib"); //retirar caso nao funfe
     if cmake_build_dir.exists() {
         std::fs::remove_dir_all(&cmake_build_dir).expect("Failed to clean cmake build directory");
     }
@@ -80,7 +80,7 @@ fn main() {
                         if let Some(file_name) = path.file_name() {
                             let file_name = file_name.to_string_lossy();
 
-                            if file_name.contains("ittnotify") || file_name.ends_with("d.lib") || file_name.contains("-lited") {
+                            if file_name.contains("ittnotify") || file_name.ends_with("d.lib") || file_name.contains("-lited") { //retirar ittntify caso nao funcione
                                 continue;
                             }
                             if let Some(file_stem) = path.file_stem() {
@@ -186,4 +186,5 @@ fn main() {
         println!("cargo:rustc-env=LD_LIBRARY_PATH={}", build_dir_abs.display());
     }
 }
+
 
