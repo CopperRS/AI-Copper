@@ -49,7 +49,7 @@ fn main() {
     let torch_path = env::var("LIBTORCH").expect("LIBTORCH environment variable not set.");
     let tensorflow_path = env::var("TENSORFLOW_ROOT").expect("TENSORFLOW_ROOT environment variable not set.");
 
-    // Criar um valor persistente para Command
+    // Criar um valor mutável para Command
     let mut cmd = Command::new("cmake");
     let cmake_config = cmd
         .arg("-S")
@@ -93,9 +93,9 @@ fn main() {
                 let path = entry.path();
                 if let Some(ext) = path.extension() {
                     if ext == "lib" {
-                        if let Some(_file_name) = path.file_name() {
-                            let file_name = _file_name.to_string_lossy();
-                            if file_name.contains("ittnotify") {
+                        if let Some(file_name) = path.file_name() {
+                            let file_name_str = file_name.to_string_lossy();
+                            if file_name_str.contains("ittnotify") {
                                 continue;
                             }
                             if let Some(file_stem) = path.file_stem() {
@@ -117,8 +117,8 @@ fn main() {
                 let path = entry.path();
                 if let Some(ext) = path.extension() {
                     if ext == "lib" {
-                        if let Some(_file_name) = path.file_name() {
-                            let _file_name = _file_name.to_string_lossy();
+                        if let Some(file_name) = path.file_name() {
+                            let _file_name_str = file_name.to_string_lossy();
                             if let Some(file_stem) = path.file_stem() {
                                 let lib_name = file_stem.to_string_lossy();
                                 let lib_name = lib_name.strip_prefix("lib").unwrap_or(&lib_name);
@@ -130,6 +130,7 @@ fn main() {
             }
         }
 
+        // Linkar protobuf-lite dinamicamente
         println!("cargo:rustc-link-lib=dylib=protobuf-lite");
 
         let out_dir = env::var("OUT_DIR").expect("OUT_DIR not set");

@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\Users\ALPHAVILLE 5\Documents\ai_copper\cpp\build\CMakeFiles\8920d778af500cac5f51ca1de834867e\generate.stamp.rule">
+    <CustomBuild Include="C:\Users\Administrador\Documents\ai_copper\cpp\build\CMakeFiles\aa338c7a36b1872592cbd79929c37019\generate.stamp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{2BED5BF7-0E37-3DD7-8275-3AA36B385C4E}</UniqueIdentifier>
+      <UniqueIdentifier>{282B05C8-9731-3F0D-B40E-E24479732E1D}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
