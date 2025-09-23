@@ -28,6 +28,14 @@ find_library(TF_LIBRARY
     DOC "Caminho para a biblioteca TensorFlow"
 )
 
+find_library(PROTOBUF_LITE_LIBRARY
+    NAMES protobuf-lite protobuf-lite.lib
+    HINTS ${TENSORFLOW_ROOT}/lib
+    NO_DEFAULT_PATH
+    DOC "Caminho para a biblioteca protobuf-lite"
+    OPTIONAL
+)
+
 find_path(TF_INCLUDE_DIR
     NAMES tensorflow/c/c_api.h
     HINTS ${TENSORFLOW_ROOT}/include

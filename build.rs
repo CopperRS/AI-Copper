@@ -49,7 +49,7 @@ fn main() {
     let torch_path = env::var("LIBTORCH").expect("LIBTORCH environment variable not set.");
     let tensorflow_path = env::var("TENSORFLOW_ROOT").expect("TENSORFLOW_ROOT environment variable not set.");
 
-    // Criar um valor mutável para Command
+    // Criar um valor persistente para Command
     let mut cmd = Command::new("cmake");
     let cmake_config = cmd
         .arg("-S")
@@ -82,9 +82,12 @@ fn main() {
     let build_dir_abs = cmake_build_dir.canonicalize().unwrap();
 
     if cfg!(target_os = "windows") {
+        // Só executar o link/cópia após o build do CMake estar completo
+        // Link ai_copper
         println!("cargo:rustc-link-search=native={}", build_dir_abs.join("Debug").display());
         println!("cargo:rustc-link-lib=dylib=ai_copper");
 
+        // Link libs do libtorch
         let torch_lib_dir = Path::new(&torch_path).join("lib");
         println!("cargo:rustc-link-search=native={}", torch_lib_dir.display());
         if torch_lib_dir.exists() {
@@ -95,7 +98,15 @@ fn main() {
                     if ext == "lib" {
                         if let Some(file_name) = path.file_name() {
                             let file_name_str = file_name.to_string_lossy();
-                            if file_name_str.contains("ittnotify") {
+                            // Ignorar libs problemáticas
+                            if file_name_str.contains("ittnotify")
+                                || file_name_str.ends_with("d.lib")
+                                || file_name_str.contains("-lited")
+                                || file_name_str.contains("-lite")
+                                || file_name_str == "protobufd.lib"
+                                || file_name_str == "protocd.lib"
+                                || file_name_str == "protobuf-lited.lib"
+                            {
                                 continue;
                             }
                             if let Some(file_stem) = path.file_stem() {
@@ -109,6 +120,7 @@ fn main() {
             }
         }
 
+        // Link libs do TensorFlow
         let tf_lib_dir = Path::new(&tensorflow_path).join("lib");
         println!("cargo:rustc-link-search=native={}", tf_lib_dir.display());
         if tf_lib_dir.exists() {
@@ -118,7 +130,16 @@ fn main() {
                 if let Some(ext) = path.extension() {
                     if ext == "lib" {
                         if let Some(file_name) = path.file_name() {
-                            let _file_name_str = file_name.to_string_lossy();
+                            let file_name_str = file_name.to_string_lossy();
+                            if file_name_str.ends_with("d.lib")
+                                || file_name_str.contains("-lited")
+                                || file_name_str.contains("-lite")
+                                || file_name_str == "protobufd.lib"
+                                || file_name_str == "protocd.lib"
+                                || file_name_str == "protobuf-lited.lib"
+                            {
+                                continue;
+                            }
                             if let Some(file_stem) = path.file_stem() {
                                 let lib_name = file_stem.to_string_lossy();
                                 let lib_name = lib_name.strip_prefix("lib").unwrap_or(&lib_name);
@@ -130,21 +151,36 @@ fn main() {
             }
         }
 
-        // Linkar protobuf-lite dinamicamente
-        println!("cargo:rustc-link-lib=dylib=protobuf-lite");
-
+        // Copiar DLLs de todos os diretórios relevantes
         let out_dir = env::var("OUT_DIR").expect("OUT_DIR not set");
         let mut target_dir = PathBuf::from(&out_dir);
         for _ in 0..3 {
             target_dir = target_dir.parent().unwrap().to_path_buf();
         }
-
+        let debug_dir = build_dir_abs.join("Debug");
+        let torch_bin_dir = Path::new(&torch_path).join("bin");
+        let torch_lib_dir = Path::new(&torch_path).join("lib");
+        let tf_lib_dir = Path::new(&tensorflow_path).join("lib");
+        let debug_dir_str = debug_dir.to_string_lossy().into_owned();
+        let torch_bin_dir_str = torch_bin_dir.to_string_lossy().into_owned();
+        let torch_lib_dir_str = torch_lib_dir.to_string_lossy().into_owned();
+        let tf_lib_dir_str = tf_lib_dir.to_string_lossy().into_owned();
         let dll_dirs = [
-            Path::new(&torch_path).join("bin").to_string_lossy().to_string(),
-            Path::new(&tensorflow_path).join("bin").to_string_lossy().to_string(),
+            debug_dir_str.as_str(),
+            torch_bin_dir_str.as_str(),
+            torch_lib_dir_str.as_str(),
+            tf_lib_dir_str.as_str(),
         ];
-        let dll_dirs_ref: Vec<&str> = dll_dirs.iter().map(|s| s.as_str()).collect();
+        let dll_dirs_ref: Vec<&str> = dll_dirs.iter().map(|s| *s).collect();
         copy_dlls_to_target(&dll_dirs_ref, &target_dir);
+
+        // Copiar ai_copper.dll para o diretório do executável, se existir
+        let ai_copper_dll = debug_dir.join("ai_copper.dll");
+        if ai_copper_dll.exists() {
+            let dest = target_dir.join("ai_copper.dll");
+            println!("Copying {:?} to {:?}", ai_copper_dll, dest);
+            let _ = fs::copy(&ai_copper_dll, &dest);
+        }
     } else { // Lógica para Linux
         println!("cargo:rustc-link-search=native={}", build_dir_abs.display());
         println!("cargo:rustc-link-lib=dylib=ai_copper");
@@ -191,11 +227,15 @@ fn main() {
         for _ in 0..3 {
             target_dir = target_dir.parent().unwrap().to_path_buf();
         }
+
+        // Usar ligações let para valores temporários
+        let torch_so_dir = Path::new(&torch_path).join("lib").to_string_lossy().into_owned();
+        let tf_so_dir = Path::new(&tensorflow_path).join("lib").to_string_lossy().into_owned();
         let so_dirs = [
-            Path::new(&torch_path).join("lib").to_string_lossy().to_string(),
-            Path::new(&tensorflow_path).join("lib").to_string_lossy().to_string(),
+            torch_so_dir.as_ref(),
+            tf_so_dir.as_ref(),
         ];
-        let so_dirs_ref: Vec<&str> = so_dirs.iter().map(|s| s.as_str()).collect();
+        let so_dirs_ref: Vec<&str> = so_dirs.iter().map(|s| *s).collect(); // Corrigido: desreferenciar para &str
         copy_dlls_to_target(&so_dirs_ref, &target_dir);
         println!("cargo:rustc-env=LD_LIBRARY_PATH={}", build_dir_abs.display());
     }
