@@ -16,7 +16,7 @@
 - **CMake**: You must have [CMake](https://cmake.org/download/) installed and available in your PATH.
 - **MSVC/Build Tools (Windows)**: On Windows, you need the [Microsoft Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) (MSVC) with the C++ workload enabled.
 - **libtorch**: The PyTorch C++ library (CPU version) must be installed on your system.
-- **TensorFlow C++**: The TensorFlow C++ library (CPU version) must be installed on your system (optional, for TensorFlow integration).
+- **TensorFlow C++**: The TensorFlow C++ library (CPU version) must be installed on your system (optional, for TensorFlow integration)(https://www.tensorflow.org/install/lang_c?hl=pt-br).
 - **Copper**: The Copper language must be configured in the environment to use the library.
 
 ## Environment variables
@@ -159,3 +159,4 @@ cargo run
 - The build script of `ai_copper` will handle copying DLLs automatically on Windows.
 - On Linux, it is essential to have your `LD_LIBRARY_PATH` correctly set so that runtime linking works.
 - This setup allows you to use both PyTorch (`libtorch`) and TensorFlow C++ APIs seamlessly within Rust using `ai_copper`.
+
