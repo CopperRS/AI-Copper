@@ -120,7 +120,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>C:\libtorch\lib\c10.lib;C:\libtorch\lib\kineto.lib;C:\libtensorflow\lib\tensorflow.lib;C:\libtorch\lib\torch.lib;C:\libtorch\lib\torch_cpu.lib;C:\libtorch\lib\c10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\libtorch\lib\c10.lib;C:\libtorch\lib\kineto.lib;C:\libtensorflow\lib\tensorflow.lib;C:\libtorch\lib\libprotobuf.lib;C:\libtorch\lib\torch.lib;C:\libtorch\lib\torch_cpu.lib;C:\libtorch\lib\c10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>/lib;/lib/$(Configuration);/lib/intel64;/lib/intel64/$(Configuration);/lib/intel64_win;/lib/intel64_win/$(Configuration);/lib/win-x64;/lib/win-x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -168,7 +168,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>C:\libtorch\lib\c10.lib;C:\libtorch\lib\kineto.lib;C:\libtensorflow\lib\tensorflow.lib;C:\libtorch\lib\torch.lib;C:\libtorch\lib\torch_cpu.lib;C:\libtorch\lib\c10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\libtorch\lib\c10.lib;C:\libtorch\lib\kineto.lib;C:\libtensorflow\lib\tensorflow.lib;C:\libtorch\lib\libprotobuf.lib;C:\libtorch\lib\torch.lib;C:\libtorch\lib\torch_cpu.lib;C:\libtorch\lib\c10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>/lib;/lib/$(Configuration);/lib/intel64;/lib/intel64/$(Configuration);/lib/intel64_win;/lib/intel64_win/$(Configuration);/lib/win-x64;/lib/win-x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -216,7 +216,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>C:\libtorch\lib\c10.lib;C:\libtorch\lib\kineto.lib;C:\libtensorflow\lib\tensorflow.lib;C:\libtorch\lib\torch.lib;C:\libtorch\lib\torch_cpu.lib;C:\libtorch\lib\c10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\libtorch\lib\c10.lib;C:\libtorch\lib\kineto.lib;C:\libtensorflow\lib\tensorflow.lib;C:\libtorch\lib\libprotobuf.lib;C:\libtorch\lib\torch.lib;C:\libtorch\lib\torch_cpu.lib;C:\libtorch\lib\c10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>/lib;/lib/$(Configuration);/lib/intel64;/lib/intel64/$(Configuration);/lib/intel64_win;/lib/intel64_win/$(Configuration);/lib/win-x64;/lib/win-x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -264,7 +264,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>C:\libtorch\lib\c10.lib;C:\libtorch\lib\kineto.lib;C:\libtensorflow\lib\tensorflow.lib;C:\libtorch\lib\torch.lib;C:\libtorch\lib\torch_cpu.lib;C:\libtorch\lib\c10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\libtorch\lib\c10.lib;C:\libtorch\lib\kineto.lib;C:\libtensorflow\lib\tensorflow.lib;C:\libtorch\lib\libprotobuf.lib;C:\libtorch\lib\torch.lib;C:\libtorch\lib\torch_cpu.lib;C:\libtorch\lib\c10.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>/lib;/lib/$(Configuration);/lib/intel64;/lib/intel64/$(Configuration);/lib/intel64_win;/lib/intel64_win/$(Configuration);/lib/win-x64;/lib/win-x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>

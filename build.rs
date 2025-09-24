@@ -3,18 +3,21 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-fn copy_dlls_to_target(dll_source_dirs: &[&str], target_dir: &Path) {
-    for dir in dll_source_dirs {
+/// Copia arquivos dinâmicos (.dll ou .so) para o diretório de destino
+fn copy_dynamic_libs_to_target(lib_dirs: &[&str], target_dir: &Path, exts: &[&str]) {
+    for dir in lib_dirs {
         let source_dir = Path::new(dir);
         if source_dir.exists() {
-            for entry in fs::read_dir(source_dir).expect("Failed to read DLL source directory") {
-                let entry = entry.expect("Failed to get entry");
+            for entry in fs::read_dir(source_dir).expect("Falha ao ler diretório de libs") {
+                let entry = entry.expect("Falha ao acessar entrada de diretório");
                 let path = entry.path();
-                if path.extension().map(|ext| ext == "dll").unwrap_or(false) {
-                    let file_name = path.file_name().unwrap();
-                    let dest = target_dir.join(file_name);
-                    println!("Copying {:?} to {:?}", path, dest);
-                    fs::copy(&path, &dest).expect("Failed to copy DLL");
+                if let Some(ext) = path.extension() {
+                    if exts.contains(&ext.to_string_lossy().as_ref()) {
+                        let file_name = path.file_name().unwrap();
+                        let dest = target_dir.join(file_name);
+                        println!("Copiando {:?} -> {:?}", path, dest);
+                        let _ = fs::copy(&path, &dest);
+                    }
                 }
             }
         }
@@ -27,35 +30,18 @@ fn main() {
 
     let cmake_build_dir = Path::new("cpp").join("build");
     if cmake_build_dir.exists() {
-        // Tentar remover o diretório com retry
-        let max_attempts = 5;
-        let mut attempt = 0;
-        while attempt < max_attempts {
-            match std::fs::remove_dir_all(&cmake_build_dir) {
-                Ok(()) => break,
-                Err(e) if e.kind() == std::io::ErrorKind::PermissionDenied => {
-                    attempt += 1;
-                    if attempt == max_attempts {
-                        panic!("Failed to clean cmake build directory after {} attempts: {}", max_attempts, e);
-                    }
-                    std::thread::sleep(std::time::Duration::from_secs(1)); // Aguarda 1 segundo
-                }
-                Err(e) => panic!("Failed to clean cmake build directory: {}", e),
-            }
-        }
+        let _ = fs::remove_dir_all(&cmake_build_dir);
     }
-    std::fs::create_dir_all(&cmake_build_dir).unwrap();
+    fs::create_dir_all(&cmake_build_dir).unwrap();
 
-    let torch_path = env::var("LIBTORCH").expect("LIBTORCH environment variable not set.");
-    let tensorflow_path = env::var("TENSORFLOW_ROOT").expect("TENSORFLOW_ROOT environment variable not set.");
+    let torch_path = env::var("LIBTORCH").expect("Variável LIBTORCH não definida.");
+    let tensorflow_path = env::var("TENSORFLOW_ROOT").expect("Variável TENSORFLOW_ROOT não definida.");
 
-    // Criar um valor persistente para Command
+    // Configuração do CMake
     let mut cmd = Command::new("cmake");
     let cmake_config = cmd
-        .arg("-S")
-        .arg("cpp")
-        .arg("-B")
-        .arg(&cmake_build_dir)
+        .arg("-S").arg("cpp")
+        .arg("-B").arg(&cmake_build_dir)
         .arg("-DCMAKE_BUILD_TYPE=Debug")
         .arg(format!("-DCMAKE_PREFIX_PATH={}", torch_path))
         .env("LIBTORCH", &torch_path)
@@ -65,178 +51,101 @@ fn main() {
         cmake_config.arg("-A").arg("x64");
     }
 
-    let config_status = cmake_config.status().expect("Failed to run cmake configuration");
+    let config_status = cmake_config.status().expect("Falha ao rodar configuração CMake");
     if !config_status.success() {
         panic!("CMake configuration failed");
     }
 
     let build_status = Command::new("cmake")
-        .arg("--build")
-        .arg(&cmake_build_dir)
+        .arg("--build").arg(&cmake_build_dir)
         .status()
-        .expect("Failed to run cmake build");
+        .expect("Falha ao rodar build CMake");
     if !build_status.success() {
         panic!("CMake build failed");
     }
 
     let build_dir_abs = cmake_build_dir.canonicalize().unwrap();
 
+    // --- LINKAGEM ---
     if cfg!(target_os = "windows") {
-        // Só executar o link/cópia após o build do CMake estar completo
-        // Link ai_copper
         println!("cargo:rustc-link-search=native={}", build_dir_abs.join("Debug").display());
         println!("cargo:rustc-link-lib=dylib=ai_copper");
 
-        // Link libs do libtorch
         let torch_lib_dir = Path::new(&torch_path).join("lib");
+        let tf_lib_dir = Path::new(&tensorflow_path).join("lib");
+
         println!("cargo:rustc-link-search=native={}", torch_lib_dir.display());
-        if torch_lib_dir.exists() {
-            for entry in fs::read_dir(&torch_lib_dir).expect("Failed to read libtorch/lib directory") {
-                let entry = entry.expect("Failed to get entry");
-                let path = entry.path();
-                if let Some(ext) = path.extension() {
-                    if ext == "lib" {
-                        if let Some(file_name) = path.file_name() {
-                            let file_name_str = file_name.to_string_lossy();
-                            // Ignorar libs problemáticas
-                            if file_name_str.contains("ittnotify")
-                                || file_name_str.ends_with("d.lib")
-                                || file_name_str.contains("-lited")
-                                || file_name_str.contains("-lite")
-                                || file_name_str == "protobufd.lib"
-                                || file_name_str == "protocd.lib"
-                                || file_name_str == "protobuf-lited.lib"
-                            {
-                                continue;
-                            }
-                            if let Some(file_stem) = path.file_stem() {
-                                let lib_name = file_stem.to_string_lossy();
-                                let lib_name = lib_name.strip_prefix("lib").unwrap_or(&lib_name);
-                                println!("cargo:rustc-link-lib=dylib={}", lib_name);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Link libs do TensorFlow
-        let tf_lib_dir = Path::new(&tensorflow_path).join("lib");
         println!("cargo:rustc-link-search=native={}", tf_lib_dir.display());
-        if tf_lib_dir.exists() {
-            for entry in fs::read_dir(&tf_lib_dir).expect("Failed to read tensorflow/lib directory") {
-                let entry = entry.expect("Failed to get entry");
-                let path = entry.path();
-                if let Some(ext) = path.extension() {
-                    if ext == "lib" {
-                        if let Some(file_name) = path.file_name() {
-                            let file_name_str = file_name.to_string_lossy();
-                            if file_name_str.ends_with("d.lib")
-                                || file_name_str.contains("-lited")
-                                || file_name_str.contains("-lite")
-                                || file_name_str == "protobufd.lib"
-                                || file_name_str == "protocd.lib"
-                                || file_name_str == "protobuf-lited.lib"
-                            {
+
+        for lib_dir in [&torch_lib_dir, &tf_lib_dir] {
+            if lib_dir.exists() {
+                for entry in fs::read_dir(lib_dir).unwrap() {
+                    let entry = entry.unwrap();
+                    let path = entry.path();
+                    if let Some(ext) = path.extension() {
+                        if ext == "lib" {
+                            let fname = path.file_name().unwrap().to_string_lossy();
+                            // NÃO pular protobuf
+                            if fname.contains("d.lib") || fname.contains("lite") || fname.contains("ittnotify") {
                                 continue;
                             }
-                            if let Some(file_stem) = path.file_stem() {
-                                let lib_name = file_stem.to_string_lossy();
-                                let lib_name = lib_name.strip_prefix("lib").unwrap_or(&lib_name);
-                                println!("cargo:rustc-link-lib=dylib={}", lib_name);
-                            }
+                            let stem = path.file_stem().unwrap().to_string_lossy();
+                            let libname = stem.strip_prefix("lib").unwrap_or(&stem);
+                            println!("cargo:rustc-link-lib=dylib={}", libname);
                         }
                     }
                 }
             }
         }
 
-        // Copiar DLLs de todos os diretórios relevantes
-        let out_dir = env::var("OUT_DIR").expect("OUT_DIR not set");
-        let mut target_dir = PathBuf::from(&out_dir);
-        for _ in 0..3 {
-            target_dir = target_dir.parent().unwrap().to_path_buf();
-        }
-        let debug_dir = build_dir_abs.join("Debug");
-        let torch_bin_dir = Path::new(&torch_path).join("bin");
-        let torch_lib_dir = Path::new(&torch_path).join("lib");
-        let tf_lib_dir = Path::new(&tensorflow_path).join("lib");
-        let debug_dir_str = debug_dir.to_string_lossy().into_owned();
-        let torch_bin_dir_str = torch_bin_dir.to_string_lossy().into_owned();
-        let torch_lib_dir_str = torch_lib_dir.to_string_lossy().into_owned();
-        let tf_lib_dir_str = tf_lib_dir.to_string_lossy().into_owned();
-        let dll_dirs = [
-            debug_dir_str.as_str(),
-            torch_bin_dir_str.as_str(),
-            torch_lib_dir_str.as_str(),
-            tf_lib_dir_str.as_str(),
-        ];
-        let dll_dirs_ref: Vec<&str> = dll_dirs.iter().map(|s| *s).collect();
-        copy_dlls_to_target(&dll_dirs_ref, &target_dir);
+        // --- Copiar DLLs ---
+        let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
+        let mut target_dir = out_dir.clone();
+        for _ in 0..3 { target_dir = target_dir.parent().unwrap().to_path_buf(); }
 
-        // Copiar ai_copper.dll para o diretório do executável, se existir
-        let ai_copper_dll = debug_dir.join("ai_copper.dll");
-        if ai_copper_dll.exists() {
-            let dest = target_dir.join("ai_copper.dll");
-            println!("Copying {:?} to {:?}", ai_copper_dll, dest);
-            let _ = fs::copy(&ai_copper_dll, &dest);
-        }
-    } else { // Lógica para Linux
+        let dll_dirs = [
+            build_dir_abs.join("Debug"),
+            Path::new(&torch_path).join("bin"),
+            tf_lib_dir,
+        ];
+        let dll_dirs_str: Vec<String> = dll_dirs.iter().map(|p| p.to_string_lossy().into_owned()).collect();
+        let dll_dirs_str_refs: Vec<&str> = dll_dirs_str.iter().map(|s| s.as_str()).collect();
+        copy_dynamic_libs_to_target(&dll_dirs_str_refs, &target_dir, &["dll"]);
+    } else {
+        // Linux
         println!("cargo:rustc-link-search=native={}", build_dir_abs.display());
         println!("cargo:rustc-link-lib=dylib=ai_copper");
         println!("cargo:rustc-link-arg=-Wl,-rpath,{}", build_dir_abs.display());
 
         let torch_lib_dir = Path::new(&torch_path).join("lib");
-        println!("cargo:rustc-link-search=native={}", torch_lib_dir.display());
-        if torch_lib_dir.exists() {
-            for entry in fs::read_dir(&torch_lib_dir).expect("Failed to read libtorch/lib directory") {
-                let entry = entry.expect("Failed to get entry");
-                let path = entry.path();
-                if let Some(ext) = path.extension() {
-                    if ext == "so" {
-                        if let Some(file_stem) = path.file_stem() {
-                            let lib_name = file_stem.to_string_lossy();
-                            let lib_name = lib_name.strip_prefix("lib").unwrap_or(&lib_name);
-                            println!("cargo:rustc-link-lib=dylib={}", lib_name);
-                        }
-                    }
-                }
-            }
-        }
-
         let tf_lib_dir = Path::new(&tensorflow_path).join("lib");
+
+        println!("cargo:rustc-link-search=native={}", torch_lib_dir.display());
         println!("cargo:rustc-link-search=native={}", tf_lib_dir.display());
-        if tf_lib_dir.exists() {
-            for entry in fs::read_dir(&tf_lib_dir).expect("Failed to read tensorflow/lib directory") {
-                let entry = entry.expect("Failed to get entry");
-                let path = entry.path();
-                if let Some(ext) = path.extension() {
-                    if ext == "so" {
-                        if let Some(file_stem) = path.file_stem() {
-                            let lib_name = file_stem.to_string_lossy();
-                            let lib_name = lib_name.strip_prefix("lib").unwrap_or(&lib_name);
-                            println!("cargo:rustc-link-lib=dylib={}", lib_name);
+
+        for lib_dir in [&torch_lib_dir, &tf_lib_dir] {
+            if lib_dir.exists() {
+                for entry in fs::read_dir(lib_dir).unwrap() {
+                    let entry = entry.unwrap();
+                    let path = entry.path();
+                    if let Some(ext) = path.extension() {
+                        if ext == "so" {
+                            let stem = path.file_stem().unwrap().to_string_lossy();
+                            let libname = stem.strip_prefix("lib").unwrap_or(&stem);
+                            println!("cargo:rustc-link-lib=dylib={}", libname);
                         }
                     }
                 }
             }
         }
 
-        let out_dir = env::var("OUT_DIR").expect("OUT_DIR not set");
-        let mut target_dir = PathBuf::from(&out_dir);
-        for _ in 0..3 {
-            target_dir = target_dir.parent().unwrap().to_path_buf();
-        }
+        let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
+        let mut target_dir = out_dir.clone();
+        for _ in 0..3 { target_dir = target_dir.parent().unwrap().to_path_buf(); }
 
-        // Usar ligações let para valores temporários
-        let torch_so_dir = Path::new(&torch_path).join("lib").to_string_lossy().into_owned();
-        let tf_so_dir = Path::new(&tensorflow_path).join("lib").to_string_lossy().into_owned();
-        let so_dirs = [
-            torch_so_dir.as_ref(),
-            tf_so_dir.as_ref(),
-        ];
-        let so_dirs_ref: Vec<&str> = so_dirs.iter().map(|s| *s).collect(); // Corrigido: desreferenciar para &str
-        copy_dlls_to_target(&so_dirs_ref, &target_dir);
-        println!("cargo:rustc-env=LD_LIBRARY_PATH={}", build_dir_abs.display());
+        let so_dirs = [torch_lib_dir, tf_lib_dir];
+        let so_dirs_str: Vec<String> = so_dirs.iter().map(|p| p.to_string_lossy().into_owned()).collect();
+        let so_dirs_str_refs: Vec<&str> = so_dirs_str.iter().map(|s| s.as_str()).collect();
+        copy_dynamic_libs_to_target(&so_dirs_str_refs, &target_dir, &["so"]);
     }
 }
