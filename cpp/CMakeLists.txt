@@ -21,6 +21,7 @@ set(TENSORFLOW_ROOT "$ENV{TENSORFLOW_ROOT}")
 set(Torch_DIR "${LIBTORCH}/share/cmake/Torch")
 find_package(Torch REQUIRED PATHS ${Torch_DIR} NO_DEFAULT_PATH)
 
+# TensorFlow lib
 find_library(TF_LIBRARY
     NAMES tensorflow tensorflow.lib
     HINTS ${TENSORFLOW_ROOT}/lib
@@ -28,13 +29,21 @@ find_library(TF_LIBRARY
     DOC "Caminho para a biblioteca TensorFlow"
 )
 
-find_library(PROTOBUF_LITE_LIBRARY
-    NAMES protobuf-lite protobuf-lite.lib
-    HINTS ${TENSORFLOW_ROOT}/lib
-    NO_DEFAULT_PATH
-    DOC "Caminho para a biblioteca protobuf-lite"
-    OPTIONAL
-)
+# Ajuste do Protobuf (LibTorch fornece libprotobuf.lib)
+if(WIN32)
+    find_library(PROTOBUF_LIBRARY
+        NAMES libprotobuf protobuf
+        HINTS ${LIBTORCH}/lib ${TENSORFLOW_ROOT}/lib
+        NO_DEFAULT_PATH
+        DOC "Caminho para a biblioteca protobuf"
+    )
+else()
+    find_library(PROTOBUF_LIBRARY
+        NAMES protobuf
+        HINTS ${LIBTORCH}/lib ${TENSORFLOW_ROOT}/lib
+        NO_DEFAULT_PATH
+    )
+endif()
 
 find_path(TF_INCLUDE_DIR
     NAMES tensorflow/c/c_api.h
@@ -54,13 +63,9 @@ include_directories(${TF_INCLUDE_DIR})
 set(TORCH_DISABLE_MKL ON CACHE BOOL "Desabilita MKL para evitar ittnotify.lib")
 set(TORCH_DISABLE_TBB ON CACHE BOOL "Desabilita TBB para evitar ittnotify.lib")
 
-if(WIN32)
-    add_library(ai_copper SHARED lib.cpp) # Usar SHARED para linkagem dinâmica
-else()
-    add_library(ai_copper SHARED lib.cpp)
-endif()
+add_library(ai_copper SHARED lib.cpp)
 
-target_link_libraries(ai_copper PRIVATE "${TORCH_LIBRARIES}" ${TF_LIBRARY})
+target_link_libraries(ai_copper PRIVATE "${TORCH_LIBRARIES}" ${TF_LIBRARY} ${PROTOBUF_LIBRARY})
 target_include_directories(ai_copper PRIVATE "${TORCH_INCLUDE_DIRS}" "${TF_INCLUDE_DIR}")
 
 message(STATUS "Torch include dirs: ${TORCH_INCLUDE_DIRS}")
@@ -68,3 +73,4 @@ message(STATUS "Torch libs: ${TORCH_LIBRARIES}")
 message(STATUS "LIBTORCH path: ${LIBTORCH}")
 message(STATUS "TensorFlow include dir: ${TF_INCLUDE_DIR}")
 message(STATUS "TensorFlow library: ${TF_LIBRARY}")
+message(STATUS "Protobuf library: ${PROTOBUF_LIBRARY}")
