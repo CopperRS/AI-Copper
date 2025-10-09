@@ -121,7 +121,7 @@ C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/4.0.0-rc1/CMakeC
 C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/4.0.0-rc1/CMakeRCCompiler.cmake
 C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/4.0.0-rc1/CMakeSystem.cmake
 C:/libtorch/share/cmake/Caffe2/Caffe2Config.cmake
-C:/libtorch/share/cmake/Caffe2/Caffe2Targets-debug.cmake
+C:/libtorch/share/cmake/Caffe2/Caffe2Targets-release.cmake
 C:/libtorch/share/cmake/Caffe2/Caffe2Targets.cmake
 C:/libtorch/share/cmake/Caffe2/public/mkl.cmake
 C:/libtorch/share/cmake/Caffe2/public/mkldnn.cmake
