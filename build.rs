@@ -211,9 +211,7 @@ fn main() {
             .ancestors()
             .nth(3) // Subir 3 níveis para alcançar o diretório raiz do projeto
             .unwrap()
-            .join("target")
             .join("debug");
-        fs::create_dir_all(&target_dir).unwrap();
 
         // Copia todos os arquivos dos diretórios relevantes
         copy_all_files(&build_dir_abs, &target_dir);
