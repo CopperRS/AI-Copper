@@ -38,10 +38,10 @@ Before building, you need to manually adjust the library names in the libtorch\l
 
 3. Ensure these renamed files are present before running cargo build.
 
-```configurations
-The build script automatically copies the necessary DLLs from libtorch and TensorFlow folders to your target directory.
+
+> The build script automatically copies the necessary DLLs from libtorch and TensorFlow folders to your target directory.
 You do not need to manually copy DLLs or adjust the PATH after setup.
-```
+
 
 - `LIBTORCH` — Path to the root of libtorch (e.g., `C:\libtorch`)
 - `TENSORFLOW_ROOT` — Path to the root of TensorFlow C++ (e.g., `C:\libtensorflow`)
