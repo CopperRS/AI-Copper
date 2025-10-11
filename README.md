@@ -25,6 +25,24 @@
 
 You must set the environment variables correctly for the build to work:
 
+Before building, you need to manually adjust the library names in the libtorch\lib directory to match the expected format by the linker. Follow these steps:
+
+1. Navigate to the libtorch\lib directory (e.g., C:\libtorch\lib).
+2. Rename the following files:
+    
+    - Change **libittnotify.lib** to ***ittnotify.lib.***
+    - Change **libprotobuf.lib** to ***protobuf.lib.***
+    - Change **libprotobuf-lite.lib** to ***protobuf-lite.lib.***
+    - Change **libprotoc.lib** to ***protoc.lib.***
+
+
+3. Ensure these renamed files are present before running cargo build.
+
+```configurations
+The build script automatically copies the necessary DLLs from libtorch and TensorFlow folders to your target directory.
+You do not need to manually copy DLLs or adjust the PATH after setup.
+```
+
 - `LIBTORCH` — Path to the root of libtorch (e.g., `C:\libtorch`)
 - `TENSORFLOW_ROOT` — Path to the root of TensorFlow C++ (e.g., `C:\libtensorflow`)
 
