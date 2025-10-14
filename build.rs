@@ -4,6 +4,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+
 /// Copia todos os arquivos de um diretório de origem para o diretório de destino
 fn copy_all_files(source_dir: &Path, target_dir: &Path) {
     if !source_dir.exists() {
@@ -143,8 +144,28 @@ fn main() {
 
     // Configuração por sistema operacional
     if cfg!(target_os = "windows") {
-        let lib_dir = build_dir_abs.join("Debug");
         let torch_lib = Path::new(&torch_path).join("lib");
+
+        let renames = vec![
+            (torch_lib.join("libprotobuf.lib"), torch_lib.join("protobuf.lib")),
+            (torch_lib.join("libprotoc.lib"), torch_lib.join("protoc.lib")),
+            (torch_lib.join("libittnotify.lib"), torch_lib.join("ittnotify.lib")),
+            (torch_lib.join("libprotobuf-lite.lib"), torch_lib.join("protobuf-lite.lib")),
+        ];
+
+        for (from, to) in renames {
+            if from.exists() {
+                if let Err(e) = fs::rename(&from, &to) {
+                    println!("cargo:warning=Failed to rename {:?} to {:?}: {}", from, to, e);
+                } else {
+                    println!("cargo:warning=Renamed {:?} to {:?}", from, to);
+                }
+            } else {
+                println!("cargo:warning=File not found for rename: {:?}", from);
+            }
+        }
+
+        let lib_dir = build_dir_abs.join("Debug");
         let tf_lib = Path::new(&tf_path).join("lib");
 
         println!("cargo:rustc-link-search=native={}", lib_dir.display());

@@ -24,7 +24,7 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 17.13.15+18b3035f6 para .NET Framework
-      Compila├º├úo de 11/10/2025 11:41:10 iniciada.
+      Compila├º├úo de 14/10/2025 15:22:38 iniciada.
       
       Projeto "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\4.0.0-rc1\\CompilerIdC\\CompilerIdC.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
@@ -53,7 +53,7 @@ events:
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:00.46
+      Tempo Decorrido 00:00:00.59
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -79,7 +79,7 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 17.13.15+18b3035f6 para .NET Framework
-      Compila├º├úo de 11/10/2025 11:41:11 iniciada.
+      Compila├º├úo de 14/10/2025 15:22:38 iniciada.
       
       Projeto "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\4.0.0-rc1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
@@ -108,7 +108,7 @@ events:
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:00.52
+      Tempo Decorrido 00:00:00.59
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -127,8 +127,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ru9265"
-      binary: "C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ru9265"
+      source: "C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-a4rjrz"
+      binary: "C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-a4rjrz"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -137,40 +137,40 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ru9265'
+        Change Dir: 'C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-a4rjrz'
         
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_65b6d.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_e1822.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         Vers├úo do MSBuild 17.13.15+18b3035f6 para .NET Framework
-        Compila├º├úo de 11/10/2025 11:41:12 iniciada.
+        Compila├º├úo de 14/10/2025 15:22:39 iniciada.
         
-        Projeto "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ru9265\\cmTC_65b6d.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-a4rjrz\\cmTC_e1822.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
-          Criando o diret├│rio "cmTC_65b6d.dir\\Debug\\".
+          Criando o diret├│rio "cmTC_e1822.dir\\Debug\\".
           A sa├¡da estruturada est├í habilitada. A formata├º├úo do diagn├│stico do compilador refletir├í a hierarquia de erros. Consulte https://aka.ms/cpp/structured-output para obter mais detalhes.
-          Criando o diret├│rio "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ru9265\\Debug\\".
-          Criando o diret├│rio "cmTC_65b6d.dir\\Debug\\cmTC_65b6d.tlog\\".
+          Criando o diret├│rio "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-a4rjrz\\Debug\\".
+          Criando o diret├│rio "cmTC_e1822.dir\\Debug\\cmTC_e1822.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_65b6d.dir\\Debug\\cmTC_65b6d.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_65b6d.dir\\Debug\\cmTC_65b6d.tlog\\unsuccessfulbuild".
+          Criando "cmTC_e1822.dir\\Debug\\cmTC_e1822.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_e1822.dir\\Debug\\cmTC_e1822.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_65b6d.dir\\Debug\\\\" /Fd"cmTC_65b6d.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.0\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_e1822.dir\\Debug\\\\" /Fd"cmTC_e1822.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.0\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Vers├úo 19.43.34808 para x64
           Copyright (C) Microsoft Corporation. Todos os direitos reservados.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_65b6d.dir\\Debug\\\\" /Fd"cmTC_65b6d.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.0\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_e1822.dir\\Debug\\\\" /Fd"cmTC_e1822.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.0\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ru9265\\Debug\\cmTC_65b6d.exe" /INCREMENTAL /ILK:"cmTC_65b6d.dir\\Debug\\cmTC_65b6d.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ru9265/Debug/cmTC_65b6d.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ru9265/Debug/cmTC_65b6d.lib" /MACHINE:X64  /machine:x64 cmTC_65b6d.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_65b6d.vcxproj -> C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ru9265\\Debug\\cmTC_65b6d.exe
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-a4rjrz\\Debug\\cmTC_e1822.exe" /INCREMENTAL /ILK:"cmTC_e1822.dir\\Debug\\cmTC_e1822.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-a4rjrz/Debug/cmTC_e1822.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-a4rjrz/Debug/cmTC_e1822.lib" /MACHINE:X64  /machine:x64 cmTC_e1822.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_e1822.vcxproj -> C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-a4rjrz\\Debug\\cmTC_e1822.exe
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_65b6d.dir\\Debug\\cmTC_65b6d.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_65b6d.dir\\Debug\\cmTC_65b6d.tlog\\cmTC_65b6d.lastbuildstate".
-        Projeto de compila├º├úo pronto "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ru9265\\cmTC_65b6d.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_e1822.dir\\Debug\\cmTC_e1822.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_e1822.dir\\Debug\\cmTC_e1822.tlog\\cmTC_e1822.lastbuildstate".
+        Projeto de compila├º├úo pronto "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-a4rjrz\\cmTC_e1822.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:00.44
+        Tempo Decorrido 00:00:00.50
         
       exitCode: 0
   -
@@ -210,8 +210,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-6rdamf"
-      binary: "C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-6rdamf"
+      source: "C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-lc432s"
+      binary: "C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-lc432s"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -221,40 +221,40 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-6rdamf'
+        Change Dir: 'C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-lc432s'
         
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_b2e17.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_375a5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         Vers├úo do MSBuild 17.13.15+18b3035f6 para .NET Framework
-        Compila├º├úo de 11/10/2025 11:41:12 iniciada.
+        Compila├º├úo de 14/10/2025 15:22:40 iniciada.
         
-        Projeto "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6rdamf\\cmTC_b2e17.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lc432s\\cmTC_375a5.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
-          Criando o diret├│rio "cmTC_b2e17.dir\\Debug\\".
+          Criando o diret├│rio "cmTC_375a5.dir\\Debug\\".
           A sa├¡da estruturada est├í habilitada. A formata├º├úo do diagn├│stico do compilador refletir├í a hierarquia de erros. Consulte https://aka.ms/cpp/structured-output para obter mais detalhes.
-          Criando o diret├│rio "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6rdamf\\Debug\\".
-          Criando o diret├│rio "cmTC_b2e17.dir\\Debug\\cmTC_b2e17.tlog\\".
+          Criando o diret├│rio "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lc432s\\Debug\\".
+          Criando o diret├│rio "cmTC_375a5.dir\\Debug\\cmTC_375a5.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_b2e17.dir\\Debug\\cmTC_b2e17.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_b2e17.dir\\Debug\\cmTC_b2e17.tlog\\unsuccessfulbuild".
+          Criando "cmTC_375a5.dir\\Debug\\cmTC_375a5.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_375a5.dir\\Debug\\cmTC_375a5.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b2e17.dir\\Debug\\\\" /Fd"cmTC_b2e17.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_375a5.dir\\Debug\\\\" /Fd"cmTC_375a5.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Vers├úo 19.43.34808 para x64
           Copyright (C) Microsoft Corporation. Todos os direitos reservados.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b2e17.dir\\Debug\\\\" /Fd"cmTC_b2e17.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_375a5.dir\\Debug\\\\" /Fd"cmTC_375a5.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.0\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6rdamf\\Debug\\cmTC_b2e17.exe" /INCREMENTAL /ILK:"cmTC_b2e17.dir\\Debug\\cmTC_b2e17.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-6rdamf/Debug/cmTC_b2e17.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-6rdamf/Debug/cmTC_b2e17.lib" /MACHINE:X64  /machine:x64 cmTC_b2e17.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_b2e17.vcxproj -> C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6rdamf\\Debug\\cmTC_b2e17.exe
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lc432s\\Debug\\cmTC_375a5.exe" /INCREMENTAL /ILK:"cmTC_375a5.dir\\Debug\\cmTC_375a5.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-lc432s/Debug/cmTC_375a5.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/Administrador/Documents/ai_copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-lc432s/Debug/cmTC_375a5.lib" /MACHINE:X64  /machine:x64 cmTC_375a5.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_375a5.vcxproj -> C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lc432s\\Debug\\cmTC_375a5.exe
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_b2e17.dir\\Debug\\cmTC_b2e17.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_b2e17.dir\\Debug\\cmTC_b2e17.tlog\\cmTC_b2e17.lastbuildstate".
-        Projeto de compila├º├úo pronto "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6rdamf\\cmTC_b2e17.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_375a5.dir\\Debug\\cmTC_375a5.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_375a5.dir\\Debug\\cmTC_375a5.tlog\\cmTC_375a5.lastbuildstate".
+        Projeto de compila├º├úo pronto "C:\\Users\\Administrador\\Documents\\ai_copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lc432s\\cmTC_375a5.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:00.42
+        Tempo Decorrido 00:00:00.41
         
       exitCode: 0
   -
