@@ -2,9 +2,16 @@
 /target/
 /Cargo.lock
 
+<<<<<<< HEAD
 
 /build/
 /.vscode/
+=======
+# Diretório de bibliotecas baixadas automaticamente
+/deps/
+
+/build/
+>>>>>>> origin/master
 /CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
@@ -20,3 +27,11 @@ libtorch/
 *.log
 *.swp
 .DS_Store
+<<<<<<< HEAD
+=======
+
+# Arquivos compactados de bibliotecas
+*.zip
+*.tar.gz
+*.tgz
+>>>>>>> origin/master

@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 /home/moonx02/Documentos/ai_copper/cpp/build/CMakeFiles/ai_copper.dir
 /home/moonx02/Documentos/ai_copper/cpp/build/CMakeFiles/edit_cache.dir
 /home/moonx02/Documentos/ai_copper/cpp/build/CMakeFiles/rebuild_cache.dir
+=======
+E:/Copper/ai_copper/cpp/build/CMakeFiles/ai_copper_cpp.dir
+E:/Copper/ai_copper/cpp/build/CMakeFiles/ALL_BUILD.dir
+E:/Copper/ai_copper/cpp/build/CMakeFiles/ZERO_CHECK.dir
+>>>>>>> origin/master
