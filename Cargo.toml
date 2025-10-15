@@ -1,0 +1,47 @@
+[package]
+name = "ai_copper"
+version = "0.1.3"
+edition = "2021"
+authors = ["Ryan Lima <ryan2020gary@gmail,com>"]
+description = "Unified Rust bindings for LibTorch and TensorFlow - A powerful AI library"
+license = "MIT"
+repository = "https://github.com/seu_usuario/ai_copper"
+readme = "README.md"
+keywords = ["Rust", "C++", "libtorch", "tensorflow", "ai"]
+
+# Features para controlar backends (ambos habilitados por padrão)
+[features]
+default = ["libtorch", "tensorflow"]
+libtorch = []
+tensorflow = []
+
+[dependencies]
+libc = "0.2"
+rand = "0.8"
+rand_distr = "0.4"
+
+[build-dependencies]
+cc = "1.0"
+bindgen = "0.59"
+reqwest = { version = "0.11", features = ["blocking"] }
+zip = "0.6"
+tar = "0.4"
+flate2 = "1.0" 
+
+[[example]]
+name = "basic_usage"
+path = "examples/basic_usage.rs"
+
+[[example]]
+name = "auto_download_demo"
+path = "examples/auto_download_demo.rs"
+
+[[example]]
+name = "advanced_features"
+path = "examples/advanced_features.rs"
+
+[lib]
+name = "ai_copper"
+path = "src/lib.rs"
+crate-type = ["rlib", "dylib"]
+

@@ -1,0 +1,28 @@
+
+/target/
+/Cargo.lock
+
+# Diretório de bibliotecas baixadas automaticamente
+/deps/
+
+/build/
+/CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+
+libtorch/
+
+*.so
+*.a
+*.o
+*.obj
+*.log
+*.swp
+.DS_Store
+
+# Arquivos compactados de bibliotecas
+*.zip
+*.tar.gz
+*.tgz
