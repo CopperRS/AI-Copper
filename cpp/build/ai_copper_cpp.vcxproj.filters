@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="E:\Copper\ai_copper\cpp\lib.cpp">
+    <ClCompile Include="E:\Copper\AI-Copper\cpp\lib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="E:\Copper\ai_copper\cpp\CMakeLists.txt" />
+    <CustomBuild Include="E:\Copper\AI-Copper\cpp\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{B1A3CB44-6F70-3F4C-9E88-B4C3988D8298}</UniqueIdentifier>
+      <UniqueIdentifier>{9800B4EF-44FA-3E6C-BD0D-008E1F8B4BBC}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

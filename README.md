@@ -37,6 +37,8 @@
 
 ## 📦 Instalação
 
+### Instalação Rápida
+
 Adicione ao seu `Cargo.toml`:
 
 ```toml
@@ -44,9 +46,29 @@ Adicione ao seu `Cargo.toml`:
 ai_copper = "0.1.3"
 ```
 
-**🎉 Novidade!** As bibliotecas (LibTorch e TensorFlow) são baixadas automaticamente na primeira compilação. Não é mais necessário configurar variáveis de ambiente!
+**🎉 Instalação Automática!** 
 
-Para mais detalhes sobre instalação, veja [INSTALLATION.md](INSTALLATION.md).
+As bibliotecas são baixadas e instaladas automaticamente durante o primeiro build:
+
+- **Windows**: `C:\libtorch` e `C:\libtensorflow`
+- **Linux**: `/opt/libtorch` e `/opt/libtensorflow`
+
+As variáveis de ambiente são configuradas automaticamente. Para mais detalhes, consulte [AUTO-INSTALL.md](AUTO-INSTALL.md).
+
+### Build do Projeto
+
+```bash
+# Com ambos os backends
+cargo build --features libtorch,tensorflow
+
+# Apenas LibTorch
+cargo build --features libtorch
+
+# Apenas TensorFlow
+cargo build --features tensorflow
+```
+
+Para instruções detalhadas de instalação manual, veja [INSTALLATION.md](INSTALLATION.md).
 
 ### Backends Opcionais
 

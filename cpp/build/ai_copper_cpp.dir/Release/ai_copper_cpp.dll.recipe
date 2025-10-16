@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>E:\Copper\ai_copper\cpp\build\x64\Release\ZERO_CHECK</FullPath>
+      <FullPath>E:\Copper\AI-Copper\cpp\build\x64\Release\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>E:\Copper\ai_copper\cpp\build\Release\Release\ai_copper_cpp.dll</FullPath>
+      <FullPath>E:\Copper\AI-Copper\cpp\build\Release\Release\ai_copper_cpp.dll</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
