@@ -7,8 +7,10 @@ use std::process::Command;
 /// URLs para download das bibliotecas
 const LIBTORCH_WINDOWS_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.1.0%2Bcpu.zip";
 const LIBTORCH_LINUX_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-2.1.0%2Bcpu.zip";
+const LIBTORCH_MAC_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-macos-1.13.1.zip";
 const TENSORFLOW_WINDOWS_URL: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-windows-x86_64-2.10.0.zip";
 const TENSORFLOW_LINUX_URL: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.10.0.tar.gz";
+const TENSORFLOW_MAC_URL: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-2.11.0.tar.gz";
 
 /// Baixa um arquivo da URL e salva no destino
 fn download_file(url: &str, dest: &Path) -> Result<(), Box<dyn std::error::Error>> {
@@ -128,6 +130,30 @@ fn ensure_library(lib_name: &str, lib_dir: &Path) -> Result<PathBuf, Box<dyn std
             set_environment_variables(lib_name, &final_dir)?;
             Ok(final_dir)
         }
+        "libtorch" if cfg!(target_os = "macos") => {
+            let final_dir = dest_root.join("libtorch");
+            let zip_file = temp_dir.join("libtorch.zip");
+            if !zip_file.exists() {
+                download_file(LIBTORCH_MAC_URL, &zip_file)?;
+            }
+            // Extrai temporariamente
+            let temp_extract = temp_dir.join("libtorch_extract");
+            fs::create_dir_all(&temp_extract)?;
+            extract_zip(&zip_file, &temp_extract)?;
+            // Move para /opt/libtorch
+            let extracted_libtorch = temp_extract.join("libtorch");
+            if extracted_libtorch.exists() {
+                move_directory(&extracted_libtorch, &final_dir)?;
+            } else {
+                move_directory(&temp_extract, &final_dir)?;
+            }
+            // Limpa arquivos temporários
+            let _ = fs::remove_file(&zip_file);
+            let _ = fs::remove_dir_all(&temp_extract);
+            println!("cargo:warning=LibTorch instalado em: {:?}", final_dir);
+            set_environment_variables(lib_name, &final_dir)?;
+            Ok(final_dir)
+        }
         "libtorch" => {
             let final_dir = dest_root.join("libtorch");
             let tar_file = temp_dir.join("libtorch.tar.gz");
@@ -171,6 +197,24 @@ fn ensure_library(lib_name: &str, lib_dir: &Path) -> Result<PathBuf, Box<dyn std
             
             // Limpa arquivos temporários
             let _ = fs::remove_file(&zip_file);
+            
+            println!("cargo:warning=TensorFlow instalado em: {:?}", final_dir);
+            set_environment_variables(lib_name, &final_dir)?;
+            Ok(final_dir)
+        }
+        "tensorflow" if cfg!(target_os = "macos") => {
+            let final_dir = dest_root.join("libtensorflow");
+            let tar_file = temp_dir.join("tensorflow.tar.gz");
+            
+            if !tar_file.exists() {
+                download_file(TENSORFLOW_MAC_URL, &tar_file)?;
+            }
+            
+            fs::create_dir_all(&final_dir)?;
+            extract_tar_gz(&tar_file, &final_dir)?;
+            
+            // Limpa arquivos temporários
+            let _ = fs::remove_file(&tar_file);
             
             println!("cargo:warning=TensorFlow instalado em: {:?}", final_dir);
             set_environment_variables(lib_name, &final_dir)?;
@@ -319,6 +363,62 @@ fn set_environment_variables(lib_name: &str, lib_path: &Path) -> Result<(), Box<
         println!("cargo:warning=Variáveis de ambiente configuradas. Reinicie o terminal para que tenham efeito.");
     }
     
+    #[cfg(target_os = "macos")]
+    {
+        let lib_dir = lib_path.join("lib");
+        let bin_dir = lib_path.join("bin");
+        let include_dir = lib_path.join("include");
+        match lib_name {
+            "libtorch" => {
+                println!("cargo:warning=Configurando variáveis de ambiente para LibTorch (macOS)...");
+                set_env_var("TORCH_HOME", &lib_path.display().to_string())?;
+                let ld_lib_path = lib_dir.display().to_string();
+                set_env_var("LD_LIBRARY_PATH", &ld_lib_path)?;
+                set_env_var("LIBRARY_PATH", &ld_lib_path)?;
+                if include_dir.exists() {
+                    set_env_var("CPATH", &include_dir.display().to_string())?;
+                }
+                set_env_var("CMAKE_PREFIX_PATH", &lib_path.display().to_string())?;
+                // PATH
+                add_to_path_macos(&lib_dir)?;
+                if bin_dir.exists() {
+                    add_to_path_macos(&bin_dir)?;
+                }
+                println!("cargo:warning=✓ TORCH_HOME={}", lib_path.display());
+                println!("cargo:warning=✓ LD_LIBRARY_PATH={}", ld_lib_path);
+                println!("cargo:warning=✓ LIBRARY_PATH={}", ld_lib_path);
+                if include_dir.exists() {
+                    println!("cargo:warning=✓ CPATH={}", include_dir.display());
+                }
+                println!("cargo:warning=✓ CMAKE_PREFIX_PATH={}", lib_path.display());
+                println!("cargo:warning=✓ PATH atualizado com lib e bin");
+            }
+            "tensorflow" => {
+                println!("cargo:warning=Configurando variáveis de ambiente para TensorFlow (macOS)...");
+                set_env_var("TENSORFLOW_ROOT", &lib_path.display().to_string())?;
+                let ld_lib_path = lib_dir.display().to_string();
+                set_env_var("LD_LIBRARY_PATH", &ld_lib_path)?;
+                set_env_var("LIBRARY_PATH", &ld_lib_path)?;
+                if include_dir.exists() {
+                    set_env_var("CPATH", &include_dir.display().to_string())?;
+                }
+                add_to_path_macos(&lib_dir)?;
+                if bin_dir.exists() {
+                    add_to_path_macos(&bin_dir)?;
+                }
+                println!("cargo:warning=✓ TENSORFLOW_ROOT={}", lib_path.display());
+                println!("cargo:warning=✓ LD_LIBRARY_PATH={}", ld_lib_path);
+                println!("cargo:warning=✓ LIBRARY_PATH={}", ld_lib_path);
+                if include_dir.exists() {
+                    println!("cargo:warning=✓ CPATH={}", include_dir.display());
+                }
+                println!("cargo:warning=✓ PATH atualizado com lib e bin");
+            }
+            _ => {}
+        }
+        println!("cargo:warning=Variáveis de ambiente configuradas. Reinicie o terminal para que tenham efeito.");
+    }
+    
     #[cfg(not(target_os = "windows"))]
     {
         // Linux/macOS
@@ -373,6 +473,20 @@ fn set_env_var(var_name: &str, value: &str) -> Result<(), Box<dyn std::error::Er
     Ok(())
 }
 
+/// Define uma variável de ambiente do usuário (macOS)
+#[cfg(target_os = "macos")]
+fn set_env_var(var_name: &str, value: &str) -> Result<(), Box<dyn std::error::Error>> {
+    use std::process::Command;
+    // Usa launchctl para definir variáveis de ambiente no macOS (persistente para o usuário)
+    let output = Command::new("launchctl")
+        .args(&["setenv", var_name, value])
+        .output()?;
+    if !output.status.success() {
+        println!("cargo:warning=Falha ao definir {}: {}", var_name, String::from_utf8_lossy(&output.stderr));
+    }
+    Ok(())
+}
+
 /// Adiciona um diretório ao PATH do Windows
 #[cfg(target_os = "windows")]
 fn add_to_path_windows(dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
@@ -422,6 +536,42 @@ fn add_to_path_windows(dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
         println!("cargo:warning=Falha ao atualizar PATH: {}", String::from_utf8_lossy(&output.stderr));
     }
     
+    Ok(())
+}
+
+/// Adiciona um diretório ao PATH do macOS
+#[cfg(target_os = "macos")]
+fn add_to_path_macos(dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
+    use std::process::Command;
+    if !dir.exists() {
+        return Ok(());
+    }
+    let dir_str = dir.display().to_string();
+    // Obtém o PATH atual
+    let output = Command::new("/bin/bash")
+        .arg("-c")
+        .arg("echo $PATH")
+        .output()?;
+    let current_path = String::from_utf8_lossy(&output.stdout).trim().to_string();
+    // Verifica se já está no PATH
+    if current_path.split(':').any(|p| p.trim() == dir_str) {
+        println!("cargo:warning=Diretório já está no PATH: {}", dir_str);
+        return Ok(());
+    }
+    // Adiciona ao PATH usando launchctl (persistente para o usuário)
+    let new_path = if current_path.is_empty() {
+        dir_str.clone()
+    } else {
+        format!("{}:{}", current_path, dir_str)
+    };
+    let output = Command::new("launchctl")
+        .args(&["setenv", "PATH", &new_path])
+        .output()?;
+    if output.status.success() {
+        println!("cargo:warning=PATH atualizado com sucesso");
+    } else {
+        println!("cargo:warning=Falha ao atualizar PATH: {}", String::from_utf8_lossy(&output.stderr));
+    }
     Ok(())
 }
 
