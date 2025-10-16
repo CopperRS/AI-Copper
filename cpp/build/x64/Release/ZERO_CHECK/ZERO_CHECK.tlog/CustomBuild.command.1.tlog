@@ -1,6 +1,6 @@
-^E:\COPPER\AI_COPPER\CPP\BUILD\CMAKEFILES\BF23047806099B9BF697080BB65CBE4A\GENERATE.STAMP.RULE
+^E:\COPPER\AI-COPPER\CPP\BUILD\CMAKEFILES\286689E491FB04A816B1517D57BB40F8\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SE:/Copper/ai_copper/cpp -BE:/Copper/ai_copper/cpp/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/Copper/ai_copper/cpp/build/ai_copper.sln
+"C:\Program Files\CMake\bin\cmake.exe" -SE:/Copper/AI-Copper/cpp -BE:/Copper/AI-Copper/cpp/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/Copper/AI-Copper/cpp/build/ai_copper.sln
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
