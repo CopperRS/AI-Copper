@@ -1,2 +1,0 @@
-E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-7fdnxz/CMakeFiles/cmTC_8d2c4.dir
-E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-7fdnxz/CMakeFiles/ALL_BUILD.dir
