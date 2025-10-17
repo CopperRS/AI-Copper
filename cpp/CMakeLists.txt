@@ -45,12 +45,12 @@ if(NOT TF_INCLUDE_DIR)
 endif()
 
 # Biblioteca principal
-add_library(ai_copper_cpp SHARED lib.cpp)
+add_library(ai_copper SHARED lib.cpp)
 
 # Define símbolos de exportação para Windows
 if(MSVC)
-    set_target_properties(ai_copper_cpp PROPERTIES
-        OUTPUT_NAME "ai_copper_cpp"
+    set_target_properties(ai_copper PROPERTIES
+        OUTPUT_NAME "ai_copper"
         WINDOWS_EXPORT_ALL_SYMBOLS ON
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Release"
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Release"
@@ -59,10 +59,10 @@ if(MSVC)
 endif()
 
 # Linkagem com Torch e TensorFlow
-target_link_libraries(ai_copper_cpp PRIVATE "${TORCH_LIBRARIES}" "${TF_LIBRARY}")
+target_link_libraries(ai_copper PRIVATE "${TORCH_LIBRARIES}" "${TF_LIBRARY}")
 
 # Inclui diretórios
-target_include_directories(ai_copper_cpp PRIVATE "${TORCH_INCLUDE_DIRS}" "${TF_INCLUDE_DIR}")
+target_include_directories(ai_copper PRIVATE "${TORCH_INCLUDE_DIRS}" "${TF_INCLUDE_DIR}")
 
 # Mensagens de debug
 message(STATUS "Torch include dirs: ${TORCH_INCLUDE_DIRS}")

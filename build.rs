@@ -924,7 +924,7 @@ fn main() {
             link_all_libs_in_dir(&tf_lib, "lib");
         }
 
-        println!("cargo:rustc-link-lib=dylib=ai_copper_cpp");
+    println!("cargo:rustc-link-lib=dylib=ai_copper");
         println!("cargo:rustc-link-search=native={}", lib_dir.display());
 
         // Calcula o target/debug do projeto consumidor a partir do OUT_DIR
@@ -963,11 +963,11 @@ fn main() {
         }
 
         // Verificação detalhada das DLLs críticas
-        let ai_copper_cpp_path = target_dir.join("ai_copper_cpp.dll");
-        if !ai_copper_cpp_path.exists() {
-            println!("cargo:warning=ai_copper_cpp.dll not found in {:?}", target_dir);
+        let ai_copper_path = target_dir.join("ai_copper.dll");
+        if !ai_copper_path.exists() {
+            println!("cargo:warning=ai_copper.dll not found in {:?}", target_dir);
         } else {
-            println!("cargo:warning=ai_copper_cpp.dll found in {:?}", target_dir);
+            println!("cargo:warning=ai_copper.dll found in {:?}", target_dir);
         }
         
         if use_libtorch {

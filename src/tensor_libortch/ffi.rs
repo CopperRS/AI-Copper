@@ -1,6 +1,6 @@
 use libc::c_void;
 
-#[link(name = "ai_copper_cpp", kind = "dylib")]
+#[link(name = "ai_copper", kind = "dylib")]
 extern "C" {
     // Tensor Creation
     pub fn CreateMatrixTensor(values: *const f32, rows: i32, cols: i32) -> *mut c_void;

@@ -1,7 +1,7 @@
 use std::os::raw::{c_char, c_void, c_int};
 
 
-#[link(name = "ai_copper_cpp", kind = "dylib")]
+#[link(name = "ai_copper", kind = "dylib")]
 unsafe extern "C" { 
     pub unsafe fn VersionTF() -> *const c_char;
     pub fn LoadSavedModel(model_path: *const c_char, tags: *const c_char) -> *mut c_void;
