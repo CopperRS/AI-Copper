@@ -7,10 +7,13 @@ use std::process::Command;
 /// URLs para download das bibliotecas
 const LIBTORCH_WINDOWS_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.1.0%2Bcpu.zip";
 const LIBTORCH_LINUX_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-2.1.0%2Bcpu.zip";
-const LIBTORCH_MAC_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-macos-arm64-2.9.0.zip";
+// Mac URLs separated by architecture. Keep an arm64 (Apple Silicon) and x86_64 variant.
+const LIBTORCH_MAC_URL_ARM64: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-macos-arm64-2.9.0.zip";
+const LIBTORCH_MAC_URL_X86_64: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-macos-2.0.1.zip"; // fallback placeholder; recommend overriding with LIBTORCH env if different
 const TENSORFLOW_WINDOWS_URL: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-windows-x86_64-2.10.0.zip";
 const TENSORFLOW_LINUX_URL: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.10.0.tar.gz";
-const TENSORFLOW_MAC_URL: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-2.6.0.tar.gz";
+const TENSORFLOW_MAC_URL_X86_64: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-2.6.0.tar.gz";
+const TENSORFLOW_MAC_URL_ARM64: &str = ""; // no official arm64 tensorflow C library URL configured here; prefer user-provided TENSORFLOW_ROOT for arm64
 
 /// Baixa um arquivo da URL e salva no destino
 fn download_file(url: &str, dest: &Path) -> Result<(), Box<dyn std::error::Error>> {
@@ -179,33 +182,51 @@ fn ensure_library(lib_name: &str, lib_dir: &Path) -> Result<PathBuf, Box<dyn std
             Ok(final_dir)
         }
         "libtorch" if cfg!(target_os = "macos") => {
+            // Decide a URL do libtorch para macOS com base na arquitetura alvo (TARGET/CARGO_CFG_TARGET_ARCH)
+            let arch = env::var("CARGO_CFG_TARGET_ARCH").unwrap_or_else(|_| String::new());
             let final_dir = dest_root.join("libtorch");
             let zip_file = temp_dir.join("libtorch.zip");
-            if !zip_file.exists() {
-                download_file(LIBTORCH_MAC_URL, &zip_file)?;
-            }
-            // Verifica tipo de arquivo antes de extrair
-            let detected = detect_archive_type(&zip_file)?;
-            if detected != "zip" {
-                return Err(format!("Arquivo baixado não é ZIP; tipo detectado: {}", detected).into());
-            }
-            // Extrai temporariamente
-            let temp_extract = temp_dir.join("libtorch_extract");
-            fs::create_dir_all(&temp_extract)?;
-            extract_zip(&zip_file, &temp_extract)?;
-            // Move para /opt/libtorch
-            let extracted_libtorch = temp_extract.join("libtorch");
-            if extracted_libtorch.exists() {
-                move_directory(&extracted_libtorch, &final_dir)?;
+
+            // Seleciona URL conhecida ou falha explicando como fornecer manualmente
+            let selected_url = match arch.as_str() {
+                "aarch64" | "arm64" => Some(LIBTORCH_MAC_URL_ARM64),
+                "x86_64" => Some(LIBTORCH_MAC_URL_X86_64),
+                "i386" | "i686" => None,
+                _ => None,
+            };
+
+            println!("cargo:warning=Detected macOS arch='{}' for LibTorch; selected_url={}", arch, selected_url.unwrap_or("<none>"));
+
+            if let Some(url) = selected_url {
+                if !zip_file.exists() {
+                    download_file(url, &zip_file)?;
+                }
+
+                // Verifica tipo de arquivo antes de extrair
+                let detected = detect_archive_type(&zip_file)?;
+                if detected != "zip" {
+                    return Err(format!("Arquivo baixado não é ZIP; tipo detectado: {}", detected).into());
+                }
+                // Extrai temporariamente
+                let temp_extract = temp_dir.join("libtorch_extract");
+                fs::create_dir_all(&temp_extract)?;
+                extract_zip(&zip_file, &temp_extract)?;
+                // Move para ~/.local/libtorch
+                let extracted_libtorch = temp_extract.join("libtorch");
+                if extracted_libtorch.exists() {
+                    move_directory(&extracted_libtorch, &final_dir)?;
+                } else {
+                    move_directory(&temp_extract, &final_dir)?;
+                }
+                // Limpa arquivos temporários
+                let _ = fs::remove_file(&zip_file);
+                let _ = fs::remove_dir_all(&temp_extract);
+                println!("cargo:warning=LibTorch instalado em: {:?}", final_dir);
+                set_environment_variables(lib_name, &final_dir)?;
+                Ok(final_dir)
             } else {
-                move_directory(&temp_extract, &final_dir)?;
+                Err(format!("Nenhum pacote pré-configurado do LibTorch para arquitetura macOS '{}' encontrado. Por favor, defina a variável de ambiente LIBTORCH apontando para uma instalação compatível ou atualize build.rs com uma URL apropriada.", arch).into())
             }
-            // Limpa arquivos temporários
-            let _ = fs::remove_file(&zip_file);
-            let _ = fs::remove_dir_all(&temp_extract);
-            println!("cargo:warning=LibTorch instalado em: {:?}", final_dir);
-            set_environment_variables(lib_name, &final_dir)?;
-            Ok(final_dir)
         }
         "libtorch" => {
             let final_dir = dest_root.join("libtorch");
@@ -259,25 +280,40 @@ fn ensure_library(lib_name: &str, lib_dir: &Path) -> Result<PathBuf, Box<dyn std
             Ok(final_dir)
         }
         "tensorflow" if cfg!(target_os = "macos") => {
+            // Seleciona URL de TensorFlow para mac com base na arquitetura
+            let arch = env::var("CARGO_CFG_TARGET_ARCH").unwrap_or_else(|_| String::new());
             let final_dir = dest_root.join("libtensorflow");
             let tar_file = temp_dir.join("tensorflow.tar.gz");
-            
-            if !tar_file.exists() {
-                download_file(TENSORFLOW_MAC_URL, &tar_file)?;
+
+            let selected_url = match arch.as_str() {
+                "x86_64" => Some(TENSORFLOW_MAC_URL_X86_64),
+                "aarch64" | "arm64" => {
+                    // Nenhum URL pré-configurado para arm64 neste arquivo
+                    None
+                }
+                _ => None,
+            };
+
+            println!("cargo:warning=Detected macOS arch='{}' for TensorFlow; selected_url={}", arch, selected_url.unwrap_or("<none>"));
+
+            if let Some(url) = selected_url {
+                if !tar_file.exists() {
+                    download_file(url, &tar_file)?;
+                }
+                let detected = detect_archive_type(&tar_file)?;
+                if detected != "gz" && detected != "tar" {
+                    return Err(format!("Arquivo baixado não parece um tar.gz válido; tipo detectado: {}", detected).into());
+                }
+                fs::create_dir_all(&final_dir)?;
+                extract_tar_gz(&tar_file, &final_dir)?;
+                // Limpa arquivos temporários
+                let _ = fs::remove_file(&tar_file);
+                println!("cargo:warning=TensorFlow instalado em: {:?}", final_dir);
+                set_environment_variables(lib_name, &final_dir)?;
+                Ok(final_dir)
+            } else {
+                Err(format!("Nenhum pacote pré-configurado do TensorFlow para arquitetura macOS '{}' encontrado. Por favor, defina a variável de ambiente TENSORFLOW_ROOT apontando para uma instalação compatível ou adicione uma URL em build.rs.", arch).into())
             }
-            let detected = detect_archive_type(&tar_file)?;
-            if detected != "gz" && detected != "tar" {
-                return Err(format!("Arquivo baixado não parece um tar.gz válido; tipo detectado: {}", detected).into());
-            }
-            fs::create_dir_all(&final_dir)?;
-            extract_tar_gz(&tar_file, &final_dir)?;
-            
-            // Limpa arquivos temporários
-            let _ = fs::remove_file(&tar_file);
-            
-            println!("cargo:warning=TensorFlow instalado em: {:?}", final_dir);
-            set_environment_variables(lib_name, &final_dir)?;
-            Ok(final_dir)
         }
         "tensorflow" => {
             let final_dir = dest_root.join("libtensorflow");
