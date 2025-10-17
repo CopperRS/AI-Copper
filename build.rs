@@ -23,20 +23,63 @@ fn download_file(url: &str, dest: &Path) -> Result<(), Box<dyn std::error::Error
     let client = Client::builder()
         .timeout(std::time::Duration::from_secs(3600))
         .build()?;
-    
-    let response = client.get(url).send()?;
-    
-    if !response.status().is_success() {
-        return Err(format!("Falha no download: HTTP {}", response.status()).into());
+
+    let mut last_err = None;
+    for attempt in 1..=3 {
+        println!("cargo:warning=Download tentativa {}/3: {}", attempt, url);
+        match client.get(url).send() {
+            Ok(response) => {
+                if !response.status().is_success() {
+                    last_err = Some(format!("HTTP {}", response.status()));
+                } else {
+                    fs::create_dir_all(dest.parent().unwrap())?;
+                    let mut file = fs::File::create(dest)?;
+                    let content = response.bytes()?;
+                    file.write_all(&content)?;
+                    println!("cargo:warning=Download concluído!");
+                    return Ok(());
+                }
+            }
+            Err(e) => {
+                last_err = Some(e.to_string());
+            }
+        }
+
+        // pequeno backoff
+        std::thread::sleep(std::time::Duration::from_secs(2 * attempt));
     }
 
-    fs::create_dir_all(dest.parent().unwrap())?;
-    let mut file = fs::File::create(dest)?;
-    let content = response.bytes()?;
-    file.write_all(&content)?;
+    Err(format!("Falha no download de {}: {:?}", url, last_err).into())
+}
 
-    println!("cargo:warning=Download concluído!");
-    Ok(())
+/// Detecta o tipo de arquivo (zip, gz, tar, unknown) baseado no cabeçalho
+fn detect_archive_type(path: &Path) -> Result<String, Box<dyn std::error::Error>> {
+    use std::fs::File;
+    use std::io::{Read, Seek};
+
+    let mut f = File::open(path)?;
+    let mut header = [0u8; 4];
+    let n = f.read(&mut header)?;
+
+    if n >= 3 && header[0] == 0x50 && header[1] == 0x4B && header[2] == 0x03 {
+        return Ok("zip".to_string());
+    }
+
+    if n >= 2 && header[0] == 0x1F && header[1] == 0x8B {
+        return Ok("gz".to_string());
+    }
+
+    // tenta detectar tar (ustar) no offset 257
+    let mut f2 = File::open(path)?;
+    f2.seek(std::io::SeekFrom::Start(257))?;
+    let mut ustar = [0u8; 5];
+    if let Ok(_) = f2.read_exact(&mut ustar) {
+        if &ustar == b"ustar" {
+            return Ok("tar".to_string());
+        }
+    }
+
+    Ok("unknown".to_string())
 }
 
 /// Extrai um arquivo ZIP
@@ -141,6 +184,11 @@ fn ensure_library(lib_name: &str, lib_dir: &Path) -> Result<PathBuf, Box<dyn std
             if !zip_file.exists() {
                 download_file(LIBTORCH_MAC_URL, &zip_file)?;
             }
+            // Verifica tipo de arquivo antes de extrair
+            let detected = detect_archive_type(&zip_file)?;
+            if detected != "zip" {
+                return Err(format!("Arquivo baixado não é ZIP; tipo detectado: {}", detected).into());
+            }
             // Extrai temporariamente
             let temp_extract = temp_dir.join("libtorch_extract");
             fs::create_dir_all(&temp_extract)?;
@@ -166,7 +214,10 @@ fn ensure_library(lib_name: &str, lib_dir: &Path) -> Result<PathBuf, Box<dyn std
             if !tar_file.exists() {
                 download_file(LIBTORCH_LINUX_URL, &tar_file)?;
             }
-            
+            let detected = detect_archive_type(&tar_file)?;
+            if detected != "gz" && detected != "tar" {
+                return Err(format!("Arquivo baixado não parece um tar.gz válido; tipo detectado: {}", detected).into());
+            }
             // Extrai temporariamente
             let temp_extract = temp_dir.join("libtorch_extract");
             fs::create_dir_all(&temp_extract)?;
@@ -214,7 +265,10 @@ fn ensure_library(lib_name: &str, lib_dir: &Path) -> Result<PathBuf, Box<dyn std
             if !tar_file.exists() {
                 download_file(TENSORFLOW_MAC_URL, &tar_file)?;
             }
-            
+            let detected = detect_archive_type(&tar_file)?;
+            if detected != "gz" && detected != "tar" {
+                return Err(format!("Arquivo baixado não parece um tar.gz válido; tipo detectado: {}", detected).into());
+            }
             fs::create_dir_all(&final_dir)?;
             extract_tar_gz(&tar_file, &final_dir)?;
             
@@ -232,7 +286,10 @@ fn ensure_library(lib_name: &str, lib_dir: &Path) -> Result<PathBuf, Box<dyn std
             if !tar_file.exists() {
                 download_file(TENSORFLOW_LINUX_URL, &tar_file)?;
             }
-            
+            let detected = detect_archive_type(&tar_file)?;
+            if detected != "gz" && detected != "tar" {
+                return Err(format!("Arquivo baixado não parece um tar.gz válido; tipo detectado: {}", detected).into());
+            }
             fs::create_dir_all(&final_dir)?;
             extract_tar_gz(&tar_file, &final_dir)?;
             
