@@ -7,10 +7,10 @@ use std::process::Command;
 /// URLs para download das bibliotecas
 const LIBTORCH_WINDOWS_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.1.0%2Bcpu.zip";
 const LIBTORCH_LINUX_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-2.1.0%2Bcpu.zip";
-const LIBTORCH_MAC_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-macos-1.13.1.zip";
+const LIBTORCH_MAC_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-macos-arm64-2.9.0.zip";
 const TENSORFLOW_WINDOWS_URL: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-windows-x86_64-2.10.0.zip";
 const TENSORFLOW_LINUX_URL: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-2.10.0.tar.gz";
-const TENSORFLOW_MAC_URL: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-2.11.0.tar.gz";
+const TENSORFLOW_MAC_URL: &str = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-darwin-x86_64-2.6.0.tar.gz";
 
 /// Baixa um arquivo da URL e salva no destino
 fn download_file(url: &str, dest: &Path) -> Result<(), Box<dyn std::error::Error>> {
@@ -91,11 +91,16 @@ fn ensure_library(lib_name: &str, lib_dir: &Path) -> Result<PathBuf, Box<dyn std
 
     println!("cargo:warning={} não encontrado, iniciando download...", lib_name);
 
-    // Define diretório de destino baseado no sistema operacional
-    let (dest_root, temp_dir) = if cfg!(target_os = "windows") {
-        (PathBuf::from("C:\\"), PathBuf::from(env::temp_dir()).join("ai_copper_downloads"))
+    // Define diretório de destino baseado no sistema operacional.
+    // Por padrão usaremos um diretório do usuário em macOS/Linux (~/.local)
+    // para evitar problemas de permissão ao tentar escrever em /opt.
+    let temp_dir = PathBuf::from(env::temp_dir()).join("ai_copper_downloads");
+    let dest_root = if cfg!(target_os = "windows") {
+        PathBuf::from("C:\\")
     } else {
-        (PathBuf::from("/opt"), PathBuf::from(env::temp_dir()).join("ai_copper_downloads"))
+        // Tenta usar HOME do usuário; se não disponível, usa /tmp como fallback
+        let home = env::var("HOME").unwrap_or_else(|_| String::from("/tmp"));
+        PathBuf::from(home).join(".local")
     };
 
     fs::create_dir_all(&temp_dir)?;
@@ -678,7 +683,8 @@ fn main() {
         let system_torch_path = if cfg!(target_os = "windows") {
             PathBuf::from("C:\\libtorch")
         } else {
-            PathBuf::from("/opt/libtorch")
+            let home = env::var("HOME").unwrap_or_else(|_| String::from("/tmp"));
+            PathBuf::from(home).join(".local").join("libtorch")
         };
         
         // Tenta usar variável de ambiente ou usa o caminho do sistema
@@ -709,7 +715,8 @@ fn main() {
         let system_tf_path = if cfg!(target_os = "windows") {
             PathBuf::from("C:\\libtensorflow")
         } else {
-            PathBuf::from("/opt/libtensorflow")
+            let home = env::var("HOME").unwrap_or_else(|_| String::from("/tmp"));
+            PathBuf::from(home).join(".local").join("libtensorflow")
         };
         
         // Tenta usar variável de ambiente ou usa o caminho do sistema
