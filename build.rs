@@ -860,6 +860,19 @@ fn main() {
     let build_dir_abs = cmake_build_dir.canonicalize().unwrap();
 
     // Configuração por sistema operacional
+    // Detect target triple/arch provided by Cargo (e.g. x86_64-apple-darwin)
+    let target_triple = env::var("TARGET").unwrap_or_else(|_| String::new());
+    println!("cargo:warning=TARGET={}", target_triple);
+
+    // Decide qual extensão de biblioteca compartilhada usar (macOS -> dylib, else -> so)
+    let shared_lib_ext = if target_triple.contains("apple-darwin") || cfg!(target_os = "macos") {
+        "dylib"
+    } else {
+        "so"
+    };
+
+    let is_macos_target = target_triple.contains("apple-darwin") || cfg!(target_os = "macos");
+
     if cfg!(target_os = "windows") {
         if use_libtorch {
             let torch_lib = torch_path.join("lib");
@@ -961,13 +974,13 @@ fn main() {
         if use_libtorch {
             let torch_lib = torch_path.join("lib");
             println!("cargo:rustc-link-search=native={}", torch_lib.display());
-            link_all_libs_in_dir(&torch_lib, "so");
+            link_all_libs_in_dir(&torch_lib, shared_lib_ext);
         }
         
         if use_tensorflow {
             let tf_lib = tf_path.join("lib");
             println!("cargo:rustc-link-search=native={}", tf_lib.display());
-            link_all_libs_in_dir(&tf_lib, "so");
+            link_all_libs_in_dir(&tf_lib, shared_lib_ext);
         }
 
         println!("cargo:rustc-link-lib=dylib=ai_copper");
@@ -988,14 +1001,14 @@ fn main() {
             let torch_lib = torch_path.join("lib");
             copy_all_files(&torch_lib, &target_dir);
             
-            // Copia explícita das bibliotecas compartilhadas críticas do LibTorch
-            let torch_so_path = torch_lib.join("libtorch.so");
+            // Copia explícita das bibliotecas compartilhadas críticas do LibTorch (nome depende da plataforma)
+            let torch_so_path = torch_lib.join(format!("libtorch.{}", shared_lib_ext));
             copy_specific_lib(&torch_so_path, &target_dir);
             
-            let torch_cpu_so = torch_lib.join("libtorch_cpu.so");
+            let torch_cpu_so = torch_lib.join(format!("libtorch_cpu.{}", shared_lib_ext));
             copy_specific_lib(&torch_cpu_so, &target_dir);
             
-            let c10_so = torch_lib.join("libc10.so");
+            let c10_so = torch_lib.join(format!("libc10.{}", shared_lib_ext));
             copy_specific_lib(&c10_so, &target_dir);
         }
         
@@ -1003,34 +1016,34 @@ fn main() {
             let tf_lib = tf_path.join("lib");
             copy_all_files(&tf_lib, &target_dir);
             
-            // Copia explícita das bibliotecas do TensorFlow
-            let tf_so_path = tf_lib.join("libtensorflow.so");
+            // Copia explícita das bibliotecas do TensorFlow (nome depende da plataforma)
+            let tf_so_path = tf_lib.join(format!("libtensorflow.{}", shared_lib_ext));
             copy_specific_lib(&tf_so_path, &target_dir);
         }
 
         // Verificação detalhada das bibliotecas críticas
-        let ai_copper_path = target_dir.join("libai_copper.so");
+        let ai_copper_path = target_dir.join(format!("libai_copper.{}", shared_lib_ext));
         if !ai_copper_path.exists() {
-            println!("cargo:warning=libai_copper.so not found in {:?}", target_dir);
+            println!("cargo:warning=libai_copper.{} not found in {:?}", shared_lib_ext, target_dir);
         } else {
-            println!("cargo:warning=libai_copper.so found in {:?}", target_dir);
+            println!("cargo:warning=libai_copper.{} found in {:?}", shared_lib_ext, target_dir);
         }
         
         if use_libtorch {
-            let torch_path_check = target_dir.join("libtorch.so");
+            let torch_path_check = target_dir.join(format!("libtorch.{}", shared_lib_ext));
             if !torch_path_check.exists() {
-                println!("cargo:warning=libtorch.so not found in {:?}", target_dir);
+                println!("cargo:warning=libtorch.{} not found in {:?}", shared_lib_ext, target_dir);
             } else {
-                println!("cargo:warning=libtorch.so found in {:?}", target_dir);
+                println!("cargo:warning=libtorch.{} found in {:?}", shared_lib_ext, target_dir);
             }
         }
         
         if use_tensorflow {
-            let tf_path_check = target_dir.join("libtensorflow.so");
+            let tf_path_check = target_dir.join(format!("libtensorflow.{}", shared_lib_ext));
             if !tf_path_check.exists() {
-                println!("cargo:warning=libtensorflow.so not found in {:?}", target_dir);
+                println!("cargo:warning=libtensorflow.{} not found in {:?}", shared_lib_ext, target_dir);
             } else {
-                println!("cargo:warning=libtensorflow.so found in {:?}", target_dir);
+                println!("cargo:warning=libtensorflow.{} found in {:?}", shared_lib_ext, target_dir);
             }
         }
 
