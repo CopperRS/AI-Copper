@@ -48,11 +48,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -78,7 +78,7 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 17.14.19+164abd434 para .NET Framework
-      Compila├º├úo de 16/10/2025 14:26:56 iniciada.
+      Compila├º├úo de 22/10/2025 14:52:35 iniciada.
       
       Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0\\CompilerIdC\\CompilerIdC.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
@@ -107,7 +107,7 @@ events:
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:01.60
+      Tempo Decorrido 00:00:00.91
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -151,10 +151,10 @@ events:
       - "C:/Program Files/CMake/bin/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Program Files/nodejs/"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
       - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
       - "C:/Users/user/AppData/Local/pnpm/"
       - "C:/Users/user/.cargo/bin/"
@@ -182,11 +182,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -230,10 +230,10 @@ events:
       - "C:/Program Files/CMake/bin/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Program Files/nodejs/"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
       - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
       - "C:/Users/user/AppData/Local/pnpm/"
       - "C:/Users/user/.cargo/bin/"
@@ -280,9 +280,6 @@ events:
       - "C:/Program Files/nodejs/lld-link.com"
       - "C:/Program Files/nodejs/lld-link.exe"
       - "C:/Program Files/nodejs/lld-link"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.com"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.exe"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/lld-link.com"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/lld-link.exe"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/lld-link"
@@ -292,6 +289,9 @@ events:
       - "C:/Program Files/PuTTY/lld-link.com"
       - "C:/Program Files/PuTTY/lld-link.exe"
       - "C:/Program Files/PuTTY/lld-link"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/lld-link.com"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/lld-link.exe"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/lld-link"
@@ -335,11 +335,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -381,10 +381,10 @@ events:
       - "C:/Program Files/CMake/bin/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Program Files/nodejs/"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
       - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
       - "C:/Users/user/AppData/Local/pnpm/"
       - "C:/Users/user/.cargo/bin/"
@@ -412,11 +412,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -458,10 +458,10 @@ events:
       - "C:/Program Files/CMake/bin/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Program Files/nodejs/"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
       - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
       - "C:/Users/user/AppData/Local/pnpm/"
       - "C:/Users/user/.cargo/bin/"
@@ -508,9 +508,6 @@ events:
       - "C:/Program Files/nodejs/mt.com"
       - "C:/Program Files/nodejs/mt.exe"
       - "C:/Program Files/nodejs/mt"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt.com"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt.exe"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/mt.com"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/mt.exe"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/mt"
@@ -520,6 +517,9 @@ events:
       - "C:/Program Files/PuTTY/mt.com"
       - "C:/Program Files/PuTTY/mt.exe"
       - "C:/Program Files/PuTTY/mt"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/mt.com"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/mt.exe"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/mt"
@@ -563,11 +563,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -609,10 +609,10 @@ events:
       - "C:/Program Files/CMake/bin/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Program Files/nodejs/"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
       - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
       - "C:/Users/user/AppData/Local/pnpm/"
       - "C:/Users/user/.cargo/bin/"
@@ -640,11 +640,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -694,11 +694,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -724,7 +724,7 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 17.14.19+164abd434 para .NET Framework
-      Compila├º├úo de 16/10/2025 14:26:58 iniciada.
+      Compila├º├úo de 22/10/2025 14:52:36 iniciada.
       
       Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0\\CompilerIdCXX\\CompilerIdCXX.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
@@ -753,7 +753,7 @@ events:
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:01.19
+      Tempo Decorrido 00:00:00.83
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -797,10 +797,10 @@ events:
       - "C:/Program Files/CMake/bin/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Program Files/nodejs/"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
       - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
       - "C:/Users/user/AppData/Local/pnpm/"
       - "C:/Users/user/.cargo/bin/"
@@ -847,9 +847,6 @@ events:
       - "C:/Program Files/nodejs/lld-link.com"
       - "C:/Program Files/nodejs/lld-link.exe"
       - "C:/Program Files/nodejs/lld-link"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.com"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.exe"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/lld-link.com"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/lld-link.exe"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/lld-link"
@@ -859,6 +856,9 @@ events:
       - "C:/Program Files/PuTTY/lld-link.com"
       - "C:/Program Files/PuTTY/lld-link.exe"
       - "C:/Program Files/PuTTY/lld-link"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/lld-link.com"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/lld-link.exe"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/lld-link"
@@ -902,11 +902,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -953,11 +953,11 @@ events:
       - "C:/Program Files/CMake/bin/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Program Files/nodejs/"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
       - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
       - "C:/Users/user/AppData/Local/pnpm/"
       - "C:/Users/user/.cargo/bin/"
@@ -1022,9 +1022,6 @@ events:
       - "C:/Program Files/nodejs/rc.com"
       - "C:/Program Files/nodejs/rc.exe"
       - "C:/Program Files/nodejs/rc"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc.com"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc.exe"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/rc.com"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/rc.exe"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/rc"
@@ -1037,6 +1034,9 @@ events:
       - "C:/Program Files/PuTTY/rc.com"
       - "C:/Program Files/PuTTY/rc.exe"
       - "C:/Program Files/PuTTY/rc"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/rc.com"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/rc.exe"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/rc"
@@ -1116,11 +1116,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -1145,8 +1145,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-zu8dlb"
-      binary: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-zu8dlb"
+      source: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-2xdqkf"
+      binary: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-2xdqkf"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1155,40 +1155,40 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-zu8dlb'
+        Change Dir: 'E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-2xdqkf'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_77ae0.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_60a1e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         Vers├úo do MSBuild 17.14.19+164abd434 para .NET Framework
-        Compila├º├úo de 16/10/2025 14:26:59 iniciada.
+        Compila├º├úo de 22/10/2025 14:52:37 iniciada.
         
-        Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zu8dlb\\cmTC_77ae0.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2xdqkf\\cmTC_60a1e.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
-          Criando o diret├│rio "cmTC_77ae0.dir\\Debug\\".
+          Criando o diret├│rio "cmTC_60a1e.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Criando o diret├│rio "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zu8dlb\\Debug\\".
-          Criando o diret├│rio "cmTC_77ae0.dir\\Debug\\cmTC_77ae0.tlog\\".
+          Criando o diret├│rio "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2xdqkf\\Debug\\".
+          Criando o diret├│rio "cmTC_60a1e.dir\\Debug\\cmTC_60a1e.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_77ae0.dir\\Debug\\cmTC_77ae0.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_77ae0.dir\\Debug\\cmTC_77ae0.tlog\\unsuccessfulbuild".
+          Criando "cmTC_60a1e.dir\\Debug\\cmTC_60a1e.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_60a1e.dir\\Debug\\cmTC_60a1e.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_77ae0.dir\\Debug\\\\" /Fd"cmTC_77ae0.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_60a1e.dir\\Debug\\\\" /Fd"cmTC_60a1e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35215 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_77ae0.dir\\Debug\\\\" /Fd"cmTC_77ae0.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_60a1e.dir\\Debug\\\\" /Fd"cmTC_60a1e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zu8dlb\\Debug\\cmTC_77ae0.exe" /INCREMENTAL /ILK:"cmTC_77ae0.dir\\Debug\\cmTC_77ae0.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-zu8dlb/Debug/cmTC_77ae0.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-zu8dlb/Debug/cmTC_77ae0.lib" /MACHINE:X64  /machine:x64 cmTC_77ae0.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_77ae0.vcxproj -> E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zu8dlb\\Debug\\cmTC_77ae0.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2xdqkf\\Debug\\cmTC_60a1e.exe" /INCREMENTAL /ILK:"cmTC_60a1e.dir\\Debug\\cmTC_60a1e.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-2xdqkf/Debug/cmTC_60a1e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-2xdqkf/Debug/cmTC_60a1e.lib" /MACHINE:X64  /machine:x64 cmTC_60a1e.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_60a1e.vcxproj -> E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2xdqkf\\Debug\\cmTC_60a1e.exe
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_77ae0.dir\\Debug\\cmTC_77ae0.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_77ae0.dir\\Debug\\cmTC_77ae0.tlog\\cmTC_77ae0.lastbuildstate".
-        Projeto de compila├º├úo pronto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zu8dlb\\cmTC_77ae0.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_60a1e.dir\\Debug\\cmTC_60a1e.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_60a1e.dir\\Debug\\cmTC_60a1e.tlog\\cmTC_60a1e.lastbuildstate".
+        Projeto de compila├º├úo pronto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-2xdqkf\\cmTC_60a1e.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:01.08
+        Tempo Decorrido 00:00:00.86
         
       exitCode: 0
   -
@@ -1228,8 +1228,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-9oysx1"
-      binary: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-9oysx1"
+      source: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-puy12x"
+      binary: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-puy12x"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1239,40 +1239,40 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-9oysx1'
+        Change Dir: 'E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-puy12x'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_fc792.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_19653.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         Vers├úo do MSBuild 17.14.19+164abd434 para .NET Framework
-        Compila├º├úo de 16/10/2025 14:27:01 iniciada.
+        Compila├º├úo de 22/10/2025 14:52:38 iniciada.
         
-        Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9oysx1\\cmTC_fc792.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-puy12x\\cmTC_19653.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
-          Criando o diret├│rio "cmTC_fc792.dir\\Debug\\".
+          Criando o diret├│rio "cmTC_19653.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Criando o diret├│rio "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9oysx1\\Debug\\".
-          Criando o diret├│rio "cmTC_fc792.dir\\Debug\\cmTC_fc792.tlog\\".
+          Criando o diret├│rio "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-puy12x\\Debug\\".
+          Criando o diret├│rio "cmTC_19653.dir\\Debug\\cmTC_19653.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_fc792.dir\\Debug\\cmTC_fc792.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_fc792.dir\\Debug\\cmTC_fc792.tlog\\unsuccessfulbuild".
+          Criando "cmTC_19653.dir\\Debug\\cmTC_19653.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_19653.dir\\Debug\\cmTC_19653.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_fc792.dir\\Debug\\\\" /Fd"cmTC_fc792.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_19653.dir\\Debug\\\\" /Fd"cmTC_19653.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35215 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_fc792.dir\\Debug\\\\" /Fd"cmTC_fc792.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_19653.dir\\Debug\\\\" /Fd"cmTC_19653.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9oysx1\\Debug\\cmTC_fc792.exe" /INCREMENTAL /ILK:"cmTC_fc792.dir\\Debug\\cmTC_fc792.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-9oysx1/Debug/cmTC_fc792.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-9oysx1/Debug/cmTC_fc792.lib" /MACHINE:X64  /machine:x64 cmTC_fc792.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_fc792.vcxproj -> E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9oysx1\\Debug\\cmTC_fc792.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-puy12x\\Debug\\cmTC_19653.exe" /INCREMENTAL /ILK:"cmTC_19653.dir\\Debug\\cmTC_19653.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-puy12x/Debug/cmTC_19653.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-puy12x/Debug/cmTC_19653.lib" /MACHINE:X64  /machine:x64 cmTC_19653.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_19653.vcxproj -> E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-puy12x\\Debug\\cmTC_19653.exe
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_fc792.dir\\Debug\\cmTC_fc792.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_fc792.dir\\Debug\\cmTC_fc792.tlog\\cmTC_fc792.lastbuildstate".
-        Projeto de compila├º├úo pronto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9oysx1\\cmTC_fc792.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_19653.dir\\Debug\\cmTC_19653.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_19653.dir\\Debug\\cmTC_19653.tlog\\cmTC_19653.lastbuildstate".
+        Projeto de compila├º├úo pronto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-puy12x\\cmTC_19653.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:01.19
+        Tempo Decorrido 00:00:00.89
         
       exitCode: 0
   -
@@ -1454,14 +1454,6 @@ events:
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/MKLConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mkl-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
         path: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/MKLConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -1491,6 +1483,14 @@ events:
         reason: "no_exist"
       -
         path: "C:/Program Files/PuTTY/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mkl-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -1605,11 +1605,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -1776,14 +1776,6 @@ events:
         mode: "config"
         reason: "no_exist"
       -
-        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/MKLDNNConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mkldnn-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
         path: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/MKLDNNConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -1813,6 +1805,14 @@ events:
         reason: "no_exist"
       -
         path: "C:/Program Files/PuTTY/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mkldnn-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -1927,11 +1927,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -2028,11 +2028,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -2081,11 +2081,11 @@ events:
       - "C:/Program Files/CMake/bin/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Program Files/nodejs/"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
       - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
       - "C:/Users/user/AppData/Local/pnpm/"
       - "C:/Users/user/.cargo/bin/"
@@ -2122,11 +2122,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -2179,11 +2179,11 @@ events:
       - "C:/Program Files/CMake/bin/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Program Files/nodejs/"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
       - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
       - "C:/Users/user/AppData/Local/pnpm/"
       - "C:/Users/user/.cargo/bin/"
@@ -2220,11 +2220,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -2276,11 +2276,11 @@ events:
       - "C:/Program Files/CMake/bin/"
       - "C:/Program Files/Git/cmd/"
       - "C:/Program Files/nodejs/"
-      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
       - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
       - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
       - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
       - "C:/Users/user/AppData/Local/pnpm/"
       - "C:/Users/user/.cargo/bin/"
@@ -2317,11 +2317,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -2377,11 +2377,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"
@@ -2436,11 +2436,11 @@ events:
         - "C:\\Program Files\\CMake\\bin"
         - "C:\\Program Files\\Git\\cmd"
         - "C:\\Program Files\\nodejs\\"
-        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
         - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
         - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
         - "C:\\Users\\user\\AppData\\Local\\pnpm"
         - "C:\\Users\\user\\.cargo\\bin"

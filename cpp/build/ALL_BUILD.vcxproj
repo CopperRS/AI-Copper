@@ -174,9 +174,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="E:\Copper\AI-Copper\cpp\build\ai_copper_cpp.vcxproj">
-      <Project>{7DCD0B12-04D0-3DC9-9985-D51322202EC5}</Project>
-      <Name>ai_copper_cpp</Name>
+    <ProjectReference Include="E:\Copper\AI-Copper\cpp\build\ai_copper.vcxproj">
+      <Project>{A0F293DF-419B-3EB6-AA19-C49B9B1205A4}</Project>
+      <Name>ai_copper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
