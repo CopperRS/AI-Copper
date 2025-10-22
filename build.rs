@@ -4,6 +4,52 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+/// Verifica se um prefixo de libtorch parece ser uma instalação completa
+fn is_valid_libtorch_prefix(p: &Path) -> bool {
+    if !p.exists() {
+        return false;
+    }
+    // Prefer check for CMake config
+    let cmake_cfg = p.join("share").join("cmake").join("Torch").join("TorchConfig.cmake");
+    if cmake_cfg.exists() {
+        return true;
+    }
+    // Fallback: check for platform-specific libraries
+    #[cfg(target_os = "windows")]
+    {
+        if p.join("lib").join("torch.lib").exists() || p.join("lib").join("torch.dll").exists() {
+            return true;
+        }
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        if p.join("lib").join("libtorch.so").exists() || p.join("lib").join("libtorch.a").exists() {
+            return true;
+        }
+    }
+    false
+}
+
+/// Verifica se um prefixo de tensorflow parece ser uma instalação completa
+fn is_valid_tensorflow_prefix(p: &Path) -> bool {
+    if !p.exists() {
+        return false;
+    }
+    // Require both headers and library files to consider the prefix valid
+    let include_ok = p.join("include").join("tensorflow").join("c").join("c_api.h").exists();
+
+    #[cfg(target_os = "windows")]
+    {
+        let lib_ok = p.join("lib").join("tensorflow.dll").exists() || p.join("lib").join("tensorflow.lib").exists();
+        return include_ok && lib_ok;
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        let lib_ok = p.join("lib").join("libtensorflow.so").exists();
+        return include_ok && lib_ok;
+    }
+}
+
 /// URLs para download das bibliotecas
 const LIBTORCH_WINDOWS_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.1.0%2Bcpu.zip";
 const LIBTORCH_LINUX_URL: &str = "https://download.pytorch.org/libtorch/cpu/libtorch-cxx11-abi-shared-with-deps-2.1.0%2Bcpu.zip";
@@ -129,9 +175,21 @@ fn extract_tar_gz(tar_path: &Path, dest_dir: &Path) -> Result<(), Box<dyn std::e
 /// Garante que uma biblioteca está disponível (baixa se necessário)
 fn ensure_library(lib_name: &str, lib_dir: &Path) -> Result<PathBuf, Box<dyn std::error::Error>> {
     if lib_dir.exists() {
-        println!("cargo:warning={} já existe em: {:?}", lib_name, lib_dir);
-        set_environment_variables(lib_name, lib_dir)?;
-        return Ok(lib_dir.to_path_buf());
+        // If the existing directory appears to be a valid installation, just use it.
+        let valid = match lib_name {
+            "libtorch" => is_valid_libtorch_prefix(lib_dir),
+            "tensorflow" => is_valid_tensorflow_prefix(lib_dir),
+            _ => false,
+        };
+
+        if valid {
+            println!("cargo:warning={} já existe em: {:?}", lib_name, lib_dir);
+            set_environment_variables(lib_name, lib_dir)?;
+            return Ok(lib_dir.to_path_buf());
+        } else {
+            println!("cargo:warning={} existe mas parece incompleto/inválido em {:?}; irá ser substituído.", lib_name, lib_dir);
+            // continue to download/replace the directory (move_directory will remove existing dest when moving)
+        }
     }
 
     println!("cargo:warning={} não encontrado, iniciando download...", lib_name);
@@ -363,171 +421,64 @@ fn copy_directory_recursive(source: &Path, dest: &Path) -> Result<(), Box<dyn st
 fn set_environment_variables(lib_name: &str, lib_path: &Path) -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(target_os = "windows")]
     {
-        let lib_dir = lib_path.join("lib");
-        let bin_dir = lib_path.join("bin");
-        let include_dir = lib_path.join("include");
+    let _lib_dir = lib_path.join("lib");
+    let _bin_dir = lib_path.join("bin");
+    let _include_dir = lib_path.join("include");
         
         match lib_name {
             "libtorch" => {
-                println!("cargo:warning=Configurando variáveis de ambiente para LibTorch...");
-                
-                // 1. TORCH_HOME - Raiz da instalação do libtorch
-                set_env_var("TORCH_HOME", &lib_path.display().to_string())?;
-                
-                // 2. LD_LIBRARY_PATH - Caminho das libs (.so) no Linux/macOS
-                let ld_lib_path = lib_dir.display().to_string();
-                set_env_var("LD_LIBRARY_PATH", &ld_lib_path)?;
-                
-                // 3. LIBRARY_PATH - Caminho de linkagem (para compilação)
-                set_env_var("LIBRARY_PATH", &ld_lib_path)?;
-                
-                // 4. CPATH - Caminho dos headers (.h)
-                if include_dir.exists() {
-                    set_env_var("CPATH", &include_dir.display().to_string())?;
-                }
-                
-                // 5. PATH - (Windows) Caminho das DLLs
-                add_to_path_windows(&lib_dir)?;
-                if bin_dir.exists() {
-                    add_to_path_windows(&bin_dir)?;
-                }
-                
-                // 6. CMAKE_PREFIX_PATH - Para CMake encontrar automaticamente o pacote Torch
-                set_env_var("CMAKE_PREFIX_PATH", &lib_path.display().to_string())?;
-                
-                println!("cargo:warning=✓ TORCH_HOME={}", lib_path.display());
-                println!("cargo:warning=✓ LD_LIBRARY_PATH={}", ld_lib_path);
-                println!("cargo:warning=✓ LIBRARY_PATH={}", ld_lib_path);
-                if include_dir.exists() {
-                    println!("cargo:warning=✓ CPATH={}", include_dir.display());
-                }
-                println!("cargo:warning=✓ CMAKE_PREFIX_PATH={}", lib_path.display());
-                println!("cargo:warning=✓ PATH atualizado com lib e bin");
+                println!("cargo:warning=Configurando variável de sistema LIBTORCH para LibTorch (apenas esta variável será definida)...");
+
+                // Define apenas LIBTORCH apontando para a raiz da instalação.
+                // O build continua a exportar LIBTORCH para o processo CMake localmente; aqui tentamos
+                // apenas persistir a variável no escopo Machine no Windows, conforme solicitado.
+                set_env_var("LIBTORCH", &lib_path.display().to_string())?;
+
+                println!("cargo:warning=✓ LIBTORCH={}", lib_path.display());
             }
             "tensorflow" => {
-                println!("cargo:warning=Configurando variáveis de ambiente para TensorFlow...");
-                
-                // 1. TENSORFLOW_ROOT - Raiz da instalação do TensorFlow
+                println!("cargo:warning=Configurando variável de sistema TENSORFLOW_ROOT para TensorFlow (apenas esta variável será definida)...");
+
+                // Define apenas TENSORFLOW_ROOT apontando para a raiz da instalação.
                 set_env_var("TENSORFLOW_ROOT", &lib_path.display().to_string())?;
-                
-                // 2. LD_LIBRARY_PATH - Caminho das libs dinâmicas no Linux/macOS
-                let ld_lib_path = lib_dir.display().to_string();
-                set_env_var("LD_LIBRARY_PATH", &ld_lib_path)?;
-                
-                // 3. LIBRARY_PATH - Caminho de linkagem (para compilação)
-                set_env_var("LIBRARY_PATH", &ld_lib_path)?;
-                
-                // 4. CPATH - Caminho dos headers (.h)
-                if include_dir.exists() {
-                    set_env_var("CPATH", &include_dir.display().to_string())?;
-                }
-                
-                // 5. PATH - (Windows) Caminho das DLLs
-                add_to_path_windows(&lib_dir)?;
-                if bin_dir.exists() {
-                    add_to_path_windows(&bin_dir)?;
-                }
-                
+
                 println!("cargo:warning=✓ TENSORFLOW_ROOT={}", lib_path.display());
-                println!("cargo:warning=✓ LD_LIBRARY_PATH={}", ld_lib_path);
-                println!("cargo:warning=✓ LIBRARY_PATH={}", ld_lib_path);
-                if include_dir.exists() {
-                    println!("cargo:warning=✓ CPATH={}", include_dir.display());
-                }
-                println!("cargo:warning=✓ PATH atualizado com lib e bin");
             }
             _ => {}
         }
-        
-        println!("cargo:warning=Variáveis de ambiente configuradas. Reinicie o terminal para que tenham efeito.");
+
+        println!("cargo:warning=Variáveis de sistema ajustadas (LIBTORCH/TENSORFLOW_ROOT). Reinicie o terminal para que tenham efeito.");
     }
     
     #[cfg(target_os = "macos")]
     {
-        let lib_dir = lib_path.join("lib");
-        let bin_dir = lib_path.join("bin");
-        let include_dir = lib_path.join("include");
+        // On macOS, only print instructions and set user-level environment variables if possible.
         match lib_name {
             "libtorch" => {
-                println!("cargo:warning=Configurando variáveis de ambiente para LibTorch (macOS)...");
-                set_env_var("TORCH_HOME", &lib_path.display().to_string())?;
-                let ld_lib_path = lib_dir.display().to_string();
-                set_env_var("LD_LIBRARY_PATH", &ld_lib_path)?;
-                set_env_var("LIBRARY_PATH", &ld_lib_path)?;
-                if include_dir.exists() {
-                    set_env_var("CPATH", &include_dir.display().to_string())?;
-                }
-                set_env_var("CMAKE_PREFIX_PATH", &lib_path.display().to_string())?;
-                // PATH
-                add_to_path_macos(&lib_dir)?;
-                if bin_dir.exists() {
-                    add_to_path_macos(&bin_dir)?;
-                }
-                println!("cargo:warning=✓ TORCH_HOME={}", lib_path.display());
-                println!("cargo:warning=✓ LD_LIBRARY_PATH={}", ld_lib_path);
-                println!("cargo:warning=✓ LIBRARY_PATH={}", ld_lib_path);
-                if include_dir.exists() {
-                    println!("cargo:warning=✓ CPATH={}", include_dir.display());
-                }
-                println!("cargo:warning=✓ CMAKE_PREFIX_PATH={}", lib_path.display());
-                println!("cargo:warning=✓ PATH atualizado com lib e bin");
+                println!("cargo:warning=Instrução: exporte LIBTORCH apontando para {}", lib_path.display());
+                // Prefer not to programmatically change user env on macOS; print guidance.
             }
             "tensorflow" => {
-                println!("cargo:warning=Configurando variáveis de ambiente para TensorFlow (macOS)...");
-                set_env_var("TENSORFLOW_ROOT", &lib_path.display().to_string())?;
-                let ld_lib_path = lib_dir.display().to_string();
-                set_env_var("LD_LIBRARY_PATH", &ld_lib_path)?;
-                set_env_var("LIBRARY_PATH", &ld_lib_path)?;
-                if include_dir.exists() {
-                    set_env_var("CPATH", &include_dir.display().to_string())?;
-                }
-                add_to_path_macos(&lib_dir)?;
-                if bin_dir.exists() {
-                    add_to_path_macos(&bin_dir)?;
-                }
-                println!("cargo:warning=✓ TENSORFLOW_ROOT={}", lib_path.display());
-                println!("cargo:warning=✓ LD_LIBRARY_PATH={}", ld_lib_path);
-                println!("cargo:warning=✓ LIBRARY_PATH={}", ld_lib_path);
-                if include_dir.exists() {
-                    println!("cargo:warning=✓ CPATH={}", include_dir.display());
-                }
-                println!("cargo:warning=✓ PATH atualizado com lib e bin");
+                println!("cargo:warning=Instrução: exporte TENSORFLOW_ROOT apontando para {}", lib_path.display());
             }
             _ => {}
         }
-        println!("cargo:warning=Variáveis de ambiente configuradas. Reinicie o terminal para que tenham efeito.");
+        println!("cargo:warning=Variáveis: apenas LIBTORCH e TENSORFLOW_ROOT são necessárias para este projeto.");
     }
     
     #[cfg(not(target_os = "windows"))]
     {
-        // Linux/macOS
-        let lib_dir = lib_path.join("lib");
-        let include_dir = lib_path.join("include");
-        
+        // Linux/macOS: print minimal instructions for the user to set the two required env vars.
         match lib_name {
             "libtorch" => {
-                println!("cargo:warning=Variáveis configuradas no ambiente de build:");
-                println!("cargo:warning=Para persistir, adicione ao ~/.bashrc ou ~/.zshrc:");
-                println!("cargo:warning=  export TORCH_HOME={}", lib_path.display());
-                println!("cargo:warning=  export LD_LIBRARY_PATH={}:$LD_LIBRARY_PATH", lib_dir.display());
-                println!("cargo:warning=  export LIBRARY_PATH={}:$LIBRARY_PATH", lib_dir.display());
-                if include_dir.exists() {
-                    println!("cargo:warning=  export CPATH={}:$CPATH", include_dir.display());
-                }
-                println!("cargo:warning=  export CMAKE_PREFIX_PATH={}", lib_path.display());
+                println!("cargo:warning=Adicione ao seu shell (ex: ~/.bashrc): export LIBTORCH={}", lib_path.display());
             }
             "tensorflow" => {
-                println!("cargo:warning=Variáveis configuradas no ambiente de build:");
-                println!("cargo:warning=Para persistir, adicione ao ~/.bashrc ou ~/.zshrc:");
-                println!("cargo:warning=  export TENSORFLOW_ROOT={}", lib_path.display());
-                println!("cargo:warning=  export LD_LIBRARY_PATH={}:$LD_LIBRARY_PATH", lib_dir.display());
-                println!("cargo:warning=  export LIBRARY_PATH={}:$LIBRARY_PATH", lib_dir.display());
-                if include_dir.exists() {
-                    println!("cargo:warning=  export CPATH={}:$CPATH", include_dir.display());
-                }
+                println!("cargo:warning=Adicione ao seu shell (ex: ~/.bashrc): export TENSORFLOW_ROOT={}", lib_path.display());
             }
             _ => {}
         }
+        println!("cargo:warning=Variáveis: apenas LIBTORCH e TENSORFLOW_ROOT são necessárias para este projeto.");
     }
     
     Ok(())
@@ -541,7 +492,7 @@ fn set_env_var(var_name: &str, value: &str) -> Result<(), Box<dyn std::error::Er
     let output = Command::new("powershell")
         .args(&[
             "-Command",
-            &format!("[Environment]::SetEnvironmentVariable('{}', '{}', 'User')", var_name, value)
+            &format!("[Environment]::SetEnvironmentVariable('{}', '{}', 'Machine')", var_name, value)
         ])
         .output()?;
     
@@ -579,11 +530,11 @@ fn add_to_path_windows(dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
     
     println!("cargo:warning=Adicionando ao PATH: {}", dir_str);
     
-    // Obtém o PATH atual do usuário
+    // Obtém o PATH atual do sistema (Machine scope)
     let output = Command::new("powershell")
         .args(&[
             "-Command",
-            "[Environment]::GetEnvironmentVariable('Path', 'User')"
+            "[Environment]::GetEnvironmentVariable('Path', 'Machine')"
         ])
         .output()?;
     
@@ -605,7 +556,7 @@ fn add_to_path_windows(dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
     let output = Command::new("powershell")
         .args(&[
             "-Command",
-            &format!("[Environment]::SetEnvironmentVariable('Path', '{}', 'User')", new_path)
+            &format!("[Environment]::SetEnvironmentVariable('Path', '{}', 'Machine')", new_path)
         ])
         .output()?;
     
@@ -753,64 +704,70 @@ fn main() {
 
     // Garante que as bibliotecas estejam disponíveis
     let torch_path = if use_libtorch {
-        // Verifica primeiro em C:\libtorch (instalação automática)
+        // Prefer system install (C:\libtorch on Windows), then check repo deps, then download to system path.
         let system_torch_path = if cfg!(target_os = "windows") {
             PathBuf::from("C:\\libtorch")
         } else {
             let home = env::var("HOME").unwrap_or_else(|_| String::from("/tmp"));
             PathBuf::from(home).join(".local").join("libtorch")
         };
-        
-        // Tenta usar variável de ambiente ou usa o caminho do sistema
-        match env::var("LIBTORCH") {
-            Ok(path) => {
-                println!("cargo:warning=Usando LIBTORCH de variável de ambiente: {}", path);
-                PathBuf::from(path)
-            }
-            Err(_) => {
-                if system_torch_path.exists() {
-                    println!("cargo:warning=Usando LibTorch instalado em: {:?}", system_torch_path);
-                    set_environment_variables("libtorch", &system_torch_path)
-                        .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
-                    system_torch_path
-                } else {
-                    println!("cargo:warning=LIBTORCH não definido, fazendo download automático...");
-                    ensure_library("libtorch", &system_torch_path)
-                        .expect("Falha ao baixar LibTorch")
-                }
-            }
+
+        let deps_torch_path = PathBuf::from("deps/libtorch");
+
+        // 1) LIBTORCH env var if set
+        if let Ok(path) = env::var("LIBTORCH") {
+            println!("cargo:warning=Usando LIBTORCH de variável de ambiente: {}", path);
+            PathBuf::from(path)
+        } else if system_torch_path.exists() && is_valid_libtorch_prefix(&system_torch_path) {
+            // 2) system path (C:\libtorch) if it appears to be a valid full install
+            println!("cargo:warning=Usando LibTorch instalado em: {:?}", system_torch_path);
+            set_environment_variables("libtorch", &system_torch_path)
+                .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
+            system_torch_path
+        } else if deps_torch_path.exists() && is_valid_libtorch_prefix(&deps_torch_path) {
+            // 3) fallback to repo deps if present and valid
+            println!("cargo:warning=Usando LibTorch encontrado em deps: {:?}", deps_torch_path);
+            set_environment_variables("libtorch", &deps_torch_path)
+                .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
+            deps_torch_path
+        } else {
+            // 4) download/install to system path
+            println!("cargo:warning=LIBTORCH não definido e não encontrado, fazendo download automático para {:?}...", system_torch_path);
+            ensure_library("libtorch", &system_torch_path)
+                .expect("Falha ao baixar LibTorch")
         }
     } else {
         PathBuf::from("deps/libtorch") // Caminho dummy se não estiver usando
     };
 
     let tf_path = if use_tensorflow {
-        // Verifica primeiro em C:\libtensorflow (instalação automática)
+        // Prefer system install (C:\libtensorflow on Windows), then check repo deps, then download to system path.
         let system_tf_path = if cfg!(target_os = "windows") {
             PathBuf::from("C:\\libtensorflow")
         } else {
             let home = env::var("HOME").unwrap_or_else(|_| String::from("/tmp"));
             PathBuf::from(home).join(".local").join("libtensorflow")
         };
-        
-        // Tenta usar variável de ambiente ou usa o caminho do sistema
-        match env::var("TENSORFLOW_ROOT") {
-            Ok(path) => {
-                println!("cargo:warning=Usando TENSORFLOW_ROOT de variável de ambiente: {}", path);
-                PathBuf::from(path)
-            }
-            Err(_) => {
-                if system_tf_path.exists() {
-                    println!("cargo:warning=Usando TensorFlow instalado em: {:?}", system_tf_path);
-                    set_environment_variables("tensorflow", &system_tf_path)
-                        .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
-                    system_tf_path
-                } else {
-                    println!("cargo:warning=TENSORFLOW_ROOT não definido, fazendo download automático...");
-                    ensure_library("tensorflow", &system_tf_path)
-                        .expect("Falha ao baixar TensorFlow")
-                }
-            }
+
+        let deps_tf_path = PathBuf::from("deps/libtensorflow");
+
+        if let Ok(path) = env::var("TENSORFLOW_ROOT") {
+            println!("cargo:warning=Usando TENSORFLOW_ROOT de variável de ambiente: {}", path);
+            PathBuf::from(path)
+        } else if system_tf_path.exists() && is_valid_tensorflow_prefix(&system_tf_path) {
+            println!("cargo:warning=Usando TensorFlow instalado em: {:?}", system_tf_path);
+            set_environment_variables("tensorflow", &system_tf_path)
+                .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
+            system_tf_path
+        } else if deps_tf_path.exists() && is_valid_tensorflow_prefix(&deps_tf_path) {
+            println!("cargo:warning=Usando TensorFlow encontrado em deps: {:?}", deps_tf_path);
+            set_environment_variables("tensorflow", &deps_tf_path)
+                .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
+            deps_tf_path
+        } else {
+            println!("cargo:warning=TENSORFLOW_ROOT não definido e não encontrado, fazendo download automático para {:?}...", system_tf_path);
+            ensure_library("tensorflow", &system_tf_path)
+                .expect("Falha ao baixar TensorFlow")
         }
     } else {
         PathBuf::from("deps/tensorflow") // Caminho dummy se não estiver usando
@@ -851,12 +808,50 @@ fn main() {
         cmake_cmd.env("TENSORFLOW_ROOT", &tf_path);
     }
 
-    let cmake_status = cmake_cmd
-        .status()
+    // Run CMake and capture output so we can attempt a retry if TensorFlow is missing.
+    let cmake_output = cmake_cmd
+        .output()
         .expect("Failed to run CMake configuration");
 
-    if !cmake_status.success() {
-        panic!("CMake configuration failed");
+    if !cmake_output.status.success() {
+        let stderr = String::from_utf8_lossy(&cmake_output.stderr).to_string();
+        // If the failure looks like CMake couldn't find TensorFlow, try installing TensorFlow and retry once.
+        if use_tensorflow && (stderr.contains("TF_LIBRARY") || stderr.contains("TensorFlow library") || stderr.contains("TENSORFLOW_ROOT")) {
+            println!("cargo:warning=CMake failed to find TensorFlow: attempting to (re)install TensorFlow to system prefix and retry...");
+
+            let system_tf_path = if cfg!(target_os = "windows") {
+                PathBuf::from("C:\\libtensorflow")
+            } else {
+                let home = env::var("HOME").unwrap_or_else(|_| String::from("/tmp"));
+                PathBuf::from(home).join(".local").join("libtensorflow")
+            };
+
+            ensure_library("tensorflow", &system_tf_path).expect("Falha ao baixar TensorFlow (retry)");
+            set_environment_variables("tensorflow", &system_tf_path)
+                .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
+
+            // Retry CMake with the updated TENSORFLOW_ROOT
+            let mut cmake_cmd2 = Command::new("cmake");
+            cmake_cmd2.args(&cmake_args);
+            if use_libtorch {
+                cmake_cmd2.env("LIBTORCH", &torch_path);
+            }
+            if use_tensorflow {
+                cmake_cmd2.env("TENSORFLOW_ROOT", &system_tf_path);
+            }
+
+            let cmake_status2 = cmake_cmd2
+                .status()
+                .expect("Failed to run CMake configuration (retry)");
+
+            if !cmake_status2.success() {
+                println!("cargo:warning=CMake failed even after attempting to install TensorFlow. stderr: {}", stderr);
+                panic!("CMake configuration failed");
+            }
+        } else {
+            println!("cargo:warning=CMake stderr: {}", stderr);
+            panic!("CMake configuration failed");
+        }
     }
 
     // Compila o projeto C++
