@@ -78,7 +78,7 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 17.14.19+164abd434 para .NET Framework
-      Compila├º├úo de 22/10/2025 13:20:10 iniciada.
+      Compila├º├úo de 22/10/2025 14:26:00 iniciada.
       
       Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0\\CompilerIdC\\CompilerIdC.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
@@ -107,7 +107,7 @@ events:
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:00.60
+      Tempo Decorrido 00:00:00.62
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -724,7 +724,7 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 17.14.19+164abd434 para .NET Framework
-      Compila├º├úo de 22/10/2025 13:20:11 iniciada.
+      Compila├º├úo de 22/10/2025 14:26:01 iniciada.
       
       Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0\\CompilerIdCXX\\CompilerIdCXX.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
@@ -753,7 +753,7 @@ events:
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:00.58
+      Tempo Decorrido 00:00:00.61
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -1145,8 +1145,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-899dbi"
-      binary: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-899dbi"
+      source: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-pglii5"
+      binary: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-pglii5"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1155,40 +1155,40 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-899dbi'
+        Change Dir: 'E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-pglii5'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_0c89f.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_df87e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         Vers├úo do MSBuild 17.14.19+164abd434 para .NET Framework
-        Compila├º├úo de 22/10/2025 13:20:11 iniciada.
+        Compila├º├úo de 22/10/2025 14:26:02 iniciada.
         
-        Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-899dbi\\cmTC_0c89f.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pglii5\\cmTC_df87e.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
-          Criando o diret├│rio "cmTC_0c89f.dir\\Debug\\".
+          Criando o diret├│rio "cmTC_df87e.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Criando o diret├│rio "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-899dbi\\Debug\\".
-          Criando o diret├│rio "cmTC_0c89f.dir\\Debug\\cmTC_0c89f.tlog\\".
+          Criando o diret├│rio "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pglii5\\Debug\\".
+          Criando o diret├│rio "cmTC_df87e.dir\\Debug\\cmTC_df87e.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_0c89f.dir\\Debug\\cmTC_0c89f.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_0c89f.dir\\Debug\\cmTC_0c89f.tlog\\unsuccessfulbuild".
+          Criando "cmTC_df87e.dir\\Debug\\cmTC_df87e.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_df87e.dir\\Debug\\cmTC_df87e.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_0c89f.dir\\Debug\\\\" /Fd"cmTC_0c89f.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_df87e.dir\\Debug\\\\" /Fd"cmTC_df87e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35215 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_0c89f.dir\\Debug\\\\" /Fd"cmTC_0c89f.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_df87e.dir\\Debug\\\\" /Fd"cmTC_df87e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-899dbi\\Debug\\cmTC_0c89f.exe" /INCREMENTAL /ILK:"cmTC_0c89f.dir\\Debug\\cmTC_0c89f.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-899dbi/Debug/cmTC_0c89f.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-899dbi/Debug/cmTC_0c89f.lib" /MACHINE:X64  /machine:x64 cmTC_0c89f.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_0c89f.vcxproj -> E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-899dbi\\Debug\\cmTC_0c89f.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pglii5\\Debug\\cmTC_df87e.exe" /INCREMENTAL /ILK:"cmTC_df87e.dir\\Debug\\cmTC_df87e.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-pglii5/Debug/cmTC_df87e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-pglii5/Debug/cmTC_df87e.lib" /MACHINE:X64  /machine:x64 cmTC_df87e.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_df87e.vcxproj -> E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pglii5\\Debug\\cmTC_df87e.exe
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_0c89f.dir\\Debug\\cmTC_0c89f.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_0c89f.dir\\Debug\\cmTC_0c89f.tlog\\cmTC_0c89f.lastbuildstate".
-        Projeto de compila├º├úo pronto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-899dbi\\cmTC_0c89f.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_df87e.dir\\Debug\\cmTC_df87e.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_df87e.dir\\Debug\\cmTC_df87e.tlog\\cmTC_df87e.lastbuildstate".
+        Projeto de compila├º├úo pronto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-pglii5\\cmTC_df87e.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:00.54
+        Tempo Decorrido 00:00:00.60
         
       exitCode: 0
   -
@@ -1228,8 +1228,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-mge3o7"
-      binary: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-mge3o7"
+      source: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-6kee1m"
+      binary: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-6kee1m"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1239,40 +1239,40 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-mge3o7'
+        Change Dir: 'E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-6kee1m'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_0d8a2.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_ab9d6.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         Vers├úo do MSBuild 17.14.19+164abd434 para .NET Framework
-        Compila├º├úo de 22/10/2025 13:20:12 iniciada.
+        Compila├º├úo de 22/10/2025 14:26:03 iniciada.
         
-        Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mge3o7\\cmTC_0d8a2.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6kee1m\\cmTC_ab9d6.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
-          Criando o diret├│rio "cmTC_0d8a2.dir\\Debug\\".
+          Criando o diret├│rio "cmTC_ab9d6.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Criando o diret├│rio "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mge3o7\\Debug\\".
-          Criando o diret├│rio "cmTC_0d8a2.dir\\Debug\\cmTC_0d8a2.tlog\\".
+          Criando o diret├│rio "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6kee1m\\Debug\\".
+          Criando o diret├│rio "cmTC_ab9d6.dir\\Debug\\cmTC_ab9d6.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_0d8a2.dir\\Debug\\cmTC_0d8a2.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_0d8a2.dir\\Debug\\cmTC_0d8a2.tlog\\unsuccessfulbuild".
+          Criando "cmTC_ab9d6.dir\\Debug\\cmTC_ab9d6.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_ab9d6.dir\\Debug\\cmTC_ab9d6.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_0d8a2.dir\\Debug\\\\" /Fd"cmTC_0d8a2.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_ab9d6.dir\\Debug\\\\" /Fd"cmTC_ab9d6.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35215 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_0d8a2.dir\\Debug\\\\" /Fd"cmTC_0d8a2.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_ab9d6.dir\\Debug\\\\" /Fd"cmTC_ab9d6.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mge3o7\\Debug\\cmTC_0d8a2.exe" /INCREMENTAL /ILK:"cmTC_0d8a2.dir\\Debug\\cmTC_0d8a2.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-mge3o7/Debug/cmTC_0d8a2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-mge3o7/Debug/cmTC_0d8a2.lib" /MACHINE:X64  /machine:x64 cmTC_0d8a2.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_0d8a2.vcxproj -> E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mge3o7\\Debug\\cmTC_0d8a2.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6kee1m\\Debug\\cmTC_ab9d6.exe" /INCREMENTAL /ILK:"cmTC_ab9d6.dir\\Debug\\cmTC_ab9d6.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-6kee1m/Debug/cmTC_ab9d6.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-6kee1m/Debug/cmTC_ab9d6.lib" /MACHINE:X64  /machine:x64 cmTC_ab9d6.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_ab9d6.vcxproj -> E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6kee1m\\Debug\\cmTC_ab9d6.exe
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_0d8a2.dir\\Debug\\cmTC_0d8a2.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_0d8a2.dir\\Debug\\cmTC_0d8a2.tlog\\cmTC_0d8a2.lastbuildstate".
-        Projeto de compila├º├úo pronto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mge3o7\\cmTC_0d8a2.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_ab9d6.dir\\Debug\\cmTC_ab9d6.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_ab9d6.dir\\Debug\\cmTC_ab9d6.tlog\\cmTC_ab9d6.lastbuildstate".
+        Projeto de compila├º├úo pronto "E:\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6kee1m\\cmTC_ab9d6.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:00.54
+        Tempo Decorrido 00:00:00.59
         
       exitCode: 0
   -
@@ -1306,31 +1306,32 @@ events:
   -
     kind: "find_package-v1"
     backtrace:
+      - "C:/libtorch/share/cmake/Caffe2/public/mkl.cmake:1 (find_package)"
+      - "C:/libtorch/share/cmake/Caffe2/Caffe2Config.cmake:104 (include)"
+      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
       - "CMakeLists.txt:24 (find_package)"
-    name: "Torch"
+    name: "MKL"
     configs:
       -
-        filename: "TorchConfig.cmake"
+        filename: "MKLConfig.cmake"
         kind: "cmake"
       -
-        filename: "torch-config.cmake"
+        filename: "mkl-config.cmake"
         kind: "cmake"
     version_request:
       exact: false
     settings:
-      required: "required_explicit"
-      quiet: false
+      required: "optional"
+      quiet: true
       global: false
       policy_scope: true
       bypass_provider: false
       names:
-        - "Torch"
-      search_paths:
-        - "C:\\libtorch/share/cmake/Torch"
+        - "MKL"
       path_suffixes:
         - ""
       paths:
-        CMAKE_FIND_USE_CMAKE_PATH: false
+        CMAKE_FIND_USE_CMAKE_PATH: true
         CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
         CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
         CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
@@ -1341,22 +1342,1085 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "C:/libtorch/share/cmake/Torch/TorchConfig.cmake"
-        mode: "none?"
-        reason: "no_exist"
-      -
-        path: "C:/libtorch/share/cmake/Torch/torch-config.cmake"
-        mode: "none?"
-        reason: "no_exist"
-      -
-        path: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/TorchConfig.cmake"
+        path: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/MKLConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/torch-config.cmake"
+        path: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/cmake/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/cmake/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/deps/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/deps/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/nodejs/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/nodejs/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Python313/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Python313/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/PuTTY/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/PuTTY/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Launcher/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Launcher/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/pnpm/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/pnpm/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.cargo/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.cargo/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Microsoft/WindowsApps/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Microsoft/WindowsApps/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Microsoft VS Code/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Microsoft VS Code/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Roaming/npm/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Roaming/npm/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/build/bzip2-sys-c6d05d8bf08c4a04/out/lib/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/build/bzip2-sys-c6d05d8bf08c4a04/out/lib/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/build/zstd-sys-6a41fd4a4d9dafcc/out/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/build/zstd-sys-6a41fd4a4d9dafcc/out/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/mkl-config.cmake"
         mode: "config"
         reason: "no_exist"
     found: null
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\libtorch"
+      ENV{PATH}:
+        - "E:\\Copper\\ai_test\\target\\debug\\deps"
+        - "E:\\Copper\\ai_test\\target\\debug"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
+        - "C:\\Users\\user\\AppData\\Local\\pnpm"
+        - "C:\\Users\\user\\.cargo\\bin"
+        - "C:\\Users\\user\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\user\\AppData\\Roaming\\npm"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\bzip2-sys-c6d05d8bf08c4a04\\out\\lib"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\zstd-sys-6a41fd4a4d9dafcc\\out"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/ai_copper"
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "C:/libtorch/share/cmake/Caffe2/public/mkldnn.cmake:7 (find_package)"
+      - "C:/libtorch/share/cmake/Caffe2/Caffe2Config.cmake:107 (include)"
+      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "CMakeLists.txt:24 (find_package)"
+    name: "MKLDNN"
+    configs:
+      -
+        filename: "MKLDNNConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "mkldnn-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "optional"
+      quiet: true
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "MKLDNN"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/cmake/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/cmake/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/deps/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/deps/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/wbem/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/WindowsPowerShell/v1.0/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Windows/System32/OpenSSH/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Git/cmd/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/nodejs/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/nodejs/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Python313/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Python313/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/PuTTY/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/PuTTY/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Launcher/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Python/Launcher/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/pnpm/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/pnpm/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.cargo/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.cargo/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Microsoft/WindowsApps/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Microsoft/WindowsApps/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Microsoft VS Code/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Local/Programs/Microsoft VS Code/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Roaming/npm/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/AppData/Roaming/npm/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/build/bzip2-sys-c6d05d8bf08c4a04/out/lib/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/build/bzip2-sys-c6d05d8bf08c4a04/out/lib/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/build/zstd-sys-6a41fd4a4d9dafcc/out/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/ai_test/target/debug/build/zstd-sys-6a41fd4a4d9dafcc/out/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files/CMake/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Program Files (x86)/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found: null
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\libtorch"
+      ENV{PATH}:
+        - "E:\\Copper\\ai_test\\target\\debug\\deps"
+        - "E:\\Copper\\ai_test\\target\\debug"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
+        - "C:\\Users\\user\\AppData\\Local\\pnpm"
+        - "C:\\Users\\user\\.cargo\\bin"
+        - "C:\\Users\\user\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\user\\AppData\\Roaming\\npm"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\bzip2-sys-c6d05d8bf08c4a04\\out\\lib"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\zstd-sys-6a41fd4a4d9dafcc\\out"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/ai_copper"
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
+      - "CMakeLists.txt:24 (find_package)"
+    name: "Caffe2"
+    configs:
+      -
+        filename: "Caffe2Config.cmake"
+        kind: "cmake"
+      -
+        filename: "caffe2-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "Caffe2"
+      search_paths:
+        - "C:/libtorch/share/cmake/Torch/../Caffe2"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/Caffe2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "E:/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/caffe2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/Caffe2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/caffe2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/cmake/Caffe2Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/libtorch/cmake/caffe2-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found:
+      path: "C:/libtorch/share/cmake/Caffe2/Caffe2Config.cmake"
+      mode: "config"
+      version: ""
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\libtorch"
+      ENV{PATH}:
+        - "E:\\Copper\\ai_test\\target\\debug\\deps"
+        - "E:\\Copper\\ai_test\\target\\debug"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
+        - "C:\\Users\\user\\AppData\\Local\\pnpm"
+        - "C:\\Users\\user\\.cargo\\bin"
+        - "C:\\Users\\user\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\user\\AppData\\Roaming\\npm"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\bzip2-sys-c6d05d8bf08c4a04\\out\\lib"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\zstd-sys-6a41fd4a4d9dafcc\\out"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/ai_copper"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:18 (find_library)"
+      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:70 (append_torchlib_if_found)"
+      - "CMakeLists.txt:24 (find_package)"
+    mode: "library"
+    variable: "c10_LIBRARY"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "c10"
+    candidate_directories:
+      - "C:/libtorch/lib/"
+      - "C:/libtorch/"
+      - "E:/Copper/ai_test/target/debug/deps/"
+      - "E:/Copper/ai_test/target/debug/"
+      - "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
+      - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
+      - "C:/Users/user/AppData/Local/pnpm/"
+      - "C:/Users/user/.cargo/bin/"
+      - "C:/Users/user/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/user/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/user/AppData/Roaming/npm/"
+      - "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
+      - "E:/Copper/ai_test/target/debug/build/bzip2-sys-c6d05d8bf08c4a04/out/lib/"
+      - "E:/Copper/ai_test/target/debug/build/zstd-sys-6a41fd4a4d9dafcc/out/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/ai_copper/lib/"
+      - "C:/Program Files/ai_copper/"
+      - "C:/Program Files/ai_copper/bin/"
+      - "/bin/"
+      - "C:/libtorch/lib/"
+    found: "C:/libtorch/lib/c10.lib"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\libtorch"
+      ENV{PATH}:
+        - "E:\\Copper\\ai_test\\target\\debug\\deps"
+        - "E:\\Copper\\ai_test\\target\\debug"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
+        - "C:\\Users\\user\\AppData\\Local\\pnpm"
+        - "C:\\Users\\user\\.cargo\\bin"
+        - "C:\\Users\\user\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\user\\AppData\\Roaming\\npm"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\bzip2-sys-c6d05d8bf08c4a04\\out\\lib"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\zstd-sys-6a41fd4a4d9dafcc\\out"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "C:/Program Files/ai_copper/bin"
+        - "C:/Program Files/CMake/bin"
+        - "/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:18 (find_library)"
+      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:127 (append_torchlib_if_found)"
+      - "CMakeLists.txt:24 (find_package)"
+    mode: "library"
+    variable: "kineto_LIBRARY"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "kineto"
+    candidate_directories:
+      - "C:/libtorch/lib/"
+      - "C:/libtorch/"
+      - "E:/Copper/ai_test/target/debug/deps/"
+      - "E:/Copper/ai_test/target/debug/"
+      - "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
+      - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
+      - "C:/Users/user/AppData/Local/pnpm/"
+      - "C:/Users/user/.cargo/bin/"
+      - "C:/Users/user/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/user/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/user/AppData/Roaming/npm/"
+      - "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
+      - "E:/Copper/ai_test/target/debug/build/bzip2-sys-c6d05d8bf08c4a04/out/lib/"
+      - "E:/Copper/ai_test/target/debug/build/zstd-sys-6a41fd4a4d9dafcc/out/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/ai_copper/lib/"
+      - "C:/Program Files/ai_copper/"
+      - "C:/Program Files/ai_copper/bin/"
+      - "/bin/"
+      - "C:/libtorch/lib/"
+    found: "C:/libtorch/lib/kineto.lib"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\libtorch"
+      ENV{PATH}:
+        - "E:\\Copper\\ai_test\\target\\debug\\deps"
+        - "E:\\Copper\\ai_test\\target\\debug"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
+        - "C:\\Users\\user\\AppData\\Local\\pnpm"
+        - "C:\\Users\\user\\.cargo\\bin"
+        - "C:\\Users\\user\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\user\\AppData\\Roaming\\npm"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\bzip2-sys-c6d05d8bf08c4a04\\out\\lib"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\zstd-sys-6a41fd4a4d9dafcc\\out"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "C:/Program Files/ai_copper/bin"
+        - "C:/Program Files/CMake/bin"
+        - "/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:170 (find_library)"
+      - "CMakeLists.txt:24 (find_package)"
+    mode: "library"
+    variable: "TORCH_LIBRARY"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "torch"
+    candidate_directories:
+      - "C:/libtorch/lib/"
+      - "C:/libtorch/"
+      - "E:/Copper/ai_test/target/debug/deps/"
+      - "E:/Copper/ai_test/target/debug/"
+      - "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/nodejs/"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
+      - "C:/Users/user/AppData/Local/Programs/Python/Python313/"
+      - "C:/Users/user/AppData/Local/Programs/Python/Python313/Scripts/"
+      - "C:/Program Files/PuTTY/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Users/user/AppData/Local/Programs/Python/Launcher/"
+      - "C:/Users/user/AppData/Local/pnpm/"
+      - "C:/Users/user/.cargo/bin/"
+      - "C:/Users/user/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/user/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/user/AppData/Roaming/npm/"
+      - "C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
+      - "E:/Copper/ai_test/target/debug/build/bzip2-sys-c6d05d8bf08c4a04/out/lib/"
+      - "E:/Copper/ai_test/target/debug/build/zstd-sys-6a41fd4a4d9dafcc/out/"
+      - "C:/Program Files/lib/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/lib/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/lib/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files/ai_copper/lib/"
+      - "C:/Program Files/ai_copper/"
+      - "C:/Program Files/ai_copper/bin/"
+      - "/bin/"
+      - "C:/libtorch/lib/"
+    found: "C:/libtorch/lib/torch.lib"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\libtorch"
+      ENV{PATH}:
+        - "E:\\Copper\\ai_test\\target\\debug\\deps"
+        - "E:\\Copper\\ai_test\\target\\debug"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
+        - "C:\\Users\\user\\AppData\\Local\\pnpm"
+        - "C:\\Users\\user\\.cargo\\bin"
+        - "C:\\Users\\user\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\user\\AppData\\Roaming\\npm"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\bzip2-sys-c6d05d8bf08c4a04\\out\\lib"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\zstd-sys-6a41fd4a4d9dafcc\\out"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "C:/Program Files/ai_copper/bin"
+        - "C:/Program Files/CMake/bin"
+        - "/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "CMakeLists.txt:27 (find_library)"
+    mode: "library"
+    variable: "TF_LIBRARY"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tensorflow.lib"
+      - "tensorflow"
+    candidate_directories:
+      - "C:/libtensorflow/lib/"
+    found: "C:/libtensorflow/lib/tensorflow.lib"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\libtorch"
+      ENV{PATH}:
+        - "E:\\Copper\\ai_test\\target\\debug\\deps"
+        - "E:\\Copper\\ai_test\\target\\debug"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\nodejs\\"
+        - "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
+        - "C:\\Program Files\\PuTTY\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Launcher\\"
+        - "C:\\Users\\user\\AppData\\Local\\pnpm"
+        - "C:\\Users\\user\\.cargo\\bin"
+        - "C:\\Users\\user\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\user\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\user\\AppData\\Roaming\\npm"
+        - "C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\bzip2-sys-c6d05d8bf08c4a04\\out\\lib"
+        - "E:\\Copper\\ai_test\\target\\debug\\build\\zstd-sys-6a41fd4a4d9dafcc\\out"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files/ai_copper"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "C:/Program Files/ai_copper/bin"
+        - "C:/Program Files/CMake/bin"
+        - "/bin"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "CMakeLists.txt:33 (find_path)"
+    mode: "path"
+    variable: "TF_INCLUDE_DIR"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tensorflow/c/c_api.h"
+    candidate_directories:
+      - "C:/libtensorflow/include/"
+    found: "C:/libtensorflow/include/"
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"

@@ -714,10 +714,33 @@ fn main() {
 
         let deps_torch_path = PathBuf::from("deps/libtorch");
 
-        // 1) LIBTORCH env var if set
+        // 1) LIBTORCH env var if set (validate it before trusting)
         if let Ok(path) = env::var("LIBTORCH") {
-            println!("cargo:warning=Usando LIBTORCH de variável de ambiente: {}", path);
-            PathBuf::from(path)
+            let pb = PathBuf::from(&path);
+            if is_valid_libtorch_prefix(&pb) {
+                println!("cargo:warning=Usando LIBTORCH de variável de ambiente: {}", path);
+                pb
+            } else {
+                println!("cargo:warning=LIBTORCH apontado para {:?} não parece ser uma instalação válida; continuará buscando/baixando...", pb);
+                if system_torch_path.exists() && is_valid_libtorch_prefix(&system_torch_path) {
+                    // 2) system path (C:\libtorch) if it appears to be a valid full install
+                    println!("cargo:warning=Usando LibTorch instalado em: {:?}", system_torch_path);
+                    set_environment_variables("libtorch", &system_torch_path)
+                        .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
+                    system_torch_path
+                } else if deps_torch_path.exists() && is_valid_libtorch_prefix(&deps_torch_path) {
+                    // 3) fallback to repo deps if present and valid
+                    println!("cargo:warning=Usando LibTorch encontrado em deps: {:?}", deps_torch_path);
+                    set_environment_variables("libtorch", &deps_torch_path)
+                        .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
+                    deps_torch_path
+                } else {
+                    // 4) download/install to system path
+                    println!("cargo:warning=LIBTORCH não definido corretamente e não encontrado, fazendo download automático para {:?}...", system_torch_path);
+                    ensure_library("libtorch", &system_torch_path)
+                        .expect("Falha ao baixar LibTorch")
+                }
+            }
         } else if system_torch_path.exists() && is_valid_libtorch_prefix(&system_torch_path) {
             // 2) system path (C:\libtorch) if it appears to be a valid full install
             println!("cargo:warning=Usando LibTorch instalado em: {:?}", system_torch_path);
@@ -752,8 +775,28 @@ fn main() {
         let deps_tf_path = PathBuf::from("deps/libtensorflow");
 
         if let Ok(path) = env::var("TENSORFLOW_ROOT") {
-            println!("cargo:warning=Usando TENSORFLOW_ROOT de variável de ambiente: {}", path);
-            PathBuf::from(path)
+            let pb = PathBuf::from(&path);
+            if is_valid_tensorflow_prefix(&pb) {
+                println!("cargo:warning=Usando TENSORFLOW_ROOT de variável de ambiente: {}", path);
+                pb
+            } else {
+                println!("cargo:warning=TENSORFLOW_ROOT apontado para {:?} não parece ser uma instalação válida; continuará buscando/baixando...", pb);
+                if system_tf_path.exists() && is_valid_tensorflow_prefix(&system_tf_path) {
+                    println!("cargo:warning=Usando TensorFlow instalado em: {:?}", system_tf_path);
+                    set_environment_variables("tensorflow", &system_tf_path)
+                        .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
+                    system_tf_path
+                } else if deps_tf_path.exists() && is_valid_tensorflow_prefix(&deps_tf_path) {
+                    println!("cargo:warning=Usando TensorFlow encontrado em deps: {:?}", deps_tf_path);
+                    set_environment_variables("tensorflow", &deps_tf_path)
+                        .unwrap_or_else(|e| println!("cargo:warning=Erro ao configurar variáveis: {}", e));
+                    deps_tf_path
+                } else {
+                    println!("cargo:warning=TENSORFLOW_ROOT não definido corretamente e não encontrado, fazendo download automático para {:?}...", system_tf_path);
+                    ensure_library("tensorflow", &system_tf_path)
+                        .expect("Falha ao baixar TensorFlow")
+                }
+            }
         } else if system_tf_path.exists() && is_valid_tensorflow_prefix(&system_tf_path) {
             println!("cargo:warning=Usando TensorFlow instalado em: {:?}", system_tf_path);
             set_environment_variables("tensorflow", &system_tf_path)
