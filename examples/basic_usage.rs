@@ -119,6 +119,59 @@ fn exemplo_tensorflow() {
         println!("Dimensões: {:?}", reshaped.dims());
     }
     
+    // Novas operações adicionadas: add, sub, mul, div
+    println!("\nOperações aritméticas elemento a elemento:");
+    let a = FlowTensors::new(&[1.0, 2.0, 3.0, 4.0], &[2, 2]).expect("create a");
+    let b = FlowTensors::new(&[5.0, 6.0, 7.0, 8.0], &[2, 2]).expect("create b");
+    if let Some(sum) = a.add(&b) {
+        println!("Add dims: {:?}, data: {:?}", sum.dims(), sum.data());
+    }
+    if let Some(sub) = a.sub(&b) {
+        println!("Sub dims: {:?}, data: {:?}", sub.dims(), sub.data());
+    }
+    if let Some(mul) = a.mul(&b) {
+        println!("Mul dims: {:?}, data: {:?}", mul.dims(), mul.data());
+    }
+    if let Some(div) = b.div(&a) {
+        println!("Div dims: {:?}, data: {:?}", div.dims(), div.data());
+    }
+
+    // MatMul
+    let m1 = FlowTensors::new(&[1.0, 2.0, 3.0, 4.0], &[2, 2]).expect("m1");
+    let m2 = FlowTensors::new(&[5.0, 6.0, 7.0, 8.0], &[2, 2]).expect("m2");
+    if let Some(mm) = m1.matmul(&m2) {
+        println!("MatMul dims: {:?}, data: {:?}", mm.dims(), mm.data());
+    }
+
+    // BatchMatMul (3D)
+    let batch_a = FlowTensors::new(&[
+        1.0, 2.0, 3.0, 4.0, // batch0 2x2
+        5.0, 6.0, 7.0, 8.0, // batch1 2x2
+    ], &[2, 2, 2]).expect("batch_a");
+    let batch_b = FlowTensors::new(&[
+        1.0, 0.0, 0.0, 1.0,
+        2.0, 0.0, 0.0, 2.0,
+    ], &[2, 2, 2]).expect("batch_b");
+    if let Some(bmm) = batch_a.batch_matmul(&batch_b) {
+        println!("BatchMatMul dims: {:?}, data: {:?}", bmm.dims(), bmm.data());
+    }
+
+    // Funções matemáticas: pow, sqrt, square, abs
+    let f = FlowTensors::new(&[4.0, 9.0, 16.0, 25.0], &[2, 2]).expect("f");
+    if let Some(sq) = f.sqrt() {
+        println!("Sqrt data: {:?}", sq.data());
+    }
+    if let Some(p2) = f.pow(0.5) {
+        println!("Pow(0.5) data: {:?}", p2.data());
+    }
+    if let Some(sq2) = f.square() {
+        println!("Square data: {:?}", sq2.data());
+    }
+    let neg = FlowTensors::new(&[-1.0, -2.0, 3.0, -4.0], &[2, 2]).expect("neg");
+    if let Some(abs) = neg.abs() {
+        println!("Abs data: {:?}", abs.data());
+    }
+    
     println!();
 }
 

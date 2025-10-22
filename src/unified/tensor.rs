@@ -431,6 +431,28 @@ impl UnifiedTensor {
             }
         }
     }
+
+    /// Multiplicação de matrizes (distribui para backend)
+    pub fn matmul(&self, other: &UnifiedTensor) -> UnifiedTensor {
+        match (self, other) {
+            (UnifiedTensor::LibTorch(a), UnifiedTensor::LibTorch(b)) => {
+                UnifiedTensor::LibTorch(a.matmul(b))
+            }
+            (UnifiedTensor::TensorFlow(a), UnifiedTensor::TensorFlow(b)) => {
+                if let Some(res) = a.matmul(b) {
+                    UnifiedTensor::TensorFlow(res)
+                } else {
+                    panic!("TensorFlow matmul failed")
+                }
+            }
+            // Fallback: convert both to the same backend (self's) and compute
+            (a, b) => {
+                let a_backend = a.backend();
+                let b_converted = b.to_backend(a_backend);
+                a.to_backend(a_backend).matmul(&b_converted)
+            }
+        }
+    }
 }
 
 // Implementação de operadores aritméticos
@@ -438,20 +460,31 @@ impl Add for UnifiedTensor {
     type Output = UnifiedTensor;
 
     fn add(self, other: UnifiedTensor) -> UnifiedTensor {
-        let (rows1, cols1) = self.shape();
-        let (rows2, cols2) = other.shape();
+        match (self, other) {
+            (UnifiedTensor::TensorFlow(a), UnifiedTensor::TensorFlow(b)) => {
+                if let Some(res) = a.add(&b) {
+                    UnifiedTensor::TensorFlow(res)
+                } else {
+                    panic!("TensorFlow add failed")
+                }
+            }
+            (a, b) => {
+                let (rows1, cols1) = a.shape();
+                let (rows2, cols2) = b.shape();
 
-        if rows1 != rows2 || cols1 != cols2 {
-            panic!("Cannot add tensors with different dimensions!");
+                if rows1 != rows2 || cols1 != cols2 {
+                    panic!("Cannot add tensors with different dimensions!");
+                }
+
+                let result: Vec<f32> = a.as_slice()
+                    .iter()
+                    .zip(b.as_slice().iter())
+                    .map(|(x, y)| x + y)
+                    .collect();
+
+                UnifiedTensor::from_values(&result, rows1, cols1, a.backend(), Device::CPU)
+            }
         }
-
-        let result: Vec<f32> = self.as_slice()
-            .iter()
-            .zip(other.as_slice().iter())
-            .map(|(a, b)| a + b)
-            .collect();
-
-        UnifiedTensor::from_values(&result, rows1, cols1, self.backend(), Device::CPU)
     }
 }
 
@@ -459,20 +492,31 @@ impl Sub for UnifiedTensor {
     type Output = UnifiedTensor;
 
     fn sub(self, other: UnifiedTensor) -> UnifiedTensor {
-        let (rows1, cols1) = self.shape();
-        let (rows2, cols2) = other.shape();
+        match (self, other) {
+            (UnifiedTensor::TensorFlow(a), UnifiedTensor::TensorFlow(b)) => {
+                if let Some(res) = a.sub(&b) {
+                    UnifiedTensor::TensorFlow(res)
+                } else {
+                    panic!("TensorFlow sub failed")
+                }
+            }
+            (a, b) => {
+                let (rows1, cols1) = a.shape();
+                let (rows2, cols2) = b.shape();
 
-        if rows1 != rows2 || cols1 != cols2 {
-            panic!("Cannot subtract tensors with different dimensions!");
+                if rows1 != rows2 || cols1 != cols2 {
+                    panic!("Cannot subtract tensors with different dimensions!");
+                }
+
+                let result: Vec<f32> = a.as_slice()
+                    .iter()
+                    .zip(b.as_slice().iter())
+                    .map(|(x, y)| x - y)
+                    .collect();
+
+                UnifiedTensor::from_values(&result, rows1, cols1, a.backend(), Device::CPU)
+            }
         }
-
-        let result: Vec<f32> = self.as_slice()
-            .iter()
-            .zip(other.as_slice().iter())
-            .map(|(a, b)| a - b)
-            .collect();
-
-        UnifiedTensor::from_values(&result, rows1, cols1, self.backend(), Device::CPU)
     }
 }
 
@@ -480,20 +524,31 @@ impl Mul for UnifiedTensor {
     type Output = UnifiedTensor;
 
     fn mul(self, other: UnifiedTensor) -> UnifiedTensor {
-        let (rows1, cols1) = self.shape();
-        let (rows2, cols2) = other.shape();
+        match (self, other) {
+            (UnifiedTensor::TensorFlow(a), UnifiedTensor::TensorFlow(b)) => {
+                if let Some(res) = a.mul(&b) {
+                    UnifiedTensor::TensorFlow(res)
+                } else {
+                    panic!("TensorFlow mul failed")
+                }
+            }
+            (a, b) => {
+                let (rows1, cols1) = a.shape();
+                let (rows2, cols2) = b.shape();
 
-        if rows1 != rows2 || cols1 != cols2 {
-            panic!("Cannot multiply tensors with different dimensions!");
+                if rows1 != rows2 || cols1 != cols2 {
+                    panic!("Cannot multiply tensors with different dimensions!");
+                }
+
+                let result: Vec<f32> = a.as_slice()
+                    .iter()
+                    .zip(b.as_slice().iter())
+                    .map(|(x, y)| x * y)
+                    .collect();
+
+                UnifiedTensor::from_values(&result, rows1, cols1, a.backend(), Device::CPU)
+            }
         }
-
-        let result: Vec<f32> = self.as_slice()
-            .iter()
-            .zip(other.as_slice().iter())
-            .map(|(a, b)| a * b)
-            .collect();
-
-        UnifiedTensor::from_values(&result, rows1, cols1, self.backend(), Device::CPU)
     }
 }
 
@@ -501,24 +556,35 @@ impl Div for UnifiedTensor {
     type Output = UnifiedTensor;
 
     fn div(self, other: UnifiedTensor) -> UnifiedTensor {
-        let (rows1, cols1) = self.shape();
-        let (rows2, cols2) = other.shape();
-
-        if rows1 != rows2 || cols1 != cols2 {
-            panic!("Cannot divide tensors with different dimensions!");
-        }
-
-        let result: Vec<f32> = self.as_slice()
-            .iter()
-            .zip(other.as_slice().iter())
-            .map(|(a, b)| {
-                if *b == 0.0 {
-                    panic!("Division by zero!");
+        match (self, other) {
+            (UnifiedTensor::TensorFlow(a), UnifiedTensor::TensorFlow(b)) => {
+                if let Some(res) = a.div(&b) {
+                    UnifiedTensor::TensorFlow(res)
+                } else {
+                    panic!("TensorFlow div failed")
                 }
-                a / b
-            })
-            .collect();
+            }
+            (a, b) => {
+                let (rows1, cols1) = a.shape();
+                let (rows2, cols2) = b.shape();
 
-        UnifiedTensor::from_values(&result, rows1, cols1, self.backend(), Device::CPU)
+                if rows1 != rows2 || cols1 != cols2 {
+                    panic!("Cannot divide tensors with different dimensions!");
+                }
+
+                let result: Vec<f32> = a.as_slice()
+                    .iter()
+                    .zip(b.as_slice().iter())
+                    .map(|(x, y)| {
+                        if *y == 0.0 {
+                            panic!("Division by zero!");
+                        }
+                        x / y
+                    })
+                    .collect();
+
+                UnifiedTensor::from_values(&result, rows1, cols1, a.backend(), Device::CPU)
+            }
+        }
     }
 }

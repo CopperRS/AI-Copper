@@ -227,6 +227,148 @@ impl FlowTensors {
         FlowTensors::new(&mapped, &self.dims)
     }
 
+    /// Operadores aritméticos elemento a elemento
+    pub fn add(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::add");
+            return None;
+        }
+        let a = self.data()?;
+        let b = other.data()?;
+        let result: Vec<f32> = a.iter().zip(b.iter()).map(|(x, y)| x + y).collect();
+        FlowTensors::new(&result, &self.dims)
+    }
+
+    pub fn sub(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::sub");
+            return None;
+        }
+        let a = self.data()?;
+        let b = other.data()?;
+        let result: Vec<f32> = a.iter().zip(b.iter()).map(|(x, y)| x - y).collect();
+        FlowTensors::new(&result, &self.dims)
+    }
+
+    pub fn mul(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::mul");
+            return None;
+        }
+        let a = self.data()?;
+        let b = other.data()?;
+        let result: Vec<f32> = a.iter().zip(b.iter()).map(|(x, y)| x * y).collect();
+        FlowTensors::new(&result, &self.dims)
+    }
+
+    pub fn div(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::div");
+            return None;
+        }
+        let a = self.data()?;
+        let b = other.data()?;
+        // Reproduz comportamento simples: panic on division by zero
+        if b.iter().any(|&v| v == 0.0) {
+            eprintln!("Erro: divisão por zero em FlowTensors::div");
+            return None;
+        }
+        let result: Vec<f32> = a.iter().zip(b.iter()).map(|(x, y)| x / y).collect();
+        FlowTensors::new(&result, &self.dims)
+    }
+
+    /// Multiplicação de matrizes (2D)
+    pub fn matmul(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims.len() != 2 || other.dims.len() != 2 {
+            eprintln!("Erro: matmul requer tensores 2D");
+            return None;
+        }
+        let rows = self.dims[0] as usize;
+        let cols = self.dims[1] as usize;
+        let other_rows = other.dims[0] as usize;
+        let other_cols = other.dims[1] as usize;
+        if cols != other_rows {
+            eprintln!("Erro: dimensões inválidas para matmul");
+            return None;
+        }
+
+        let a = self.data()?;
+        let b = other.data()?;
+        let mut result = vec![0.0f32; rows * other_cols];
+
+        for i in 0..rows {
+            for j in 0..other_cols {
+                let mut sum = 0.0f32;
+                for k in 0..cols {
+                    let a_idx = i * cols + k;
+                    let b_idx = k * other_cols + j;
+                    sum += a[a_idx] * b[b_idx];
+                }
+                result[i * other_cols + j] = sum;
+            }
+        }
+
+        let dims = vec![rows as i64, other_cols as i64];
+        FlowTensors::new(&result, &dims)
+    }
+
+    /// BatchMatMul: suporta tensores 3D [batch, M, K] x [batch, K, N] -> [batch, M, N]
+    pub fn batch_matmul(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims.len() != 3 || other.dims.len() != 3 {
+            eprintln!("Erro: batch_matmul requer tensores 3D");
+            return None;
+        }
+        let batch = self.dims[0] as usize;
+        let m = self.dims[1] as usize;
+        let k = self.dims[2] as usize;
+        let other_batch = other.dims[0] as usize;
+        let other_k = other.dims[1] as usize;
+        let n = other.dims[2] as usize;
+        if batch != other_batch || k != other_k {
+            eprintln!("Erro: dimensões incompatíveis para batch_matmul");
+            return None;
+        }
+
+        let a = self.data()?;
+        let b = other.data()?;
+        let mut result = vec![0.0f32; batch * m * n];
+
+        for b_idx in 0..batch {
+            for i in 0..m {
+                for j in 0..n {
+                    let mut sum = 0.0f32;
+                    for kk in 0..k {
+                        let a_idx = b_idx * (m * k) + i * k + kk;
+                        let b_index = b_idx * (k * n) + kk * n + j;
+                        sum += a[a_idx] * b[b_index];
+                    }
+                    let out_idx = b_idx * (m * n) + i * n + j;
+                    result[out_idx] = sum;
+                }
+            }
+        }
+
+        let dims = vec![batch as i64, m as i64, n as i64];
+        FlowTensors::new(&result, &dims)
+    }
+
+    /// Funções matemáticas
+    pub fn pow(&self, exponent: f32) -> Option<FlowTensors> {
+        self.map(|x| x.powf(exponent))
+    }
+
+    pub fn sqrt(&self) -> Option<FlowTensors> {
+        self.map(|x| x.sqrt())
+    }
+
+    pub fn square(&self) -> Option<FlowTensors> {
+        self.map(|x| x * x)
+    }
+
+    pub fn abs(&self) -> Option<FlowTensors> {
+        self.map(|x| x.abs())
+    }
+
     /// Cria tensor de zeros
     pub fn zeros(dims: &[i64]) -> Option<Self> {
         let size = dims.iter().product::<i64>() as usize;

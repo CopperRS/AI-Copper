@@ -39,6 +39,11 @@
 
 #### ✨ Já implementado
 
+- [ ✅ ] Add (+), Sub (-), Mul (*), Div (/) - Operadores aritméticos
+- [ ✅ ] MatMul - Multiplicação de matrizes
+- [ ✅ ] BatchMatMul/V2/V3 - Multiplicação em batch
+- [ ✅ ] Pow, Sqrt, Square, Abs - Funções matemáticas básicas
+
 ### **Structs**
 - `FlowTensors` - tensor do TensorFlow
 - `TensorFlowModel` - modelo SavedModel
@@ -100,10 +105,7 @@ Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáti
 #### 🚀 A fazer
 
 **OPERAÇÕES MATEMÁTICAS (Math Ops):**
-- [ ] Add (+), Sub (-), Mul (*), Div (/) - Operadores aritméticos
-- [ ] MatMul - Multiplicação de matrizes
-- [ ] BatchMatMul/V2/V3 - Multiplicação em batch
-- [ ] Pow, Sqrt, Square, Abs - Funções matemáticas básicas
+
 - [ ] Exp, Log, Log1p, Sigmoid, Tanh - Funções exponenciais
 - [ ] Sin, Cos, Tan, Asin, Acos, Atan - Trigonométricas
 - [ ] Equal, NotEqual, Greater, Less - Comparações
