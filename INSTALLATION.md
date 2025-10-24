@@ -209,6 +209,16 @@ Remove-Item -Recurse -Force deps
 rm -rf deps
 ```
 
+## Scripts de Teste
+
+```bash
+# Windows
+.\test-installation.ps1
+
+# Linux/Mac
+chmod +x test-installation.sh
+./test-installation.sh
+```
 ## 🌐 Versões Suportadas
 
 | Biblioteca | Versão | Platform |
