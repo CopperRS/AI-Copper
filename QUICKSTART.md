@@ -234,6 +234,7 @@ fn main() {
 }
 ```
 
+
 ## 📝 Dicas
 
 ### Apenas LibTorch (reduz download)
