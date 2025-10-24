@@ -51,7 +51,7 @@ ai_copper = { git = "" }
 
 
 ### Build do Projeto
-> [!NOTE] \
+> [!NOTE]
 > O primeiro build pode demorar, pois as bibliotecas são baixadas e instaladas automaticamente durante o primeiro build.
 > - **Windows**: `C:\libtorch` & `C:\libtensorflow`
 > - **Linux**: `/libtorch` & `/libtensorflow`
@@ -83,7 +83,7 @@ Para instruções detalhadas de instalação manual, veja o [Guia de Instalaçã
 
 
 # Para Contribuidores
-> [!NOTE] \
+> [!NOTE]
 > Linux & MacOS ainda estão em desenvolvimento, aguarde novos patches.
 
 ## 💻 Requisitos Windows
@@ -177,10 +177,10 @@ Este projeto está licenciado sob a Licença MIT - veja em **[LICENSE](LICENSE)*
 
 <table>
   <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Spectrevz"><img src="https://avatars.githubusercontent.com/u/142043449?v=4?s=100" width="100px;" style="border-radius: 100vh"; alt="Spectrevz"/> <br /><sub><b>Spectrevz</b></sub></a><br />
+    <tr style="align-items: center">
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Spectrevz"><img src="https://avatars.githubusercontent.com/u/142043449?v=4?s=100" width="100px;" style="border-radius: 50%"; alt="Spectrevz"/> <br /><sub><b>Spectrevz</b></sub></a><br />
       </td>
-      <td align="center"  valign="top" width="14.28%"><a href="https://github.com/Moonx0207"><img src="https://avatars.githubusercontent.com/u/214397746?v=4?s=100" width="100px;" style="border-radius: 100vh";  alt="Moonx0207"/> <br /><sub><b>Moonx0207</b></sub></a><br />
+      <td align="center"  valign="top" width="14.28%"><a href="https://github.com/Moonx0207"><img src="https://avatars.githubusercontent.com/u/214397746?v=4?s=100" width="100px;" style="border-radius: 50%";  alt="Moonx0207"/> <br /><sub><b>Moonx0207</b></sub></a><br />
       </td>
     </tr>
   </tbody>
