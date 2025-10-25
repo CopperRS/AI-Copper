@@ -5,6 +5,7 @@ C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeCInformation.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeCXXCompiler.cmake.in
 C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeCXXCompilerABI.cpp
 C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeCXXInformation.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeCommonLanguageInclude.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeCompilerIdDetection.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeDetermineCCompiler.cmake
@@ -31,6 +32,8 @@ C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeTestCCompiler.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeTestCXXCompiler.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeTestCompilerCommon.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeTestRCCompiler.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/CheckCXXCompilerFlag.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/CheckCXXSourceCompiles.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/Compiler/ADSP-DetermineCompiler.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/Compiler/ARMCC-DetermineCompiler.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/Compiler/ARMClang-DetermineCompiler.cmake
@@ -99,6 +102,9 @@ C:/Program Files/CMake/share/cmake-4.1/Modules/Internal/CMakeCommonLinkerInforma
 C:/Program Files/CMake/share/cmake-4.1/Modules/Internal/CMakeDetermineLinkerId.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/Internal/CMakeInspectCLinker.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/Internal/CMakeInspectCXXLinker.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/Internal/CheckCompilerFlag.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/Internal/CheckFlagCommonConfig.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/Internal/CheckSourceCompiles.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/Internal/FeatureTesting.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/Linker/MSVC-C.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/Linker/MSVC-CXX.cmake
@@ -121,8 +127,8 @@ C:/libtorch/share/cmake/Caffe2/public/mkldnn.cmake
 C:/libtorch/share/cmake/Caffe2/public/utils.cmake
 C:/libtorch/share/cmake/Torch/TorchConfig.cmake
 C:/libtorch/share/cmake/Torch/TorchConfigVersion.cmake
-E:/Copper/AI-Copper/cpp/CMakeLists.txt
-E:/Copper/AI-Copper/cpp/build/CMakeFiles/4.1.0/CMakeCCompiler.cmake
-E:/Copper/AI-Copper/cpp/build/CMakeFiles/4.1.0/CMakeCXXCompiler.cmake
-E:/Copper/AI-Copper/cpp/build/CMakeFiles/4.1.0/CMakeRCCompiler.cmake
-E:/Copper/AI-Copper/cpp/build/CMakeFiles/4.1.0/CMakeSystem.cmake
+D:/workspace/Codespaces/libtesting/AI-Copper/cpp/CMakeLists.txt
+D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeCCompiler.cmake
+D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeCXXCompiler.cmake
+D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeRCCompiler.cmake
+D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeSystem.cmake

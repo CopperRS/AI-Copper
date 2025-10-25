@@ -820,7 +820,10 @@ fn main() {
     let mut cmake_args = vec![
         "-S".to_string(), "cpp".to_string(),
         "-B".to_string(), cmake_build_dir.display().to_string(),
-        "-DCMAKE_BUILD_TYPE=Release".to_string(),
+        // Use Debug build by default to match consumer expectations and
+        // ensure the produced DLLs are compatible with the rest of the
+        // project that expects Debug artifacts.
+        "-DCMAKE_BUILD_TYPE=Debug".to_string(),
     ];
 
     if use_libtorch {
@@ -900,7 +903,7 @@ fn main() {
     // Compila o projeto C++
     let build_args = vec![
         "--build".to_string(), cmake_build_dir.display().to_string(),
-        "--config".to_string(), "Release".to_string(),
+        "--config".to_string(), "Debug".to_string(),
     ];
 
     let build_status = Command::new("cmake")
@@ -953,8 +956,39 @@ fn main() {
             link_all_libs_in_dir(&torch_lib, "lib");
         }
 
-        // O CMake gera os arquivos em cpp/build/Release/Release no Windows
-        let lib_dir = build_dir_abs.join("Release").join("Release");
+        // Determine the most likely Visual Studio output directory produced by CMake.
+        // Newer CMake + VS generators usually place binaries in `cpp/build/Debug` or `cpp/build/Release`.
+        // Older or custom setups sometimes emit `cpp/build/Release/Release`.
+        let candidates = [
+            build_dir_abs.join("Debug"),
+            build_dir_abs.join("Debug").join("Debug"),
+            build_dir_abs.join("Release"),
+            build_dir_abs.join("Release").join("Debug"),
+            build_dir_abs.join("Release").join("Release"),
+        ];
+
+        // Prefer a candidate that actually contains the import library (ai_copper.lib) or any .lib files.
+        let mut found: Option<PathBuf> = None;
+        for cand in &candidates {
+            if cand.exists() {
+                // Check for explicit ai_copper.lib
+                if cand.join("ai_copper.lib").exists() {
+                    found = Some(cand.clone());
+                    break;
+                }
+
+                // Otherwise accept any directory that contains .lib files
+                if let Ok(mut iter) = fs::read_dir(cand) {
+                    if iter.any(|e| e.map(|ent| ent.path().extension().map(|ext| ext == "lib").unwrap_or(false)).unwrap_or(false)) {
+                        found = Some(cand.clone());
+                        break;
+                    }
+                }
+            }
+        }
+
+        let lib_dir = found.unwrap_or_else(|| build_dir_abs.join("Debug"));
+        println!("cargo:warning=Using lib_dir: {:?}", lib_dir);
         
         if use_tensorflow {
             let tf_lib = tf_path.join("lib");
