@@ -77,6 +77,41 @@ cargo build
 
 Para instruções detalhadas de instalação manual, veja o [Guia de Instalação](INSTALLATION.md).
 
+## 🦀 Utilização na Copper
+
+- **[Instalação da Copper Lang](https://github.com/liy77/copper-lang.git)**
+- Crie a pasta do projeto
+- Crie o arquivo .crs
+- Crie o arquivo Cargo.toml
+- A estrutura do projeto deve ficar assim:
+
+```
+📦 nome-do-projeto
+├─ example.crs
+└─ cargo.toml
+```
+
+- Dentro do cargo.toml, cole o seguinte código:
+
+```toml
+[package]
+name = "nome-da-pasta"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+ai_copper = { git = "https://github.com/CopperRS/AI-Copper.git", branch = "main" }
+
+[[bin]]
+name = "example"
+path = "example.crs"
+```
+
+```bash
+# Para Buildar e Rodar
+  cforge run example.crs
+```
+
 ## 📚 Documentação
 
 - **[INSTALLATION.md](INSTALLATION.md)** - Guia completo de instalação e troubleshooting
