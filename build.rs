@@ -492,7 +492,7 @@ fn set_env_var(var_name: &str, value: &str) -> Result<(), Box<dyn std::error::Er
     let output = Command::new("powershell")
         .args(&[
             "-Command",
-            &format!("[Environment]::SetEnvironmentVariable('{}', '{}', 'Machine')", var_name, value)
+            &format!("[Environment]::SetEnvironmentVariable('{}', '{}', 'User')", var_name, value)
         ])
         .output()?;
     
@@ -534,7 +534,7 @@ fn add_to_path_windows(dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
     let output = Command::new("powershell")
         .args(&[
             "-Command",
-            "[Environment]::GetEnvironmentVariable('Path', 'Machine')"
+            "[Environment]::GetEnvironmentVariable('Path', 'User')"
         ])
         .output()?;
     
@@ -556,7 +556,7 @@ fn add_to_path_windows(dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
     let output = Command::new("powershell")
         .args(&[
             "-Command",
-            &format!("[Environment]::SetEnvironmentVariable('Path', '{}', 'Machine')", new_path)
+            &format!("[Environment]::SetEnvironmentVariable('Path', '{}', 'User')", new_path)
         ])
         .output()?;
     
@@ -703,7 +703,7 @@ fn main() {
     fs::create_dir_all(&cmake_build_dir).unwrap();
 
     // Garante que as bibliotecas estejam disponíveis
-    let torch_path = if use_libtorch {
+    let mut torch_path = if use_libtorch {
         // Prefer system install (C:\libtorch on Windows), then check repo deps, then download to system path.
         let system_torch_path = if cfg!(target_os = "windows") {
             PathBuf::from("C:\\libtorch")
@@ -815,6 +815,29 @@ fn main() {
     } else {
         PathBuf::from("deps/tensorflow") // Caminho dummy se não estiver usando
     };
+
+    // Small heuristic: sometimes libtorch is nested under a second `libtorch` folder
+    // (e.g. C:\libtorch\libtorch). If the selected prefix doesn't contain the
+    // expected ATen/core header, try the nested path and prefer it if valid.
+    if use_libtorch {
+        let mut detected = false;
+        let include_check = torch_path.join("include").join("ATen").join("core").join("Tensor.h");
+        if !include_check.exists() {
+            let nested = torch_path.join("libtorch");
+            let nested_check = nested.join("include").join("ATen").join("core").join("Tensor.h");
+            if nested_check.exists() {
+                println!("cargo:warning=Detected nested LibTorch at {:?}, using nested prefix", nested);
+                torch_path = nested;
+                detected = true;
+            }
+        }
+        if !detected {
+            // If still not found, print a helpful warning to the user.
+            if !include_check.exists() {
+                println!("cargo:warning=Warning: LibTorch headers not found under {:?}. If build fails, ensure LIBTORCH points to the root that contains share/cmake/Torch and include/ATen.", torch_path);
+            }
+        }
+    }
 
     // Configura o CMake com gerador apropriado
     let mut cmake_args = vec![

@@ -93,7 +93,7 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 17.14.14+a129329f1 para .NET Framework
-      Compila├º├úo de 25/10/2025 01:08:17 iniciada.
+      Compila├º├úo de 25/10/2025 02:28:06 iniciada.
       
       Projeto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdC\\CompilerIdC.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
@@ -122,7 +122,7 @@ events:
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:00.65
+      Tempo Decorrido 00:00:00.72
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -972,7 +972,7 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 17.14.14+a129329f1 para .NET Framework
-      Compila├º├úo de 25/10/2025 01:08:18 iniciada.
+      Compila├º├úo de 25/10/2025 02:28:07 iniciada.
       
       Projeto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
@@ -1001,7 +1001,7 @@ events:
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:00.77
+      Tempo Decorrido 00:00:00.82
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -1523,8 +1523,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-vmz0gy"
-      binary: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-vmz0gy"
+      source: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-yw9vjs"
+      binary: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-yw9vjs"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1533,40 +1533,40 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-vmz0gy'
+        Change Dir: 'D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-yw9vjs'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_94408.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_58bd8.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         Vers├úo do MSBuild 17.14.14+a129329f1 para .NET Framework
-        Compila├º├úo de 25/10/2025 01:08:19 iniciada.
+        Compila├º├úo de 25/10/2025 02:28:08 iniciada.
         
-        Projeto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vmz0gy\\cmTC_94408.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yw9vjs\\cmTC_58bd8.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
-          Criando o diret├│rio "cmTC_94408.dir\\Debug\\".
+          Criando o diret├│rio "cmTC_58bd8.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Criando o diret├│rio "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vmz0gy\\Debug\\".
-          Criando o diret├│rio "cmTC_94408.dir\\Debug\\cmTC_94408.tlog\\".
+          Criando o diret├│rio "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yw9vjs\\Debug\\".
+          Criando o diret├│rio "cmTC_58bd8.dir\\Debug\\cmTC_58bd8.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_94408.dir\\Debug\\cmTC_94408.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_94408.dir\\Debug\\cmTC_94408.tlog\\unsuccessfulbuild".
+          Criando "cmTC_58bd8.dir\\Debug\\cmTC_58bd8.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_58bd8.dir\\Debug\\cmTC_58bd8.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_94408.dir\\Debug\\\\" /Fd"cmTC_94408.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_58bd8.dir\\Debug\\\\" /Fd"cmTC_58bd8.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35211 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_94408.dir\\Debug\\\\" /Fd"cmTC_94408.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_58bd8.dir\\Debug\\\\" /Fd"cmTC_58bd8.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vmz0gy\\Debug\\cmTC_94408.exe" /INCREMENTAL /ILK:"cmTC_94408.dir\\Debug\\cmTC_94408.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-vmz0gy/Debug/cmTC_94408.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-vmz0gy/Debug/cmTC_94408.lib" /MACHINE:X64  /machine:x64 cmTC_94408.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_94408.vcxproj -> D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vmz0gy\\Debug\\cmTC_94408.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yw9vjs\\Debug\\cmTC_58bd8.exe" /INCREMENTAL /ILK:"cmTC_58bd8.dir\\Debug\\cmTC_58bd8.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-yw9vjs/Debug/cmTC_58bd8.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-yw9vjs/Debug/cmTC_58bd8.lib" /MACHINE:X64  /machine:x64 cmTC_58bd8.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_58bd8.vcxproj -> D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yw9vjs\\Debug\\cmTC_58bd8.exe
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_94408.dir\\Debug\\cmTC_94408.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_94408.dir\\Debug\\cmTC_94408.tlog\\cmTC_94408.lastbuildstate".
-        Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-vmz0gy\\cmTC_94408.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_58bd8.dir\\Debug\\cmTC_58bd8.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_58bd8.dir\\Debug\\cmTC_58bd8.tlog\\cmTC_58bd8.lastbuildstate".
+        Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yw9vjs\\cmTC_58bd8.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:00.64
+        Tempo Decorrido 00:00:00.69
         
       exitCode: 0
   -
@@ -1606,8 +1606,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-s8sr39"
-      binary: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-s8sr39"
+      source: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-wa80kt"
+      binary: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-wa80kt"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1617,40 +1617,40 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-s8sr39'
+        Change Dir: 'D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-wa80kt'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_7506e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_ef8ec.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         Vers├úo do MSBuild 17.14.14+a129329f1 para .NET Framework
-        Compila├º├úo de 25/10/2025 01:08:20 iniciada.
+        Compila├º├úo de 25/10/2025 02:28:10 iniciada.
         
-        Projeto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s8sr39\\cmTC_7506e.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wa80kt\\cmTC_ef8ec.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
-          Criando o diret├│rio "cmTC_7506e.dir\\Debug\\".
+          Criando o diret├│rio "cmTC_ef8ec.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Criando o diret├│rio "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s8sr39\\Debug\\".
-          Criando o diret├│rio "cmTC_7506e.dir\\Debug\\cmTC_7506e.tlog\\".
+          Criando o diret├│rio "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wa80kt\\Debug\\".
+          Criando o diret├│rio "cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_7506e.dir\\Debug\\cmTC_7506e.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_7506e.dir\\Debug\\cmTC_7506e.tlog\\unsuccessfulbuild".
+          Criando "cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_7506e.dir\\Debug\\\\" /Fd"cmTC_7506e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_ef8ec.dir\\Debug\\\\" /Fd"cmTC_ef8ec.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35211 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_7506e.dir\\Debug\\\\" /Fd"cmTC_7506e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_ef8ec.dir\\Debug\\\\" /Fd"cmTC_ef8ec.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s8sr39\\Debug\\cmTC_7506e.exe" /INCREMENTAL /ILK:"cmTC_7506e.dir\\Debug\\cmTC_7506e.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-s8sr39/Debug/cmTC_7506e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-s8sr39/Debug/cmTC_7506e.lib" /MACHINE:X64  /machine:x64 cmTC_7506e.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_7506e.vcxproj -> D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s8sr39\\Debug\\cmTC_7506e.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wa80kt\\Debug\\cmTC_ef8ec.exe" /INCREMENTAL /ILK:"cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-wa80kt/Debug/cmTC_ef8ec.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-wa80kt/Debug/cmTC_ef8ec.lib" /MACHINE:X64  /machine:x64 cmTC_ef8ec.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_ef8ec.vcxproj -> D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wa80kt\\Debug\\cmTC_ef8ec.exe
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_7506e.dir\\Debug\\cmTC_7506e.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_7506e.dir\\Debug\\cmTC_7506e.tlog\\cmTC_7506e.lastbuildstate".
-        Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-s8sr39\\cmTC_7506e.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.tlog\\cmTC_ef8ec.lastbuildstate".
+        Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wa80kt\\cmTC_ef8ec.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:00.62
+        Tempo Decorrido 00:00:00.81
         
       exitCode: 0
   -
@@ -1685,7 +1685,7 @@ events:
     kind: "find_package-v1"
     backtrace:
       - "C:/libtorch/share/cmake/Caffe2/public/mkl.cmake:1 (find_package)"
-      - "C:/libtorch/share/cmake/Caffe2/Caffe2Config.cmake:113 (include)"
+      - "C:/libtorch/share/cmake/Caffe2/Caffe2Config.cmake:104 (include)"
       - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
       - "CMakeLists.txt:24 (find_package)"
     name: "MKL"
@@ -1853,14 +1853,6 @@ events:
         reason: "no_exist"
       -
         path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mkl-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "C:/tensorflow/MKLConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "C:/tensorflow/mkl-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2070,7 +2062,7 @@ events:
     kind: "find_package-v1"
     backtrace:
       - "C:/libtorch/share/cmake/Caffe2/public/mkldnn.cmake:7 (find_package)"
-      - "C:/libtorch/share/cmake/Caffe2/Caffe2Config.cmake:117 (include)"
+      - "C:/libtorch/share/cmake/Caffe2/Caffe2Config.cmake:107 (include)"
       - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:68 (find_package)"
       - "CMakeLists.txt:24 (find_package)"
     name: "MKLDNN"
@@ -2238,14 +2230,6 @@ events:
         reason: "no_exist"
       -
         path: "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mkldnn-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "C:/tensorflow/MKLDNNConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "C:/tensorflow/mkldnn-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2696,7 +2680,7 @@ events:
     kind: "find-v1"
     backtrace:
       - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:18 (find_library)"
-      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:125 (append_torchlib_if_found)"
+      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:127 (append_torchlib_if_found)"
       - "CMakeLists.txt:24 (find_package)"
     mode: "library"
     variable: "kineto_LIBRARY"
@@ -2820,7 +2804,7 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:147 (find_library)"
+      - "C:/libtorch/share/cmake/Torch/TorchConfig.cmake:170 (find_library)"
       - "CMakeLists.txt:24 (find_package)"
     mode: "library"
     variable: "TORCH_LIBRARY"
@@ -2960,8 +2944,8 @@ events:
       - "tensorflow.lib"
       - "tensorflow"
     candidate_directories:
-      - "C:/tensorflow/lib/"
-    found: "C:/tensorflow/lib/tensorflow.lib"
+      - "C:/libtensorflow/lib/"
+    found: "C:/libtensorflow/lib/tensorflow.lib"
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
@@ -3034,8 +3018,8 @@ events:
     names:
       - "tensorflow/c/c_api.h"
     candidate_directories:
-      - "C:/tensorflow/include/"
-    found: "C:/tensorflow/include/"
+      - "C:/libtensorflow/include/"
+    found: "C:/libtensorflow/include/"
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
