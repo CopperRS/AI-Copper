@@ -104,9 +104,16 @@ ai_copper = { git = "https://github.com/CopperRS/AI-Copper.git", branch = "main"
 name = "example"
 path = "example.crs"
 ```
-
+- Builde e Compile o projeto:
 ```bash
 # Para Buildar e Rodar
+  cforge run example.crs
+```
+> [!NOTE]
+> Aguarde de 1 a 2 minutos antes de fechar o terminal ou ambiente de desenvolvimento para as variaveis de ambiente serem aplicadas.
+- Reinicie o ambiente de desenvolvimento e/ou terminais.
+- Builde e Compile o projeto novamente:
+```bash
   cforge run example.crs
 ```
 
