@@ -51,8 +51,6 @@ ai_copper = { git = "" }
 
 
 ### Build do Projeto
-> [!NOTE]
-> ❗❗ IMPORTANTE: Em toda Build, o terminal deve estar em modo de adminstrador. ❗❗
 
 > [!NOTE]
 > O primeiro build pode demorar, pois as bibliotecas são baixadas e instaladas automaticamente durante o primeiro build.
