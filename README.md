@@ -82,7 +82,8 @@ Para instruções detalhadas de instalação manual, veja o [Guia de Instalaçã
 - **[INSTALLATION.md](INSTALLATION.md)** - Guia completo de instalação e troubleshooting
 - **[QUICKSTART.md](QUICKSTART.md)** - Exemplos práticos e início rápido
 - **[Documentação da API](docs/index.md)** - Referência completa da API
-- **[Exemplos](examples.md)** - Exemplos de uso da biblioteca
+- **[Exemplos](examples.md)** - Exemplos de uso da biblioteca no Rust
+- **[Copper Usage](examples/copper.crs)** - Exemplos de uso da biblioteca no Copper
 
 
 # Para Contribuidores
