@@ -95,7 +95,7 @@ Para instruções detalhadas de instalação manual, veja o [Guia de Instalaçã
 
 ```toml
 [package]
-name = "nome-da-pasta"
+name = "nome-do-projeto"
 version = "0.1.0"
 edition = "2024"
 
