@@ -1,0 +1,102 @@
+import ai from ai_copper
+
+    print!("=== AI Copper Features Demo ===\n\n")
+    // ==================== CRIAÇÃO DE TENSORES ====================
+    println!("\n1. CRIAÇÃO DE TENSORES")
+    
+    zeros = ai::Tensor::zeros(2, 3)
+    print!("Zeros (2x3):")
+    zeros.print()
+    
+    randn = ai::Tensor::randn(2, 3)
+    println!("\nRandom - Distribuição Normal (2x3):")
+    randn.print()
+    
+    eye = ai::Tensor::eye(3)
+    println!("\nEye - Matriz Identidade (3x3):")
+    eye.print()
+    
+    ones = ai::Tensor::ones(2, 2)
+    zeros_like = ones.zeros_like()
+    println!("\nZeros Like (mesma forma que ones):")
+    zeros_like.print()
+    
+    // ==================== FUNÇÕES MATEMÁTICAS ====================
+    println!("\n2. FUNÇÕES MATEMÁTICAS")
+    
+    x = ai::Tensor::from_values(&[0.0, 1.0, 2.0, 3.0], 2, 2)
+    println!("\nTensor original:")
+    x.print()
+    
+    sin_x = x.sin()
+    println!("\nSin(x):")
+    sin_x.print()
+    
+    exp_x = x.exp()
+    println!("\nExp(x):")
+    exp_x.print()
+    
+    sqrt_abs = x.abs().sqrt()
+    println!("\nSqrt(Abs(x)):")
+    sqrt_abs.print()
+    
+    pow_x = x.pow(2.0)
+    println!("\nPow(x, 2):")
+    pow_x.print()
+    
+    // ==================== FUNÇÕES DE ATIVAÇÃO ====================
+    println!("\n3. FUNÇÕES DE ATIVAÇÃO")
+    
+    activations = ai::Tensor::from_values(&[-2.0, -1.0, 0.0, 1.0, 2.0], 1, 5)
+    println!("\nValores originais:")
+    activations.print()
+    
+    relu = activations.relu()
+    println!("\nReLU:")
+    relu.print()
+    
+    sigmoid = activations.sigmoid()
+    println!("\nSigmoid:")
+    sigmoid.print()
+
+    tanh = activations.tanh()
+    println!("\nTanh:")
+    tanh.print()
+    
+    // ==================== ESTATÍSTICAS ====================
+    println!("\n\n4. ESTATÍSTICAS AVANÇADAS")
+    
+    data = ai::Tensor::from_values(&[1.0, 2.0, 3.0, 4.0, 5.0, 6.0], 2, 3)
+    println!("\nDataset:")
+    data.print()
+
+    println!("\nEstatísticas:")
+    println!("  Soma: {:.4}", data.sum())
+    println!("  Média: {:.4}", data.mean())
+    println!("  Desvio Padrão: {:.4}", data.std())
+    println!("  Variância: {:.4}", data.var())
+    println!("  Máximo: {:.4}", data.max())
+    println!("  Mínimo: {:.4}", data.min())
+    println!("  Argmax (índice): {}", data.argmax())
+    println!("  Argmin (índice): {}", data.argmin())
+
+    // ==================== NEURAL NETWORK COM NOVAS FEATURES ====================
+    println!("\n5. REDE NEURAL COM NOVAS FEATURES - EM DESENVOLVIMENTO")
+    println!("\n.................")
+    // Criar uma rede neural simples
+    layer1 = ai::Linear::new(2, 3)
+    layer2 = ai::Linear::new(3, 1)
+
+    // Otimizador Adam (NOVO!)
+    optimizer = ai::Optimizer::adam(&layer1, 0.01)
+    
+    // Dados de treinamento
+    x_train = ai::Tensor::from_values(&[0.5, 0.3, 0.8, 0.2, 0.1, 0.9], 3, 2)
+    y_train = ai::Tensor::from_values(&[1.0, 0.5, 0.2], 3, 1)
+
+    println!("\n=== Demo Completo! ===")
+    println!("Novas funcionalidades demonstradas:")
+    println!(" ✓ randn, eye, zeros_like, ones_like")
+    println!(" ✓ sin, cos, exp, log, sqrt, abs, pow")
+    println!(" ✓ relu, sigmoid, tanh")
+    println!(" ✓ std, var, argmax, argmin")
