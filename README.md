@@ -85,7 +85,7 @@ Para instruções detalhadas de instalação manual, veja o [Guia de Instalaçã
 
 ```
 📦 nome-do-projeto
-├─ example.crs
+├─ main.crs
 └─ cargo.toml
 ```
 
@@ -101,20 +101,20 @@ edition = "2024"
 ai_copper = { git = "https://github.com/CopperRS/AI-Copper.git", branch = "main" }
 
 [[bin]]
-name = "example"
-path = "example.crs"
+name = "main"
+path = "main.crs"
 ```
 - Builde e Compile o projeto:
 ```bash
 # Para Buildar e Rodar
-  cforge run example.crs
+  cforge run main.crs
 ```
 > [!NOTE]
 > Aguarde de 1 a 2 minutos antes de fechar o terminal ou ambiente de desenvolvimento para as variaveis de ambiente serem aplicadas.
 - Reinicie o ambiente de desenvolvimento e/ou terminais.
 - Builde e Compile o projeto novamente:
 ```bash
-  cforge run example.crs
+  cforge run main.crs
 ```
 
 ## 📚 Documentação
