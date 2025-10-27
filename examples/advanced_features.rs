@@ -243,6 +243,112 @@ fn main() {
             .expect("failed to get FlowTensors data")
     );
 
+    // -------------------- NOVAS OPS TENSORFLOW --------------------
+    println!("\nTENSORFLOW - NOVAS OPS: Fill, Pad/PadV2, Reverse, OneHot, Where");
+    println!("{}", "-".repeat(50));
+
+    // Fill: cria tensor 2x3 preenchido com 7.5
+    let filled = FlowTensors::fill(&[2, 3], 7.5).expect("fill failed");
+    println!("Fill 2x3 (7.5): {:?}", filled.data().expect("failed"));
+
+    // Pad: adicionar 1 linha/coluna de zeros ao redor (paddings para cada eixo)
+    let small = FlowTensors::new(&[1.0_f32, 2.0, 3.0, 4.0], &[2, 2]).expect("failed to create small");
+    // paddings = [(before_rows, after_rows), (before_cols, after_cols)]
+    let padded = small.pad(&[(1, 1), (1, 1)]).expect("pad failed");
+    println!("Small (2x2): {:?}", small.data().expect("failed"));
+    println!("Padded (4x4 with zero pad): {:?}", padded.data().expect("failed"));
+
+    // PadV2 com valor constante != 0
+    let padded_const = small.pad_v2(&[(0, 1), (2, 0)], -1.0).expect("pad_v2 failed");
+    println!("PadV2 (constant=-1) result: {:?}", padded_const.data().expect("failed"));
+
+    // Reverse: inverter ao longo do eixo das colunas (axis=1)
+    let rev_cols = small.reverse(&[1]).expect("reverse failed");
+    println!("Reverse cols (axis=1): {:?}", rev_cols.data().expect("failed"));
+
+    // OneHot: indices -> matriz one-hot
+    let idxs = vec![0_i64, 2_i64, 1_i64];
+    let oh = FlowTensors::one_hot(&idxs, 4, 1.0, 0.0).expect("one_hot failed");
+    println!("OneHot (depth=4): {:?}", oh.data().expect("failed"));
+
+    // Where: condicional elemento-a-elemento
+    let cond = FlowTensors::new(&[1.0_f32, 0.0, 1.0, 0.0], &[2, 2]).expect("failed cond");
+    let xa = FlowTensors::new(&[10.0_f32, 20.0, 30.0, 40.0], &[2, 2]).expect("failed xa");
+    let yb = FlowTensors::new(&[0.0_f32, 1.0, 2.0, 3.0], &[2, 2]).expect("failed yb");
+    let selected = FlowTensors::where_cond(&cond, &xa, &yb).expect("where failed");
+    println!("Where(cond,x,y) result: {:?}", selected.data().expect("failed"));
+
+    // -------------------- ARRAY OPS (Concat / Stack / Split / Slice / Gather / Transpose ND) --------------------
+    println!("\nArray Ops: Concat, Stack/Unstack, Split, Slice, Gather, Transpose ND");
+    println!("{}", "-".repeat(50));
+
+    // Recreate two small tensors for array-op demos (avoid Clone on FlowTensors)
+    let a_vals = small.data().expect("failed to get small data");
+    let a = FlowTensors::new(a_vals, small.dims()).expect("failed to recreate a");
+    let b_vals = filled.data().expect("failed to get filled data");
+    // reshape filled to same shape as a for demo (if sizes differ, pick a compatible one)
+    let b = FlowTensors::new(&b_vals[0..(a_vals.len())], a.dims()).expect("failed to recreate b");
+
+    // Concat along axis 0 (stack rows)
+    // Recreate separate FlowTensors instances from the same underlying data for safe ownership
+    let a1 = FlowTensors::new(a.data().expect("failed"), a.dims()).expect("failed a1");
+    let b1 = FlowTensors::new(b.data().expect("failed"), b.dims()).expect("failed b1");
+    let mut v = Vec::new();
+    v.push(a1);
+    v.push(b1);
+    if let Some(c) = FlowTensors::concat(&v, 0) {
+        println!("Concat axis=0 dims={:?} data={:?}", c.dims(), c.data().expect("failed"));
+    }
+
+    // Concat along axis 1 (concatenate columns): tensors must have same number of rows
+    // For 2D tensors shapes like [R, C1] and [R, C2] -> result [R, C1+C2]
+    let a_col = FlowTensors::new(a.data().expect("failed"), a.dims()).expect("failed a_col");
+    // build a compatible b with same rows but different columns by slicing/padding the filled tensor
+    // here we reuse b which already has same shape as a in the demo; to demo axis=1, create a narrow tensor
+    let b_cols = FlowTensors::new(&b.data().expect("failed")[0..(a.dims()[0] as usize)], &[a.dims()[0], 1]).expect("failed b_cols");
+    if let Some(cat_axis1) = FlowTensors::concat(&[a_col, b_cols], 1) {
+        println!("Concat axis=1 dims={:?} data={:?}", cat_axis1.dims(), cat_axis1.data().expect("failed"));
+    } else {
+        println!("Concat axis=1 failed: ensure tensors have same rank and matching dims except axis");
+    }
+
+    // Stack along a new leading axis
+    let a1 = FlowTensors::new(a.data().expect("failed"), a.dims()).expect("failed a1");
+    let b1 = FlowTensors::new(b.data().expect("failed"), b.dims()).expect("failed b1");
+    if let Some(stacked) = FlowTensors::stack(&[a1, b1], 0) {
+        println!("Stacked dims={:?} data={:?}", stacked.dims(), stacked.data().expect("failed"));
+        // Unstack back
+        if let Some(parts) = stacked.unstack(0) {
+            for (i, p) in parts.iter().enumerate() {
+                println!("Unstack part {} dims={:?} data={:?}", i, p.dims(), p.data().expect("failed"));
+            }
+        }
+    }
+
+    // Split along axis 0 into 2 equal parts (if compatible)
+    if let Some(splits) = a.split(2, 0) {
+        for (i, s) in splits.iter().enumerate() {
+            println!("Split part {} dims={:?} data={:?}", i, s.dims(), s.data().expect("failed"));
+        }
+    }
+
+    // Slice: take the first row of `a`
+    if let Some(sliced) = a.slice(&[0, 0], &[1, a.dims()[1]]) {
+        println!("Slice first row dims={:?} data={:?}", sliced.dims(), sliced.data().expect("failed"));
+    }
+
+    // Gather: collect rows 0 and 1 along axis 0
+    if a.dims()[0] >= 2 {
+        if let Some(gathered) = FlowTensors::gather(&a, &[0, 1], 0) {
+            println!("Gather rows [0,1] dims={:?} data={:?}", gathered.dims(), gathered.data().expect("failed"));
+        }
+    }
+
+    // Transpose ND: swap axes for 2D matrix
+    if let Some(tnd) = a.transpose_nd(&[1, 0]) {
+        println!("Transpose ND dims={:?} data={:?}", tnd.dims(), tnd.data().expect("failed"));
+    }
+
 
     // Exemplo grande para acionar paralelismo interno (CPU-only)
     // (útil para demonstrar o uso de rayon em operações element-wise)

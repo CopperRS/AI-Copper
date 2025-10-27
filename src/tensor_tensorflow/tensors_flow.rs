@@ -1102,6 +1102,13 @@ impl FlowTensors {
         FlowTensors::new(&values, dims)
     }
 
+    /// Fill - cria tensor preenchido com um valor arbitrário
+    pub fn fill(dims: &[i64], value: f32) -> Option<Self> {
+        let size = dims.iter().product::<i64>() as usize;
+        let values = vec![value; size];
+        FlowTensors::new(&values, dims)
+    }
+
     /// RandomUniform - valores uniformes no intervalo [low, high)
     pub fn random_uniform(dims: &[i64], low: f32, high: f32) -> Option<Self> {
         if low >= high {
@@ -1188,6 +1195,426 @@ impl FlowTensors {
 
         let data = self.data()?.to_vec();
         FlowTensors::new(&data, new_dims)
+    }
+
+    /// Pad - aplica padding ao tensor. `paddings` deve ter comprimento igual ao rank
+    /// e cada elemento é um par (before, after) em usize. Padding usa valor constante
+    /// 0.0 por padrão. Para usar outro valor, chame `pad_v2`.
+    pub fn pad(&self, paddings: &[(usize, usize)]) -> Option<FlowTensors> {
+        FlowTensors::pad_v2(self, paddings, 0.0f32)
+    }
+
+    /// PadV2 - equivalente a Pad mas permite escolher o valor de preenchimento
+    pub fn pad_v2(&self, paddings: &[(usize, usize)], constant: f32) -> Option<FlowTensors> {
+        let rank = self.dims.len();
+        if paddings.len() != rank { return None; }
+        // Compute new dims
+        let mut new_dims: Vec<i64> = Vec::with_capacity(rank);
+        for (i, &d) in self.dims.iter().enumerate() {
+            let (before, after) = paddings[i];
+            new_dims.push((before + (d as usize) + after) as i64);
+        }
+
+        let new_size = new_dims.iter().product::<i64>() as usize;
+        let mut out = vec![constant; new_size];
+
+        // Helper to compute strides
+        let old_strides: Vec<usize> = {
+            let mut s = vec![1usize; rank];
+            for i in (0..rank - 1).rev() {
+                s[i] = s[i + 1] * (self.dims[i + 1] as usize);
+            }
+            s
+        };
+        let new_strides: Vec<usize> = {
+            let mut s = vec![1usize; rank];
+            for i in (0..rank - 1).rev() {
+                s[i] = s[i + 1] * (new_dims[i + 1] as usize);
+            }
+            s
+        };
+
+        // Iterate old tensor and copy into new with offsets
+        let old_size = self.dims.iter().product::<i64>() as usize;
+        let old_data = self.data()?;
+        for idx in 0..old_size {
+            // compute multi-index
+            let mut rem = idx;
+            let mut multi = vec![0usize; rank];
+            for i in 0..rank {
+                multi[i] = rem / old_strides[i];
+                rem = rem % old_strides[i];
+            }
+            // compute new flat index with paddings
+            let mut new_flat = 0usize;
+            for i in 0..rank {
+                let before = paddings[i].0;
+                let coord = before + multi[i];
+                new_flat += coord * new_strides[i];
+            }
+            out[new_flat] = old_data[idx];
+        }
+
+        FlowTensors::new(&out, &new_dims)
+    }
+
+    /// Reverse - inverte elementos ao longo de eixos especificados.
+    /// `axes` é um slice com índices de eixos a reverter. Se vazio, reverte todos os eixos.
+    pub fn reverse(&self, axes: &[usize]) -> Option<FlowTensors> {
+        let rank = self.dims.len();
+        let mut axes_set = vec![false; rank];
+        if axes.is_empty() {
+            for a in 0..rank { axes_set[a] = true; }
+        } else {
+            for &a in axes { if a >= rank { return None; } axes_set[a] = true; }
+        }
+
+        let size = self.dims.iter().product::<i64>() as usize;
+        let data = self.data()?;
+        let mut out = vec![0.0f32; size];
+
+        // Precompute strides
+        let strides: Vec<usize> = {
+            let mut s = vec![1usize; rank];
+            for i in (0..rank - 1).rev() { s[i] = s[i + 1] * (self.dims[i + 1] as usize); }
+            s
+        };
+
+        for flat in 0..size {
+            // compute multi-index
+            let mut rem = flat;
+            let mut multi = vec![0usize; rank];
+            for i in 0..rank {
+                multi[i] = rem / strides[i];
+                rem = rem % strides[i];
+            }
+            // compute reversed multi
+            let mut rev_multi = multi.clone();
+            for i in 0..rank {
+                if axes_set[i] {
+                    rev_multi[i] = (self.dims[i] as usize) - 1 - multi[i];
+                }
+            }
+            // compute new flat index
+            let mut new_flat = 0usize;
+            for i in 0..rank { new_flat += rev_multi[i] * strides[i]; }
+            out[new_flat] = data[flat];
+        }
+
+        FlowTensors::new(&out, &self.dims)
+    }
+
+    /// OneHot: cria um tensor one-hot a partir de índices 1D.
+    /// Retorna tensor shape [indices.len(), depth]
+    pub fn one_hot(indices: &[i64], depth: i64, on_value: f32, off_value: f32) -> Option<FlowTensors> {
+        if depth <= 0 { return None; }
+        let n = indices.len();
+        let mut out = vec![off_value; n * (depth as usize)];
+        for (i, &idx) in indices.iter().enumerate() {
+            if idx < 0 || idx >= depth { continue; }
+            let pos = i * (depth as usize) + (idx as usize);
+            out[pos] = on_value;
+        }
+        FlowTensors::new(&out, &[n as i64, depth])
+    }
+
+    /// Where - seleção condicional: para cada elemento, se condition != 0 -> x else y
+    /// Todos os tensores devem ter as mesmas dimensões.
+    pub fn where_cond(condition: &FlowTensors, x: &FlowTensors, y: &FlowTensors) -> Option<FlowTensors> {
+        if condition.dims() != x.dims() || x.dims() != y.dims() { return None; }
+        let cond = condition.data()?;
+        let a = x.data()?;
+        let b = y.data()?;
+        let size = cond.len();
+        let mut out = vec![0.0f32; size];
+        for i in 0..size {
+            out[i] = if cond[i] != 0.0 { a[i] } else { b[i] };
+        }
+        FlowTensors::new(&out, x.dims())
+    }
+
+    // --- Array ops: Concat, Stack/Unstack, Split, Slice, Gather, Transpose ND ---
+
+    // Helper: compute row-major strides (in elements) for dims
+    fn compute_strides(dims: &[i64]) -> Vec<usize> {
+        let rank = dims.len();
+        let mut strides = vec![1usize; rank];
+        for i in (0..rank - 1).rev() {
+            strides[i] = strides[i + 1] * (dims[i + 1] as usize);
+        }
+        strides
+    }
+
+    // Helper: convert flat index to multi-index using strides
+    fn flat_to_multi(mut flat: usize, strides: &[usize], dims: &[i64]) -> Vec<usize> {
+        let rank = dims.len();
+        let mut multi = vec![0usize; rank];
+        for i in 0..rank {
+            multi[i] = flat / strides[i];
+            flat = flat % strides[i];
+        }
+        multi
+    }
+
+    // Helper: convert multi-index to flat index
+    fn multi_to_flat(multi: &[usize], strides: &[usize]) -> usize {
+        multi.iter().zip(strides.iter()).map(|(m,s)| m * s).sum()
+    }
+
+    /// Transpose with an arbitrary permutation `perm` of axes.
+    pub fn transpose_nd(&self, perm: &[usize]) -> Option<FlowTensors> {
+        let rank = self.dims.len();
+        if perm.len() != rank { return None; }
+        // validate perm is a permutation
+        let mut seen = vec![false; rank];
+        for &p in perm { if p >= rank { return None; } seen[p] = true; }
+        if seen.iter().any(|&b| !b) { return None; }
+
+        let new_dims: Vec<i64> = perm.iter().map(|&p| self.dims[p]).collect();
+        let old_strides = FlowTensors::compute_strides(&self.dims);
+        let new_strides = FlowTensors::compute_strides(&new_dims);
+        let size = self.dims.iter().product::<i64>() as usize;
+        let data = self.data()?;
+        let mut out = vec![0.0f32; size];
+
+        for flat in 0..size {
+            let multi_new = FlowTensors::flat_to_multi(flat, &new_strides, &new_dims);
+            // build corresponding old multi by inverting perm
+            let mut multi_old = vec![0usize; rank];
+            for (i, &v) in perm.iter().enumerate() { multi_old[v] = multi_new[i]; }
+            let old_flat = FlowTensors::multi_to_flat(&multi_old, &old_strides);
+            out[flat] = data[old_flat];
+        }
+
+        FlowTensors::new(&out, &new_dims)
+    }
+
+    /// Concatenate a list of tensors along `axis`.
+    /// All tensors must have the same rank and matching dims except on `axis`.
+    pub fn concat(tensors: &[FlowTensors], axis: usize) -> Option<FlowTensors> {
+        if tensors.is_empty() { return None; }
+        let rank = tensors[0].dims.len();
+        if axis >= rank { return None; }
+        // verify compatibility and compute output dims
+        let mut out_dims = tensors[0].dims.clone();
+        out_dims[axis] = 0;
+        for t in tensors {
+            if t.dims.len() != rank { return None; }
+            for i in 0..rank { if i != axis && t.dims[i] != tensors[0].dims[i] { return None; } }
+            out_dims[axis] += t.dims[axis];
+        }
+        let out_size = out_dims.iter().product::<i64>() as usize;
+        let out_strides = FlowTensors::compute_strides(&out_dims);
+        let mut out = vec![0.0f32; out_size];
+
+        // prepare cumulative sizes for axis
+        let mut cum_sizes: Vec<i64> = Vec::with_capacity(tensors.len());
+        let mut acc = 0i64;
+        for t in tensors { cum_sizes.push(acc); acc += t.dims[axis]; }
+
+        for flat in 0..out_size {
+            let multi = FlowTensors::flat_to_multi(flat, &out_strides, &out_dims);
+            let coord_axis = multi[axis] as i64;
+            // find which tensor owns this axis coordinate
+            let mut owner = 0usize;
+            while owner + 1 < cum_sizes.len() && coord_axis >= cum_sizes[owner + 1] { owner += 1; }
+            let local_axis = coord_axis - cum_sizes[owner];
+            // build source multi index
+            let mut src_multi: Vec<usize> = multi.clone();
+            src_multi[axis] = local_axis as usize;
+            let src_strides = FlowTensors::compute_strides(&tensors[owner].dims);
+            let src_flat = FlowTensors::multi_to_flat(&src_multi, &src_strides);
+            let src_data = tensors[owner].data()?;
+            out[flat] = src_data[src_flat];
+        }
+
+        FlowTensors::new(&out, &out_dims)
+    }
+
+    /// Stack tensors by inserting a new axis at `axis` with length == tensors.len().
+    /// All tensors must have identical shapes.
+    pub fn stack(tensors: &[FlowTensors], axis: usize) -> Option<FlowTensors> {
+        if tensors.is_empty() { return None; }
+        let rank = tensors[0].dims.len();
+        if axis > rank { return None; }
+        for t in tensors { if t.dims != tensors[0].dims { return None; } }
+        // build new dims
+        let mut new_dims = tensors[0].dims.clone();
+        new_dims.insert(axis, tensors.len() as i64);
+        let new_size = new_dims.iter().product::<i64>() as usize;
+        let new_strides = FlowTensors::compute_strides(&new_dims);
+        let mut out = vec![0.0f32; new_size];
+
+        // iterate output flat, map to source tensor and index
+        let src_strides = FlowTensors::compute_strides(&tensors[0].dims);
+        for flat in 0..new_size {
+            let multi = FlowTensors::flat_to_multi(flat, &new_strides, &new_dims);
+            let which = multi[axis];
+            // build src multi by removing axis
+            let mut src_multi = Vec::with_capacity(rank);
+            for (i, &v) in multi.iter().enumerate() {
+                if i == axis { continue; }
+                src_multi.push(v);
+            }
+            let src_flat = FlowTensors::multi_to_flat(&src_multi, &src_strides);
+            let src_data = tensors[which].data()?;
+            out[flat] = src_data[src_flat];
+        }
+        FlowTensors::new(&out, &new_dims)
+    }
+
+    /// Unstack: split along axis producing tensors without that axis.
+    pub fn unstack(&self, axis: usize) -> Option<Vec<FlowTensors>> {
+        let rank = self.dims.len();
+        if axis >= rank { return None; }
+        let n = self.dims[axis] as usize;
+        let mut results: Vec<Vec<f32>> = vec![Vec::new(); n];
+        let mut out_dims: Vec<i64> = self.dims.clone();
+        out_dims.remove(axis);
+        let out_size = out_dims.iter().product::<i64>() as usize;
+        for v in &mut results { v.resize(out_size, 0.0f32); }
+
+        let strides = FlowTensors::compute_strides(&self.dims);
+        let data = self.data()?;
+        let size = data.len();
+        for flat in 0..size {
+            let multi = FlowTensors::flat_to_multi(flat, &strides, &self.dims);
+            let which = multi[axis];
+            // build out multi by removing axis
+            let mut out_multi = Vec::with_capacity(rank - 1);
+            for (i, &v) in multi.iter().enumerate() { if i != axis { out_multi.push(v); } }
+            let out_strides = FlowTensors::compute_strides(&out_dims);
+            let out_flat = FlowTensors::multi_to_flat(&out_multi, &out_strides);
+            results[which].push(data[flat]);
+        }
+
+        let mut out_tensors = Vec::with_capacity(n);
+        for v in results { out_tensors.push(FlowTensors::new(&v, &out_dims)?); }
+        Some(out_tensors)
+    }
+
+    /// Split tensor into `num_splits` equal parts along `axis`.
+    pub fn split(&self, num_splits: usize, axis: usize) -> Option<Vec<FlowTensors>> {
+        if num_splits == 0 { return None; }
+        let rank = self.dims.len();
+        if axis >= rank { return None; }
+        let dim = self.dims[axis] as usize;
+        if dim % num_splits != 0 { return None; }
+        let part = dim / num_splits;
+        let mut parts = Vec::with_capacity(num_splits);
+        for i in 0..num_splits {
+            let mut new_dims = self.dims.clone();
+            new_dims[axis] = part as i64;
+            parts.push(new_dims);
+        }
+        // reuse concat-like mapping: for each output flat compute source
+        let mut results: Vec<Vec<f32>> = parts.iter().map(|d| vec![0.0f32; d.iter().product::<i64>() as usize]).collect();
+        let out_strides = FlowTensors::compute_strides(&self.dims);
+        let data = self.data()?;
+        let total = data.len();
+        for flat in 0..total {
+            let multi = FlowTensors::flat_to_multi(flat, &out_strides, &self.dims);
+            let axis_coord = multi[axis];
+            let which = axis_coord / part;
+            let local_axis = axis_coord % part;
+            // build dest multi
+            let mut dest_multi = multi.clone(); dest_multi[axis] = local_axis;
+            let dest_strides = FlowTensors::compute_strides(&parts[which]);
+            let dest_flat = FlowTensors::multi_to_flat(&dest_multi, &dest_strides);
+            results[which][dest_flat] = data[flat];
+        }
+
+        let mut out = Vec::with_capacity(num_splits);
+        for (i, v) in results.into_iter().enumerate() { out.push(FlowTensors::new(&v, &parts[i])?); }
+        Some(out)
+    }
+
+    /// Slice: begin and size must have length == rank. Size may contain -1 to mean 'till end'.
+    pub fn slice(&self, begin: &[i64], size: &[i64]) -> Option<FlowTensors> {
+        let rank = self.dims.len();
+        if begin.len() != rank || size.len() != rank { return None; }
+        let mut new_dims = vec![0i64; rank];
+        for i in 0..rank {
+            let b = begin[i];
+            let s = if size[i] < 0 { self.dims[i] - b } else { size[i] };
+            if b < 0 || b + s > self.dims[i] { return None; }
+            new_dims[i] = s;
+        }
+        let new_size = new_dims.iter().product::<i64>() as usize;
+        let new_strides = FlowTensors::compute_strides(&new_dims);
+        let old_strides = FlowTensors::compute_strides(&self.dims);
+        let mut out = vec![0.0f32; new_size];
+        let data = self.data()?;
+        for flat in 0..new_size {
+            let multi = FlowTensors::flat_to_multi(flat, &new_strides, &new_dims);
+            let mut old_multi = vec![0usize; rank];
+            for i in 0..rank { old_multi[i] = (multi[i] as i64 + begin[i]) as usize; }
+            let old_flat = FlowTensors::multi_to_flat(&old_multi, &old_strides);
+            out[flat] = data[old_flat];
+        }
+        FlowTensors::new(&out, &new_dims)
+    }
+
+    /// Gather along `axis` using 1D indices.
+    pub fn gather(params: &FlowTensors, indices: &[i64], axis: usize) -> Option<FlowTensors> {
+        let rank = params.dims.len();
+        if axis >= rank { return None; }
+        let mut out_dims = params.dims.clone();
+        out_dims[axis] = indices.len() as i64;
+        let out_size = out_dims.iter().product::<i64>() as usize;
+        let out_strides = FlowTensors::compute_strides(&out_dims);
+        let mut out = vec![0.0f32; out_size];
+        let params_strides = FlowTensors::compute_strides(&params.dims);
+        let data = params.data()?;
+        for flat in 0..out_size {
+            let multi = FlowTensors::flat_to_multi(flat, &out_strides, &out_dims);
+            let idx = indices[multi[axis]];
+            if idx < 0 || idx >= params.dims[axis] { return None; }
+            let mut src_multi = multi.clone();
+            src_multi[axis] = idx as usize;
+            let src_flat = FlowTensors::multi_to_flat(&src_multi, &params_strides);
+            out[flat] = data[src_flat];
+        }
+        FlowTensors::new(&out, &out_dims)
+    }
+
+    /// GatherNd - very small convenience wrapper for common 2D gather_nd (list of indices vectors)
+    pub fn gather_nd(params: &FlowTensors, indices_nd: &[Vec<i64>]) -> Option<FlowTensors> {
+        // Build an output of shape [indices_nd.len(), params.dims[rank-1]] for simple cases
+        let rank = params.dims.len();
+        if rank == 0 { return None; }
+        if indices_nd.is_empty() { return None; }
+        // Each index should index into first `k` dims; we will support indexing full-rank-1 prefix
+        let k = indices_nd[0].len();
+        if k == 0 || k > rank { return None; }
+        // output dims = [indices_nd.len(), params.dims[k..].product]
+        let tail_dims = &params.dims[k..];
+        let mut out_dims = vec![indices_nd.len() as i64];
+        out_dims.extend_from_slice(tail_dims);
+        let out_size = out_dims.iter().product::<i64>() as usize;
+        let out_strides = FlowTensors::compute_strides(&out_dims);
+        let mut out = vec![0.0f32; out_size];
+
+        let params_strides = FlowTensors::compute_strides(&params.dims);
+        let params_data = params.data()?;
+
+        for i in 0..indices_nd.len() {
+            let idx_vec = &indices_nd[i];
+            if idx_vec.len() != k { return None; }
+            // compute base offset in params
+            let mut base = 0usize;
+            for (d, &v) in idx_vec.iter().enumerate() {
+                if v < 0 || v >= params.dims[d] { return None; }
+                base += (v as usize) * params_strides[d];
+            }
+            // copy the remaining tail slice
+            let tail_size = tail_dims.iter().product::<i64>() as usize;
+            for j in 0..tail_size {
+                out[i * tail_size + j] = params_data[base + j];
+            }
+        }
+
+        FlowTensors::new(&out, &out_dims)
     }
 
     /// RandomShuffle - embaralha elementos.

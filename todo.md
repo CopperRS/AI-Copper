@@ -12,52 +12,21 @@
 
 ### TensorFlow
 
-🔗 [TensorFlow C++ API Documentation](https://www.tensorflow.org/api_docs/cc)
-
----
-
-## ✅ Tarefas
-
-### 🔥 LibTorch
-
-#### ✨ Já implementado
-
 - [ ] Feature 1
 - [ ] Feature 2
 - [ ] Feature 3
-
-#### 🚀 A fazer
-
 - [ ] **Tarefa 1:** Description pending
 - [ ] Add tensor operations
 - [ ] Implement device management
-- [ ] Add examples and tests
-
----
 
 ### 🌊 TensorFlow - FOCO
 
-#### ✨ Já implementado
-
-**OPERAÇÕES MATEMÁTICAS (Math Ops):**
 
 - [ ✅ ] Add (+), Sub (-), Mul (*), Div (/) - Operadores aritméticos
 - [ ✅ ] MatMul - Multiplicação de matrizes
-- [ ✅ ] BatchMatMul/V2/V3 - Multiplicação em batch
-- [ ✅ ] Pow, Sqrt, Square, Abs - Funções matemáticas básicas
-- [ ✅ ] Exp, Log, Log1p, Sigmoid, Tanh - Funções exponenciais
-- [ ✅ ] Sin, Cos, Tan, Asin, Acos, Atan - Trigonométricas
-- [ ✅ ] Equal, NotEqual, Greater, Less - Comparações
-- [ ✅ ] LogicalAnd, LogicalOr, LogicalNot - Lógicas
-- [ ✅ ] Ceil, Floor, Round, Clip - Arredondamento
-- [ ✅ ] Cast - Conversão de tipos
-
-**OPERAÇÕES ALEATÓRIAS (Random Ops):**
-
+Nota: stubs de implementação e exemplos foram adicionados ao backend TensorFlow (`src/tensor_tensorflow/tensors_flow.rs`) e demonstrados em `examples/advanced_features.rs`.
 - [ ✅ ] RandomUniform, RandomNormal
 - [ ✅ ] TruncatedNormal, RandomGamma
-- [ ✅ ] RandomShuffle, Multinomial
-
 **OTIMIZADORES (Training Ops):**
 
 - [ ✅ ] GradientDescent (SGD)
@@ -69,6 +38,20 @@
 - [ ✅ ] SparseAdd, SparseTensorDenseMatMul
 - [ ✅ ] SparseConcat, SparseSlice
 - [ ✅ ] SparseReshape
+
+**OPERAÇÕES DE ARRAY (Array Ops):**
+
+- [ ✅ ] Concat - Concatenar tensors
+- [ ✅ ] Stack/Unstack - Empilhar/desempilhar
+- [ ✅ ] Split - Dividir tensor
+- [ ✅ ] Slice - Fatiar tensor
+- [ ✅ ] Gather/GatherNd - Coletar elementos
+- [ ✅ ] Transpose N-dimensional - Transpor qualquer dimensão
+- [ ✅ ] Fill - Preencher com valor
+- [ ✅ ] Pad/PadV2 - Padding
+- [ ✅ ] Reverse - Reverter tensor
+- [ ✅ ] OneHot - Codificação one-hot
+- [ ✅ ] Where - Selecionar por condição
 
 ### **Structs**
 
@@ -139,20 +122,6 @@ UnifiedTensor::TensorFlow(FlowTensors)
 Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáticos (+, -, *, /) implementados diretamente no FlowTensors.
 
 #### 🚀 A fazer
-
-**OPERAÇÕES DE ARRAY (Array Ops):**
-
-- [ ] Concat - Concatenar tensors
-- [ ] Stack/Unstack - Empilhar/desempilhar
-- [ ] Split - Dividir tensor
-- [ ] Slice - Fatiar tensor
-- [ ] Gather/GatherNd - Coletar elementos
-- [ ] Transpose N-dimensional - Transpor qualquer dimensão
-- [ ] Fill - Preencher com valor
-- [ ] Pad/PadV2 - Padding
-- [ ] Reverse - Reverter tensor
-- [ ] OneHot - Codificação one-hot
-- [ ] Where - Selecionar por condição
 
 **REDES NEURAIS (NN Ops):**
 
