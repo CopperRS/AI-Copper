@@ -4,6 +4,8 @@ use std::ptr;
 
 // Random utilities
 use rand::{thread_rng, Rng};
+use rand::SeedableRng;
+use rand::rngs::StdRng;
 use rand::distributions::Distribution;
 use rand::seq::SliceRandom;
 use rand::distributions::WeightedIndex;
@@ -1063,6 +1065,803 @@ impl FlowTensors {
         self.map(|x| x.tanh())
     }
 
+    /// ReLU: max(0, x)
+    pub fn relu(&self) -> Option<FlowTensors> {
+        self.map(|x| if x > 0.0 { x } else { 0.0 })
+    }
+
+    /// ReLU6: clamp between 0 and 6
+    pub fn relu6(&self) -> Option<FlowTensors> {
+        self.map(|x| if x < 0.0 { 0.0 } else if x > 6.0 { 6.0 } else { x })
+    }
+
+    /// ELU: x if x>0 else alpha*(exp(x)-1) with alpha=1.0
+    pub fn elu(&self) -> Option<FlowTensors> {
+        self.map(|x| if x > 0.0 { x } else { x.exp() - 1.0 })
+    }
+
+    /// SELU: scale * (x if x>0 else alpha*(exp(x)-1))
+    /// Uses the standard values from the original paper.
+    pub fn selu(&self) -> Option<FlowTensors> {
+        const SCALE: f32 = 1.0507009873554805_f32;
+        const ALPHA: f32 = 1.6732632423543772_f32;
+    self.map(|x| if x > 0.0 { SCALE * x } else { SCALE * ALPHA * (x.exp() - 1.0) })
+    }
+
+    /// Softmax along the given axis (supports 1D and 2D tensors).
+    /// For 1D: applies softmax over the vector.
+    /// For 2D: applies softmax over the last axis (each row).
+    pub fn softmax(&self, axis: usize) -> Option<FlowTensors> {
+        // Numerically stable softmax for arbitrary axis.
+        let rank = self.dims.len();
+        if rank == 0 || axis >= rank { return None; }
+        let data = self.data()?;
+        
+        let axis_dim = self.dims[axis] as usize;
+        let outer_size = self.dims[..axis].iter().product::<i64>() as usize;
+        let inner_size = self.dims[axis+1..].iter().product::<i64>() as usize;
+        let mut out = vec![0.0f32; data.len()];
+
+        // Iterate over all outer indices, then the axis slice, then inner indices
+        for outer in 0..outer_size {
+            for inner in 0..inner_size {
+                // compute base offset for this (outer, :, inner)
+                let mut maxv = f32::NEG_INFINITY;
+                // first pass: find max
+                for i_axis in 0..axis_dim {
+                    // compute flat index: reconstruct multi-index
+                    // compute flat = outer_part + i_axis * stride_axis + inner_part
+                    let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                    let v = data[flat];
+                    if v > maxv { maxv = v; }
+                }
+                // second pass: exp and sum
+                let mut sum = 0.0f32;
+                for i_axis in 0..axis_dim {
+                    let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                    let e = (data[flat] - maxv).exp();
+                    out[flat] = e;
+                    sum += e;
+                }
+                if sum == 0.0 {
+                    // avoid div by zero
+                    for i_axis in 0..axis_dim {
+                        let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                        out[flat] = 0.0;
+                    }
+                } else {
+                    for i_axis in 0..axis_dim {
+                        let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                        out[flat] /= sum;
+                    }
+                }
+            }
+        }
+        FlowTensors::new(&out, &self.dims)
+    }
+
+    /// LogSoftmax (numerically stable) for 1D and 2D(axis=1)
+    pub fn log_softmax(&self, axis: usize) -> Option<FlowTensors> {
+        // Generic log_softmax via numeric stabilization along axis
+        let rank = self.dims.len();
+        if rank == 0 || axis >= rank { return None; }
+        let data = self.data()?;
+        let axis_dim = self.dims[axis] as usize;
+        let outer_size = self.dims[..axis].iter().product::<i64>() as usize;
+        let inner_size = self.dims[axis+1..].iter().product::<i64>() as usize;
+        let mut out = vec![0.0f32; data.len()];
+
+        for outer in 0..outer_size {
+            for inner in 0..inner_size {
+                let mut maxv = f32::NEG_INFINITY;
+                for i_axis in 0..axis_dim {
+                    let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                    let v = data[flat];
+                    if v > maxv { maxv = v; }
+                }
+                let mut sum = 0.0f32;
+                for i_axis in 0..axis_dim {
+                    let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                    let e = (data[flat] - maxv).exp();
+                    sum += e;
+                }
+                let logsum = if sum > 0.0 { sum.ln() } else { f32::NEG_INFINITY };
+                for i_axis in 0..axis_dim {
+                    let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                    out[flat] = data[flat] - maxv - logsum;
+                }
+            }
+        }
+        FlowTensors::new(&out, &self.dims)
+    }
+
+    /// BiasAdd: adiciona um bias (vetor 1-D) ao longo do eixo `axis`.
+    /// Ex.: para tensor [N, C] e axis=1, bias.dim = [C]
+    pub fn bias_add(&self, bias: &FlowTensors, axis: usize) -> Option<FlowTensors> {
+        // Try native implementation first
+        unsafe {
+            let out_ptr = crate::tensor_tensorflow::ffi::TF_BiasAdd_Native(self.ptr, bias.ptr, axis as c_int);
+            if !out_ptr.is_null() {
+                // obtain dims
+                let mut ndims: c_int = 0;
+                let dims_ptr = crate::tensor_tensorflow::ffi::GetTFTensorDims(out_ptr, &mut ndims as *mut c_int);
+                let mut dims_vec: Vec<i64> = Vec::new();
+                if !dims_ptr.is_null() && ndims > 0 {
+                    for i in 0..(ndims as isize) {
+                        dims_vec.push(*dims_ptr.offset(i) as i64);
+                    }
+                    crate::tensor_tensorflow::ffi::FreeInt64Array(dims_ptr);
+                }
+                let dtype_code = crate::tensor_tensorflow::ffi::GetTFTensorDType(out_ptr);
+                let dtype = match dtype_code {
+                    0 => DType::F32,
+                    1 => DType::F64,
+                    2 => DType::I32,
+                    3 => DType::I64,
+                    4 => DType::I8,
+                    5 => DType::I16,
+                    6 => DType::U8,
+                    7 => DType::U16,
+                    8 => DType::Bool,
+                    9 => DType::Complex64,
+                    10 => DType::Complex128,
+                    11 => DType::StringPlaceholder,
+                    _ => DType::Unknown,
+                };
+                if dims_vec.is_empty() {
+                    crate::tensor_tensorflow::ffi::FreeTFTensor(out_ptr);
+                } else {
+                    return Some(FlowTensors::with_ptr(out_ptr, dims_vec, dtype));
+                }
+            }
+        }
+        let rank = self.dims.len();
+        if rank == 0 || axis >= rank { return None; }
+        let data = self.data()?;
+        let bias_vals = bias.data()?;
+        let axis_dim = self.dims[axis] as usize;
+        if bias_vals.len() != axis_dim { return None; }
+        let outer_size = self.dims[..axis].iter().product::<i64>() as usize;
+        let inner_size = self.dims[axis+1..].iter().product::<i64>() as usize;
+        let mut out = vec![0.0f32; data.len()];
+
+        for outer in 0..outer_size {
+            for i_axis in 0..axis_dim {
+                for inner in 0..inner_size {
+                    let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                    out[flat] = data[flat] + bias_vals[i_axis];
+                }
+            }
+        }
+        FlowTensors::new(&out, &self.dims)
+    }
+
+    /// BatchNormalization (simplified, channels-last by axis index).
+    /// If `mean` or `variance` are None, they are computed over all dims except `axis`.
+    /// y = (x - mean) / sqrt(variance + epsilon) * scale + offset
+    pub fn batch_norm(
+        &self,
+        mean: Option<&FlowTensors>,
+        variance: Option<&FlowTensors>,
+        scale: Option<&FlowTensors>,
+        offset: Option<&FlowTensors>,
+        epsilon: f32,
+        axis: usize,
+    _data_format: &str, // e.g. "channels_last" or "channels_first" - axis is still interpreted as the channel axis in the provided layout
+    ) -> Option<FlowTensors> {
+        // Parallelized batch norm: compute per-channel mean/var in parallel across outer dimension
+        // Try native implementation first (pass null pointers where absent)
+        unsafe {
+            let mean_ptr = mean.map(|m| m.ptr).unwrap_or(ptr::null_mut());
+            let var_ptr = variance.map(|v| v.ptr).unwrap_or(ptr::null_mut());
+            let scale_ptr = scale.map(|s| s.ptr).unwrap_or(ptr::null_mut());
+            let offset_ptr = offset.map(|o| o.ptr).unwrap_or(ptr::null_mut());
+            let out_ptr = crate::tensor_tensorflow::ffi::TF_BatchNorm_Native(
+                self.ptr,
+                mean_ptr,
+                var_ptr,
+                scale_ptr,
+                offset_ptr,
+                epsilon,
+                axis as c_int,
+            );
+            if !out_ptr.is_null() {
+                let mut ndims: c_int = 0;
+                let dims_ptr = crate::tensor_tensorflow::ffi::GetTFTensorDims(out_ptr, &mut ndims as *mut c_int);
+                let mut dims_vec: Vec<i64> = Vec::new();
+                if !dims_ptr.is_null() && ndims > 0 {
+                    for i in 0..(ndims as isize) { dims_vec.push(*dims_ptr.offset(i) as i64); }
+                    crate::tensor_tensorflow::ffi::FreeInt64Array(dims_ptr);
+                }
+                let dtype_code = crate::tensor_tensorflow::ffi::GetTFTensorDType(out_ptr);
+                let dtype = match dtype_code {
+                    0 => DType::F32,
+                    1 => DType::F64,
+                    2 => DType::I32,
+                    3 => DType::I64,
+                    4 => DType::I8,
+                    5 => DType::I16,
+                    6 => DType::U8,
+                    7 => DType::U16,
+                    8 => DType::Bool,
+                    9 => DType::Complex64,
+                    10 => DType::Complex128,
+                    11 => DType::StringPlaceholder,
+                    _ => DType::Unknown,
+                };
+                if dims_vec.is_empty() {
+                    crate::tensor_tensorflow::ffi::FreeTFTensor(out_ptr);
+                } else {
+                    return Some(FlowTensors::with_ptr(out_ptr, dims_vec, dtype));
+                }
+            }
+        }
+        let rank = self.dims.len();
+        if rank == 0 || axis >= rank { return None; }
+        let data = self.data()?;
+        let axis_dim = self.dims[axis] as usize;
+
+        let outer_size = self.dims[..axis].iter().product::<i64>() as usize;
+        let inner_size = self.dims[axis+1..].iter().product::<i64>() as usize;
+
+        // compute mean/var if needed using rayon to parallelize over outer blocks
+        let mut mean_vec = vec![0.0f32; axis_dim];
+        let mut var_vec = vec![0.0f32; axis_dim];
+
+        if let (Some(m), Some(v)) = (mean, variance) {
+            let mv = m.data()?;
+            let vv = v.data()?;
+            if mv.len() != axis_dim || vv.len() != axis_dim { return None; }
+            mean_vec.copy_from_slice(mv);
+            var_vec.copy_from_slice(vv);
+        } else {
+            // compute mean in parallel across outer blocks
+            use rayon::prelude::*;
+            let partials: Vec<Vec<f32>> = (0..outer_size).into_par_iter().map(|outer| {
+                let mut local = vec![0.0f32; axis_dim];
+                for i_axis in 0..axis_dim {
+                    for inner in 0..inner_size {
+                        let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                        local[i_axis] += data[flat];
+                    }
+                }
+                local
+            }).collect();
+
+            for p in partials.iter() {
+                for (i, v) in p.iter().enumerate() { mean_vec[i] += *v; }
+            }
+            let count = (outer_size * inner_size) as f32;
+            for v in mean_vec.iter_mut() { *v /= count; }
+
+            // compute variance in parallel
+            let partials_var: Vec<Vec<f32>> = (0..outer_size).into_par_iter().map(|outer| {
+                let mut local = vec![0.0f32; axis_dim];
+                for i_axis in 0..axis_dim {
+                    for inner in 0..inner_size {
+                        let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                        let d = data[flat] - mean_vec[i_axis];
+                        local[i_axis] += d * d;
+                    }
+                }
+                local
+            }).collect();
+            for p in partials_var.iter() {
+                for (i, v) in p.iter().enumerate() { var_vec[i] += *v; }
+            }
+            for v in var_vec.iter_mut() { *v /= count; }
+        }
+
+        // scale and offset defaults
+        let scale_vals: Vec<f32> = if let Some(s) = scale { s.data()?.to_vec() } else { vec![1.0f32; axis_dim] };
+        let offset_vals: Vec<f32> = if let Some(o) = offset { o.data()?.to_vec() } else { vec![0.0f32; axis_dim] };
+        if scale_vals.len() != axis_dim || offset_vals.len() != axis_dim { return None; }
+
+        // apply normalization in parallel over outer blocks using par_chunks_mut
+        use rayon::prelude::*;
+        let chunk_size = axis_dim * inner_size;
+        let mut out = vec![0.0f32; data.len()];
+        out.par_chunks_mut(chunk_size).enumerate().for_each(|(outer, chunk)| {
+            for i_axis in 0..axis_dim {
+                let mean_val = mean_vec[i_axis];
+                let var_val = var_vec[i_axis];
+                let sc = scale_vals[i_axis];
+                let off = offset_vals[i_axis];
+                let denom = (var_val + epsilon).sqrt();
+                for inner in 0..inner_size {
+                    let idx = i_axis * inner_size + inner;
+                    // chunk is the slice for this outer block
+                    chunk[idx] = ((data[outer * chunk_size + idx] - mean_val) / denom) * sc + off;
+                }
+            }
+        });
+
+        FlowTensors::new(&out, &self.dims)
+    }
+
+    /// SoftmaxCrossEntropy: labels expected to be one-hot with same shape as logits.
+    /// Returns a tensor with dims = self.dims with `axis` removed (if empty returns shape [1]).
+    pub fn softmax_cross_entropy(logits: &FlowTensors, labels: &FlowTensors, axis: usize) -> Option<FlowTensors> {
+        // Try native path first
+        unsafe {
+            let out_ptr = crate::tensor_tensorflow::ffi::TF_SoftmaxCrossEntropy_Native(logits.ptr, labels.ptr, axis as c_int);
+            if !out_ptr.is_null() {
+                let mut ndims: c_int = 0;
+                let dims_ptr = crate::tensor_tensorflow::ffi::GetTFTensorDims(out_ptr, &mut ndims as *mut c_int);
+                let mut dims_vec: Vec<i64> = Vec::new();
+                if !dims_ptr.is_null() && ndims > 0 {
+                    for i in 0..(ndims as isize) { dims_vec.push(*dims_ptr.offset(i) as i64); }
+                    crate::tensor_tensorflow::ffi::FreeInt64Array(dims_ptr);
+                }
+                let dtype_code = crate::tensor_tensorflow::ffi::GetTFTensorDType(out_ptr);
+                let dtype = match dtype_code {
+                    0 => DType::F32,
+                    1 => DType::F64,
+                    2 => DType::I32,
+                    3 => DType::I64,
+                    4 => DType::I8,
+                    5 => DType::I16,
+                    6 => DType::U8,
+                    7 => DType::U16,
+                    8 => DType::Bool,
+                    9 => DType::Complex64,
+                    10 => DType::Complex128,
+                    11 => DType::StringPlaceholder,
+                    _ => DType::Unknown,
+                };
+                if dims_vec.is_empty() {
+                    crate::tensor_tensorflow::ffi::FreeTFTensor(out_ptr);
+                } else {
+                    return Some(FlowTensors::with_ptr(out_ptr, dims_vec, dtype));
+                }
+            }
+        }
+        // Parallelized softmax-xent expecting one-hot labels same shape as logits
+        if logits.dims() != labels.dims() { return None; }
+        let rank = logits.dims().len();
+        if rank == 0 || axis >= rank { return None; }
+        let logp = logits.log_softmax(axis)?;
+        let lp = logp.data()?;
+        let lbl = labels.data()?;
+        let axis_dim = logits.dims()[axis] as usize;
+        let outer_size = logits.dims()[..axis].iter().product::<i64>() as usize;
+        let inner_size = logits.dims()[axis+1..].iter().product::<i64>() as usize;
+
+        use rayon::prelude::*;
+        let out_len = outer_size * inner_size.max(1);
+        let mut out = vec![0.0f32; out_len];
+        // write into chunks of size inner_size.max(1)
+        let write_chunk = inner_size.max(1);
+        out.par_chunks_mut(write_chunk).enumerate().for_each(|(outer, chunk)| {
+            for inner in 0..write_chunk {
+                let mut loss = 0.0f32;
+                for i_axis in 0..axis_dim {
+                    let flat = outer * (axis_dim * inner_size) + i_axis * inner_size + inner;
+                    loss -= lbl[flat] * lp[flat];
+                }
+                chunk[inner] = loss;
+            }
+        });
+
+        // build result dims (dims without axis)
+        let mut result_dims: Vec<i64> = Vec::new();
+        result_dims.extend_from_slice(&logits.dims()[..axis]);
+        result_dims.extend_from_slice(&logits.dims()[axis+1..]);
+        if result_dims.is_empty() { result_dims.push(1); }
+        FlowTensors::new(&out, &result_dims)
+    }
+
+    /// SoftmaxCrossEntropy with sparse integer labels (one index per example)
+    /// `labels_idx` is expected to be an int64 1-D tensor with length equal to
+    /// product(dims without the `axis`) (i.e., one label per example slice).
+    pub fn softmax_cross_entropy_sparse(logits: &FlowTensors, labels_idx: &FlowTensors, axis: usize) -> Option<FlowTensors> {
+        // try native path first
+        unsafe {
+            let out_ptr = crate::tensor_tensorflow::ffi::TF_SoftmaxCrossEntropy_Sparse_Native(logits.ptr, labels_idx.ptr, axis as c_int);
+            if !out_ptr.is_null() {
+                let mut ndims: c_int = 0;
+                let dims_ptr = crate::tensor_tensorflow::ffi::GetTFTensorDims(out_ptr, &mut ndims as *mut c_int);
+                let mut dims_vec: Vec<i64> = Vec::new();
+                if !dims_ptr.is_null() && ndims > 0 {
+                    for i in 0..(ndims as isize) { dims_vec.push(*dims_ptr.offset(i) as i64); }
+                    crate::tensor_tensorflow::ffi::FreeInt64Array(dims_ptr);
+                }
+                let dtype_code = crate::tensor_tensorflow::ffi::GetTFTensorDType(out_ptr);
+                let dtype = match dtype_code {
+                    0 => DType::F32,
+                    1 => DType::F64,
+                    2 => DType::I32,
+                    3 => DType::I64,
+                    4 => DType::I8,
+                    5 => DType::I16,
+                    6 => DType::U8,
+                    7 => DType::U16,
+                    8 => DType::Bool,
+                    9 => DType::Complex64,
+                    10 => DType::Complex128,
+                    11 => DType::StringPlaceholder,
+                    _ => DType::Unknown,
+                };
+                if dims_vec.is_empty() {
+                    crate::tensor_tensorflow::ffi::FreeTFTensor(out_ptr);
+                } else {
+                    return Some(FlowTensors::with_ptr(out_ptr, dims_vec, dtype));
+                }
+            }
+        }
+        let rank = logits.dims().len();
+        if rank == 0 || axis >= rank { return None; }
+        let logp = logits.log_softmax(axis)?;
+        let lp = logp.data()?;
+        let idxs = labels_idx.data_i64()?;
+        let axis_dim = logits.dims()[axis] as usize;
+        let outer_size = logits.dims()[..axis].iter().product::<i64>() as usize;
+        let inner_size = logits.dims()[axis+1..].iter().product::<i64>() as usize;
+
+        let expected_len = outer_size * inner_size.max(1);
+        if idxs.len() != expected_len { return None; }
+
+        use rayon::prelude::*;
+        let mut out = vec![0.0f32; expected_len];
+        let write_chunk = inner_size.max(1);
+        out.par_chunks_mut(write_chunk).enumerate().for_each(|(outer, chunk)| {
+            for inner in 0..write_chunk {
+                let out_idx = outer * write_chunk + inner;
+                let lbl = idxs[out_idx] as usize;
+                if lbl >= axis_dim { chunk[inner] = f32::NAN; continue; }
+                let flat = outer * (axis_dim * inner_size) + lbl * inner_size + inner;
+                chunk[inner] = - lp[flat];
+            }
+        });
+
+        // build result dims (dims without axis)
+        let mut result_dims: Vec<i64> = Vec::new();
+        result_dims.extend_from_slice(&logits.dims()[..axis]);
+        result_dims.extend_from_slice(&logits.dims()[axis+1..]);
+        if result_dims.is_empty() { result_dims.push(1); }
+        FlowTensors::new(&out, &result_dims)
+    }
+
+    /// Dropout: randomly zero elements with probability (1 - keep_prob).
+    /// During training scales by 1/keep_prob to keep expectation constant.
+    pub fn dropout(&self, keep_prob: f32, seed: Option<u64>) -> Option<FlowTensors> {
+        if !(keep_prob > 0.0 && keep_prob <= 1.0) { return None; }
+        let data = self.data()?;
+        let size = data.len();
+        let mut out = vec![0.0f32; size];
+        let mut rng = match seed { Some(s) => rand::rngs::StdRng::seed_from_u64(s), None => rand::rngs::StdRng::from_entropy() };
+        use rand::Rng;
+        for i in 0..size {
+            let r: f32 = rng.gen();
+            if r < keep_prob {
+                out[i] = data[i] / keep_prob; // scale to preserve expectation
+            } else {
+                out[i] = 0.0;
+            }
+        }
+        FlowTensors::new(&out, &self.dims)
+    }
+
+    /// Conv2D (naive CPU implementation, assumes NHWC layout)
+    /// - `self` is input tensor with dims [batch, in_h, in_w, in_ch]
+    /// - `filter` has dims [filter_h, filter_w, in_ch, out_ch]
+    /// - `stride` is (stride_h, stride_w)
+    /// - `padding` is "SAME" or "VALID"
+    pub fn conv2d(&self, filter: &FlowTensors, stride: (usize, usize), padding: &str) -> Option<FlowTensors> {
+        if self.dims.len() != 4 || filter.dims.len() != 4 { return None; }
+        let batch = self.dims[0] as usize;
+        let in_h = self.dims[1] as usize;
+        let in_w = self.dims[2] as usize;
+        let in_ch = self.dims[3] as usize;
+        let fh = filter.dims[0] as usize;
+        let fw = filter.dims[1] as usize;
+        let f_in_ch = filter.dims[2] as usize;
+        let out_ch = filter.dims[3] as usize;
+        if in_ch != f_in_ch { return None; }
+        let (sh, sw) = stride;
+    let (out_h, pad_h_before, _pad_h_after) = if padding == "SAME" {
+            let out_h = (in_h + sh - 1) / sh;
+            let pad_needed = ((out_h - 1) * sh + fh).saturating_sub(in_h);
+            (out_h, pad_needed / 2, pad_needed - (pad_needed / 2))
+        } else {
+            let out_h = if in_h >= fh { (in_h - fh) / sh + 1 } else { 0 };
+            (out_h, 0, 0)
+        };
+    let (out_w, pad_w_before, _pad_w_after) = if padding == "SAME" {
+            let out_w = (in_w + sw - 1) / sw;
+            let pad_needed = ((out_w - 1) * sw + fw).saturating_sub(in_w);
+            (out_w, pad_needed / 2, pad_needed - (pad_needed / 2))
+        } else {
+            let out_w = if in_w >= fw { (in_w - fw) / sw + 1 } else { 0 };
+            (out_w, 0, 0)
+        };
+
+        let input = self.data()?;
+        let filt = filter.data()?;
+        let mut out = vec![0.0f32; batch * out_h * out_w * out_ch];
+
+        for b in 0..batch {
+            for oh in 0..out_h {
+                for ow in 0..out_w {
+                    for oc in 0..out_ch {
+                        let mut sum = 0.0f32;
+                        for fh_i in 0..fh {
+                            for fw_i in 0..fw {
+                                let in_h_i = oh * sh + fh_i as usize - pad_h_before;
+                                let in_w_i = ow * sw + fw_i as usize - pad_w_before;
+                                if in_h_i >= in_h || in_w_i >= in_w { continue; }
+                                for ic in 0..in_ch {
+                                    let in_idx = b * (in_h * in_w * in_ch) + in_h_i * (in_w * in_ch) + in_w_i * in_ch + ic;
+                                    let filt_idx = fh_i * (fw * in_ch * out_ch) + fw_i * (in_ch * out_ch) + ic * out_ch + oc;
+                                    sum += input[in_idx] * filt[filt_idx];
+                                }
+                            }
+                        }
+                        let out_idx = b * (out_h * out_w * out_ch) + oh * (out_w * out_ch) + ow * out_ch + oc;
+                        out[out_idx] = sum;
+                    }
+                }
+            }
+        }
+        FlowTensors::new(&out, &[batch as i64, out_h as i64, out_w as i64, out_ch as i64])
+    }
+
+    /// MaxPool 2D (naive NHWC implementation)
+    /// ksize: (kh, kw), strides: (sh, sw), padding: "SAME" or "VALID"
+    pub fn max_pool(&self, ksize: (usize, usize), strides: (usize, usize), padding: &str) -> Option<FlowTensors> {
+        if self.dims.len() != 4 { return None; }
+        let batch = self.dims[0] as usize;
+        let in_h = self.dims[1] as usize;
+        let in_w = self.dims[2] as usize;
+        let ch = self.dims[3] as usize;
+        let (kh, kw) = ksize;
+        let (sh, sw) = strides;
+    let (out_h, pad_h_before, _pad_h_after) = if padding == "SAME" {
+            let out_h = (in_h + sh - 1) / sh;
+            let pad_needed = ((out_h - 1) * sh + kh).saturating_sub(in_h);
+            (out_h, pad_needed / 2, pad_needed - (pad_needed / 2))
+        } else {
+            let out_h = if in_h >= kh { (in_h - kh) / sh + 1 } else { 0 };
+            (out_h, 0, 0)
+        };
+    let (out_w, pad_w_before, _pad_w_after) = if padding == "SAME" {
+            let out_w = (in_w + sw - 1) / sw;
+            let pad_needed = ((out_w - 1) * sw + kw).saturating_sub(in_w);
+            (out_w, pad_needed / 2, pad_needed - (pad_needed / 2))
+        } else {
+            let out_w = if in_w >= kw { (in_w - kw) / sw + 1 } else { 0 };
+            (out_w, 0, 0)
+        };
+
+        let input = self.data()?;
+        let mut out = vec![f32::NEG_INFINITY; batch * out_h * out_w * ch];
+
+        for b in 0..batch {
+            for oh in 0..out_h {
+                for ow in 0..out_w {
+                    for c in 0..ch {
+                        let mut best = f32::NEG_INFINITY;
+                        for kh_i in 0..kh {
+                            for kw_i in 0..kw {
+                                let in_h_i = oh * sh + kh_i as usize - pad_h_before;
+                                let in_w_i = ow * sw + kw_i as usize - pad_w_before;
+                                if in_h_i >= in_h || in_w_i >= in_w { continue; }
+                                let idx = b * (in_h * in_w * ch) + in_h_i * (in_w * ch) + in_w_i * ch + c;
+                                let v = input[idx];
+                                if v > best { best = v; }
+                            }
+                        }
+                        let out_idx = b * (out_h * out_w * ch) + oh * (out_w * ch) + ow * ch + c;
+                        out[out_idx] = if best == f32::NEG_INFINITY { 0.0 } else { best };
+                    }
+                }
+            }
+        }
+        FlowTensors::new(&out, &[batch as i64, out_h as i64, out_w as i64, ch as i64])
+    }
+
+    /// AvgPool 2D (naive NHWC implementation)
+    pub fn avg_pool(&self, ksize: (usize, usize), strides: (usize, usize), padding: &str) -> Option<FlowTensors> {
+        if self.dims.len() != 4 { return None; }
+        let batch = self.dims[0] as usize;
+        let in_h = self.dims[1] as usize;
+        let in_w = self.dims[2] as usize;
+        let ch = self.dims[3] as usize;
+        let (kh, kw) = ksize;
+        let (sh, sw) = strides;
+    let (out_h, pad_h_before, _pad_h_after) = if padding == "SAME" {
+            let out_h = (in_h + sh - 1) / sh;
+            let pad_needed = ((out_h - 1) * sh + kh).saturating_sub(in_h);
+            (out_h, pad_needed / 2, pad_needed - (pad_needed / 2))
+        } else {
+            let out_h = if in_h >= kh { (in_h - kh) / sh + 1 } else { 0 };
+            (out_h, 0, 0)
+        };
+    let (out_w, pad_w_before, _pad_w_after) = if padding == "SAME" {
+            let out_w = (in_w + sw - 1) / sw;
+            let pad_needed = ((out_w - 1) * sw + kw).saturating_sub(in_w);
+            (out_w, pad_needed / 2, pad_needed - (pad_needed / 2))
+        } else {
+            let out_w = if in_w >= kw { (in_w - kw) / sw + 1 } else { 0 };
+            (out_w, 0, 0)
+        };
+
+        let input = self.data()?;
+        let mut out = vec![0.0f32; batch * out_h * out_w * ch];
+
+        for b in 0..batch {
+            for oh in 0..out_h {
+                for ow in 0..out_w {
+                    for c in 0..ch {
+                        let mut sum = 0.0f32;
+                        let mut count = 0usize;
+                        for kh_i in 0..kh {
+                            for kw_i in 0..kw {
+                                let in_h_i = oh * sh + kh_i as usize - pad_h_before;
+                                let in_w_i = ow * sw + kw_i as usize - pad_w_before;
+                                if in_h_i >= in_h || in_w_i >= in_w { continue; }
+                                let idx = b * (in_h * in_w * ch) + in_h_i * (in_w * ch) + in_w_i * ch + c;
+                                sum += input[idx];
+                                count += 1;
+                            }
+                        }
+                        let out_idx = b * (out_h * out_w * ch) + oh * (out_w * ch) + ow * ch + c;
+                        out[out_idx] = if count == 0 { 0.0 } else { sum / (count as f32) };
+                    }
+                }
+            }
+        }
+        FlowTensors::new(&out, &[batch as i64, out_h as i64, out_w as i64, ch as i64])
+    }
+
+    /// Conv3D (naive CPU implementation, assumes NDHWC layout: [batch, depth, height, width, channels])
+    /// - `self` is input tensor with dims [batch, in_d, in_h, in_w, in_ch]
+    /// - `filter` has dims [fd, fh, fw, in_ch, out_ch]
+    /// - `stride` is (sd, sh, sw)
+    /// - `padding` is "SAME" or "VALID"
+    pub fn conv3d(&self, filter: &FlowTensors, stride: (usize, usize, usize), padding: &str) -> Option<FlowTensors> {
+        if self.dims.len() != 5 || filter.dims.len() != 5 { return None; }
+        let batch = self.dims[0] as usize;
+        let in_d = self.dims[1] as usize;
+        let in_h = self.dims[2] as usize;
+        let in_w = self.dims[3] as usize;
+        let in_ch = self.dims[4] as usize;
+        let fd = filter.dims[0] as usize;
+        let fh = filter.dims[1] as usize;
+        let fw = filter.dims[2] as usize;
+        let f_in_ch = filter.dims[3] as usize;
+        let out_ch = filter.dims[4] as usize;
+        if in_ch != f_in_ch { return None; }
+        let (sd, sh, sw) = stride;
+
+        // Try native TensorFlow-backed Conv3D via FFI first. If it fails (null), fall back to the Rust naive implementation below.
+        unsafe {
+            use std::ffi::CString;
+            let pad_c = CString::new(padding).unwrap_or_else(|_| CString::new("VALID").unwrap());
+            // default layout NDHWC for our Rust tensors
+            let layout_c = CString::new("NDHWC").unwrap();
+            // No dilation parameter in this Rust wrapper yet; use 1
+            let out_ptr = crate::tensor_tensorflow::ffi::TF_Conv3D_Native(
+                self.ptr,
+                filter.ptr,
+                sd as c_int,
+                sh as c_int,
+                sw as c_int,
+                1 as c_int,
+                1 as c_int,
+                1 as c_int,
+                pad_c.as_ptr(),
+                layout_c.as_ptr(),
+            );
+            if !out_ptr.is_null() {
+                // obtain dims
+                let mut ndims: c_int = 0;
+                let dims_ptr = crate::tensor_tensorflow::ffi::GetTFTensorDims(out_ptr, &mut ndims as *mut c_int);
+                let mut dims_vec: Vec<i64> = Vec::new();
+                if !dims_ptr.is_null() && ndims > 0 {
+                    for i in 0..(ndims as isize) {
+                        dims_vec.push(*dims_ptr.offset(i) as i64);
+                    }
+                    crate::tensor_tensorflow::ffi::FreeInt64Array(dims_ptr);
+                }
+                // dtype
+                let dtype_code = crate::tensor_tensorflow::ffi::GetTFTensorDType(out_ptr);
+                let dtype = match dtype_code {
+                    0 => DType::F32,
+                    1 => DType::F64,
+                    2 => DType::I32,
+                    3 => DType::I64,
+                    4 => DType::I8,
+                    5 => DType::I16,
+                    6 => DType::U8,
+                    7 => DType::U16,
+                    8 => DType::Bool,
+                    9 => DType::Complex64,
+                    10 => DType::Complex128,
+                    11 => DType::StringPlaceholder,
+                    _ => DType::Unknown,
+                };
+                // If dims were not discoverable, fall back to naive path by freeing returned tensor
+                if dims_vec.is_empty() {
+                    crate::tensor_tensorflow::ffi::FreeTFTensor(out_ptr);
+                } else {
+                    return Some(FlowTensors::with_ptr(out_ptr, dims_vec, dtype));
+                }
+            }
+        }
+
+        let (out_d, pad_d_before, _pad_d_after) = if padding == "SAME" {
+            let out = (in_d + sd - 1) / sd;
+            let pad_needed = ((out - 1) * sd + fd).saturating_sub(in_d);
+            (out, pad_needed / 2, pad_needed - (pad_needed / 2))
+        } else {
+            let out = if in_d >= fd { (in_d - fd) / sd + 1 } else { 0 };
+            (out, 0, 0)
+        };
+        let (out_h, pad_h_before, _pad_h_after) = if padding == "SAME" {
+            let out = (in_h + sh - 1) / sh;
+            let pad_needed = ((out - 1) * sh + fh).saturating_sub(in_h);
+            (out, pad_needed / 2, pad_needed - (pad_needed / 2))
+        } else {
+            let out = if in_h >= fh { (in_h - fh) / sh + 1 } else { 0 };
+            (out, 0, 0)
+        };
+        let (out_w, pad_w_before, _pad_w_after) = if padding == "SAME" {
+            let out = (in_w + sw - 1) / sw;
+            let pad_needed = ((out - 1) * sw + fw).saturating_sub(in_w);
+            (out, pad_needed / 2, pad_needed - (pad_needed / 2))
+        } else {
+            let out = if in_w >= fw { (in_w - fw) / sw + 1 } else { 0 };
+            (out, 0, 0)
+        };
+
+        let input = self.data()?;
+        let filt = filter.data()?;
+        let mut out = vec![0.0f32; batch * out_d * out_h * out_w * out_ch];
+
+        for b in 0..batch {
+            for od in 0..out_d {
+                for oh in 0..out_h {
+                    for ow in 0..out_w {
+                        for oc in 0..out_ch {
+                            let mut sum = 0.0f32;
+                            for fd_i in 0..fd {
+                                for fh_i in 0..fh {
+                                    for fw_i in 0..fw {
+                                        let in_d_i = od * sd + fd_i as usize - pad_d_before;
+                                        let in_h_i = oh * sh + fh_i as usize - pad_h_before;
+                                        let in_w_i = ow * sw + fw_i as usize - pad_w_before;
+                                        if in_d_i >= in_d || in_h_i >= in_h || in_w_i >= in_w { continue; }
+                                        for ic in 0..in_ch {
+                                            let in_idx = b * (in_d * in_h * in_w * in_ch)
+                                                + in_d_i * (in_h * in_w * in_ch)
+                                                + in_h_i * (in_w * in_ch)
+                                                + in_w_i * in_ch
+                                                + ic;
+                                            let filt_idx = fd_i * (fh * fw * in_ch * out_ch)
+                                                + fh_i * (fw * in_ch * out_ch)
+                                                + fw_i * (in_ch * out_ch)
+                                                + ic * out_ch
+                                                + oc;
+                                            sum += input[in_idx] * filt[filt_idx];
+                                        }
+                                    }
+                                }
+                            }
+                            let out_idx = b * (out_d * out_h * out_w * out_ch)
+                                + od * (out_h * out_w * out_ch)
+                                + oh * (out_w * out_ch)
+                                + ow * out_ch
+                                + oc;
+                            out[out_idx] = sum;
+                        }
+                    }
+                }
+            }
+        }
+        FlowTensors::new(&out, &[batch as i64, out_d as i64, out_h as i64, out_w as i64, out_ch as i64])
+    }
+
     /// Funções trigonométricas
     pub fn sin(&self) -> Option<FlowTensors> {
         self.map(|x| x.sin())
@@ -1404,7 +2203,7 @@ impl FlowTensors {
             out_dims[axis] += t.dims[axis];
         }
         let out_size = out_dims.iter().product::<i64>() as usize;
-        let out_strides = FlowTensors::compute_strides(&out_dims);
+    let out_strides = FlowTensors::compute_strides(&out_dims);
         let mut out = vec![0.0f32; out_size];
 
         // prepare cumulative sizes for axis
@@ -1485,7 +2284,7 @@ impl FlowTensors {
             for (i, &v) in multi.iter().enumerate() { if i != axis { out_multi.push(v); } }
             let out_strides = FlowTensors::compute_strides(&out_dims);
             let out_flat = FlowTensors::multi_to_flat(&out_multi, &out_strides);
-            results[which].push(data[flat]);
+            results[which][out_flat] = data[flat];
         }
 
         let mut out_tensors = Vec::with_capacity(n);
@@ -1502,7 +2301,7 @@ impl FlowTensors {
         if dim % num_splits != 0 { return None; }
         let part = dim / num_splits;
         let mut parts = Vec::with_capacity(num_splits);
-        for i in 0..num_splits {
+        for _ in 0..num_splits {
             let mut new_dims = self.dims.clone();
             new_dims[axis] = part as i64;
             parts.push(new_dims);
@@ -1561,9 +2360,9 @@ impl FlowTensors {
         if axis >= rank { return None; }
         let mut out_dims = params.dims.clone();
         out_dims[axis] = indices.len() as i64;
-        let out_size = out_dims.iter().product::<i64>() as usize;
-        let out_strides = FlowTensors::compute_strides(&out_dims);
-        let mut out = vec![0.0f32; out_size];
+    let out_size = out_dims.iter().product::<i64>() as usize;
+    let out_strides = FlowTensors::compute_strides(&out_dims);
+    let mut out = vec![0.0f32; out_size];
         let params_strides = FlowTensors::compute_strides(&params.dims);
         let data = params.data()?;
         for flat in 0..out_size {
@@ -1591,9 +2390,9 @@ impl FlowTensors {
         let tail_dims = &params.dims[k..];
         let mut out_dims = vec![indices_nd.len() as i64];
         out_dims.extend_from_slice(tail_dims);
-        let out_size = out_dims.iter().product::<i64>() as usize;
-        let out_strides = FlowTensors::compute_strides(&out_dims);
-        let mut out = vec![0.0f32; out_size];
+    let out_size = out_dims.iter().product::<i64>() as usize;
+    let _out_strides = FlowTensors::compute_strides(&out_dims);
+    let mut out = vec![0.0f32; out_size];
 
         let params_strides = FlowTensors::compute_strides(&params.dims);
         let params_data = params.data()?;
@@ -1718,7 +2517,7 @@ impl SparseTensor {
         let size: usize = self.shape.iter().product::<i64>() as usize;
         if size == 0 { return Some(vec![]); }
         let mut out = vec![0f32; size];
-        let rank = self.shape.len();
+    let _rank = self.shape.len();
         for (coord, &val) in self.indices.iter().zip(self.values.iter()) {
             // compute flat index
             let mut flat: usize = 0;

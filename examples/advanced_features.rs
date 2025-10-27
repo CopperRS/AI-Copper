@@ -133,6 +133,79 @@ fn main() {
     let ft_tanh = ft.tanh().expect("tanh falhou");
     println!("Tanh(ft): {:?}", ft_tanh.data().expect("falha ao obter dados"));
 
+    // Novas ativações (FlowTensors)
+    let ft_relu = ft.relu().expect("relu failed");
+    println!("ReLU(ft): {:?}", ft_relu.data().expect("failed"));
+
+    let ft_relu6 = ft.relu6().expect("relu6 failed");
+    println!("ReLU6(ft): {:?}", ft_relu6.data().expect("failed"));
+
+    let ft_elu = ft.elu().expect("elu failed");
+    println!("ELU(ft): {:?}", ft_elu.data().expect("failed"));
+
+    let ft_selu = ft.selu().expect("selu failed");
+    println!("SELU(ft): {:?}", ft_selu.data().expect("failed"));
+
+    // Softmax / LogSoftmax (1D example)
+    let logits = FlowTensors::new(&[2.0_f32, 1.0, 0.1], &[3]).expect("failed to create logits");
+    if let Some(sm) = logits.softmax(0) {
+        println!("Softmax(logits): {:?}", sm.data().expect("failed"));
+    }
+    if let Some(lsm) = logits.log_softmax(0) {
+        println!("LogSoftmax(logits): {:?}", lsm.data().expect("failed"));
+    }
+
+    // --- Novas operações: BiasAdd, BatchNormalization, SoftmaxCrossEntropy, Dropout ---
+    println!("\nTensorFlow: BatchNormalization, BiasAdd, SoftmaxCrossEntropy, Dropout examples");
+    println!("{}", "-".repeat(50));
+
+    // BiasAdd: adicionar bias ao longo do eixo das colunas (axis=1)
+    let x = FlowTensors::new(&[1.0_f32, 2.0, 3.0, 4.0, 5.0, 6.0], &[2, 3]).expect("failed to create x");
+    let bias = FlowTensors::new(&[0.1_f32, -0.2, 0.5], &[3]).expect("failed to create bias");
+    if let Some(biased) = x.bias_add(&bias, 1) {
+        println!("BiasAdd result dims={:?} data={:?}", biased.dims(), biased.data().expect("failed"));
+    }
+
+    // BatchNormalization (channels last example, axis=1 for [N,C])
+    let bn_in = FlowTensors::new(&[1.0_f32, 2.0, 3.0, 4.0, 5.0, 6.0], &[2, 3]).expect("failed bn_in");
+    // note: pass data_format string to match the signature ("NHWC" for channels-last)
+    if let Some(bn_out) = bn_in.batch_norm(None, None, None, None, 1e-5, 1, "NHWC") {
+        println!("BatchNorm result dims={:?} data={:?}", bn_out.dims(), bn_out.data().expect("failed"));
+    }
+
+    // SoftmaxCrossEntropy: logits (3 samples, 2 classes) and one-hot labels
+    let logits_ce = FlowTensors::new(&[2.0_f32, 0.5, 0.1, 0.2, 1.5, 0.3], &[3, 2]).expect("failed logits_ce");
+    let labels_onehot = FlowTensors::new(&[0.0_f32, 1.0, 1.0, 0.0, 0.0, 1.0], &[3, 2]).expect("failed labels");
+    if let Some(loss) = FlowTensors::softmax_cross_entropy(&logits_ce, &labels_onehot, 1) {
+        println!("SoftmaxCrossEntropy loss dims={:?} data={:?}", loss.dims(), loss.data().expect("failed"));
+    }
+
+    // Dropout: aplicar dropout com keep_prob=0.5 (treinamento)
+    if let Some(dropped) = logits_ce.dropout(0.5, None) {
+        println!("Dropout(keep=0.5) result dims={:?} data={:?}", dropped.dims(), dropped.data().expect("failed"));
+    }
+
+    // Conv2D example (NHWC): input 1x3x3x1, filter 2x2x1x1, VALID padding
+    let inp = FlowTensors::new(&[
+        1.0_f32, 2.0, 3.0,
+        4.0, 5.0, 6.0,
+        7.0, 8.0, 9.0], &[1, 3, 3, 1]).expect("failed to create conv input");
+    // Filter: 2x2, in_ch=1, out_ch=1 (simple sum over 2x2 regions)
+    let filt = FlowTensors::new(&[1.0_f32, 1.0, 1.0, 1.0], &[2, 2, 1, 1]).expect("failed to create filter");
+    if let Some(conv_res) = inp.conv2d(&filt, (1, 1), "VALID") {
+        println!("Conv2D VALID result dims={:?} data={:?}", conv_res.dims(), conv_res.data().expect("failed"));
+    }
+
+    // MaxPool example
+    if let Some(mp) = inp.max_pool((2, 2), (1, 1), "VALID") {
+        println!("MaxPool VALID dims={:?} data={:?}", mp.dims(), mp.data().expect("failed"));
+    }
+
+    // AvgPool example
+    if let Some(ap) = inp.avg_pool((2, 2), (1, 1), "VALID") {
+        println!("AvgPool VALID dims={:?} data={:?}", ap.dims(), ap.data().expect("failed"));
+    }
+
     // Funções trigonométricas (seno e cosseno)
     println!(
         "Sin(ft): {:?}",

@@ -53,6 +53,17 @@ Nota: stubs de implementação e exemplos foram adicionados ao backend TensorFlo
 - [ ✅ ] OneHot - Codificação one-hot
 - [ ✅ ] Where - Selecionar por condição
 
+**REDES NEURAIS (NN Ops):**
+
+- [ ✅ ] Relu, Relu6, Elu, Selu - Ativações
+- [ ✅ ] Softmax, LogSoftmax - Normalização
+- [ ✅ ] Conv2D/Conv3D - Convolução
+- [ ✅ ] MaxPool/AvgPool - Pooling
+- [ ✅ ] BatchNormalization - Normalização
+- [ ✅ ] SoftmaxCrossEntropy - Loss functions
+- [ ✅ ] BiasAdd - Adicionar bias
+- [ ✅ ] Dropout - Regularização
+
 ### **Structs**
 
 - `FlowTensors` - tensor do TensorFlow
@@ -119,20 +130,7 @@ UnifiedTensor::TensorFlow(FlowTensors)
 
 ---
 
-Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáticos (+, -, *, /) implementados diretamente no FlowTensors.
-
 #### 🚀 A fazer
-
-**REDES NEURAIS (NN Ops):**
-
-- [ ] Relu, Relu6, Elu, Selu - Ativações
-- [ ] Softmax, LogSoftmax - Normalização
-- [ ] Conv2D/Conv3D - Convolução
-- [ ] MaxPool/AvgPool - Pooling
-- [ ] BatchNormalization - Normalização
-- [ ] SoftmaxCrossEntropy - Loss functions
-- [ ] BiasAdd - Adicionar bias
-- [ ] Dropout - Regularização
 
 **OPERAÇÕES DE IMAGEM (Image Ops):**
 

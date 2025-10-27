@@ -42,4 +42,67 @@ unsafe extern "C" {
     pub fn GetTensorData_string_placeholder(tensor_ptr: *mut c_void) -> *mut u8;
     pub fn FreeTFTensor(tensor_ptr: *mut c_void);
     pub fn FreeModel(model_handle: *mut c_void);
+    // Native op stubs (to be implemented in C++ using TensorFlow internals)
+    pub fn TF_Softmax_Native(tensor_ptr: *mut c_void, axis: c_int) -> *mut c_void;
+    pub fn TF_LogSoftmax_Native(tensor_ptr: *mut c_void, axis: c_int) -> *mut c_void;
+    pub fn TF_Conv2D_Native(
+        input: *mut c_void,
+        filter: *mut c_void,
+        stride_h: c_int,
+        stride_w: c_int,
+        dilation_h: c_int,
+        dilation_w: c_int,
+        padding: *const c_char,
+        layout: *const c_char,
+    ) -> *mut c_void;
+    pub fn TF_Conv3D_Native(
+        input: *mut c_void,
+        filter: *mut c_void,
+        stride_d: c_int,
+        stride_h: c_int,
+        stride_w: c_int,
+        dilation_d: c_int,
+        dilation_h: c_int,
+        dilation_w: c_int,
+        padding: *const c_char,
+        layout: *const c_char,
+    ) -> *mut c_void;
+    pub fn TF_BiasAdd_Native(input: *mut c_void, bias: *mut c_void, axis: c_int) -> *mut c_void;
+    pub fn TF_BatchNorm_Native(
+        input: *mut c_void,
+        mean: *mut c_void,
+        variance: *mut c_void,
+        scale: *mut c_void,
+        offset: *mut c_void,
+        epsilon: f32,
+        axis: c_int,
+    ) -> *mut c_void;
+    pub fn TF_SoftmaxCrossEntropy_Native(logits: *mut c_void, labels: *mut c_void, axis: c_int) -> *mut c_void;
+    pub fn TF_SoftmaxCrossEntropy_Sparse_Native(logits: *mut c_void, labels_idx: *mut c_void, axis: c_int) -> *mut c_void;
+    pub fn TF_Dropout_Native(input: *mut c_void, keep_prob: f32, seed: u64) -> *mut c_void;
+    pub fn TF_MaxPool_Native(
+        input: *mut c_void,
+        k_h: c_int,
+        k_w: c_int,
+        stride_h: c_int,
+        stride_w: c_int,
+        padding: *const c_char,
+        layout: *const c_char,
+    ) -> *mut c_void;
+    pub fn TF_AvgPool_Native(
+        input: *mut c_void,
+        k_h: c_int,
+        k_w: c_int,
+        stride_h: c_int,
+        stride_w: c_int,
+        padding: *const c_char,
+        layout: *const c_char,
+    ) -> *mut c_void;
+    // Helpers to inspect TF_Tensor returned from native functions
+    // Returns a heap-allocated int64 array of dims; out_len is set to number of dims. Caller must free via FreeInt64Array
+    pub fn GetTFTensorDims(tensor_ptr: *mut c_void, out_len: *mut c_int) -> *mut i64;
+    // Free int64 array returned by GetTFTensorDims
+    pub fn FreeInt64Array(arr: *mut i64);
+    // Returns dtype code mapped to Rust DType enum ordering (0=F32,1=F64,2=I32,3=I64,4=I8,5=I16,6=U8,7=U16,8=Bool,9=Complex64,10=Complex128,11=StringPlaceholder,12=Unknown)
+    pub fn GetTFTensorDType(tensor_ptr: *mut c_void) -> c_int;
 }
