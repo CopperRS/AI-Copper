@@ -205,6 +205,414 @@ EXPORT void* CreateTFTensor(float* values, int64_t* dims, int num_dims) {
     }
 }
 
+// ----- Typed tensor creation helpers -----
+EXPORT void* CreateTFTensor_double(double* values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) {
+            fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_double\n");
+            return nullptr;
+        }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        size_t data_size = sizeof(double) * num_elements;
+        double* tensor_data = static_cast<double*>(malloc(data_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para TF_Tensor\n"); return nullptr; }
+        memcpy(tensor_data, values, data_size);
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_DOUBLE,
+            dims,
+            num_dims,
+            tensor_data,
+            data_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor double\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) {
+        fprintf(stderr, "Erro em CreateTFTensor_double: %s\n", e.what());
+        return nullptr;
+    }
+}
+
+EXPORT void* CreateTFTensor_int32(int32_t* values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) { fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_int32\n"); return nullptr; }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        size_t data_size = sizeof(int32_t) * num_elements;
+        int32_t* tensor_data = static_cast<int32_t*>(malloc(data_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para TF_Tensor\n"); return nullptr; }
+        memcpy(tensor_data, values, data_size);
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_INT32,
+            dims,
+            num_dims,
+            tensor_data,
+            data_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor int32\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em CreateTFTensor_int32: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT void* CreateTFTensor_int64(int64_t* values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) { fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_int64\n"); return nullptr; }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        size_t data_size = sizeof(int64_t) * num_elements;
+        int64_t* tensor_data = static_cast<int64_t*>(malloc(data_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para TF_Tensor\n"); return nullptr; }
+        memcpy(tensor_data, values, data_size);
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_INT64,
+            dims,
+            num_dims,
+            tensor_data,
+            data_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor int64\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em CreateTFTensor_int64: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT void* CreateTFTensor_int8(int8_t* values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) { fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_int8\n"); return nullptr; }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        size_t data_size = sizeof(int8_t) * num_elements;
+        int8_t* tensor_data = static_cast<int8_t*>(malloc(data_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para TF_Tensor\n"); return nullptr; }
+        memcpy(tensor_data, values, data_size);
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_INT8,
+            dims,
+            num_dims,
+            tensor_data,
+            data_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor int8\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em CreateTFTensor_int8: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT void* CreateTFTensor_int16(int16_t* values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) { fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_int16\n"); return nullptr; }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        size_t data_size = sizeof(int16_t) * num_elements;
+        int16_t* tensor_data = static_cast<int16_t*>(malloc(data_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para TF_Tensor\n"); return nullptr; }
+        memcpy(tensor_data, values, data_size);
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_INT16,
+            dims,
+            num_dims,
+            tensor_data,
+            data_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor int16\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em CreateTFTensor_int16: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT void* CreateTFTensor_uint8(uint8_t* values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) { fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_uint8\n"); return nullptr; }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        size_t data_size = sizeof(uint8_t) * num_elements;
+        uint8_t* tensor_data = static_cast<uint8_t*>(malloc(data_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para TF_Tensor\n"); return nullptr; }
+        memcpy(tensor_data, values, data_size);
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_UINT8,
+            dims,
+            num_dims,
+            tensor_data,
+            data_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor uint8\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em CreateTFTensor_uint8: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT void* CreateTFTensor_uint16(uint16_t* values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) { fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_uint16\n"); return nullptr; }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        size_t data_size = sizeof(uint16_t) * num_elements;
+        uint16_t* tensor_data = static_cast<uint16_t*>(malloc(data_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para TF_Tensor\n"); return nullptr; }
+        memcpy(tensor_data, values, data_size);
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_UINT16,
+            dims,
+            num_dims,
+            tensor_data,
+            data_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor uint16\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em CreateTFTensor_uint16: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT void* CreateTFTensor_bool(uint8_t* values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) { fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_bool\n"); return nullptr; }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        size_t data_size = sizeof(uint8_t) * num_elements;
+        uint8_t* tensor_data = static_cast<uint8_t*>(malloc(data_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para TF_Tensor\n"); return nullptr; }
+        memcpy(tensor_data, values, data_size);
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_BOOL,
+            dims,
+            num_dims,
+            tensor_data,
+            data_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor bool\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em CreateTFTensor_bool: %s\n", e.what()); return nullptr; }
+}
+
+// Complex: store interleaved floats/doubles
+EXPORT void* CreateTFTensor_complex64(float* values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) { fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_complex64\n"); return nullptr; }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        // complex64 occupies 2 floats per element (real, imag)
+        size_t data_size = sizeof(float) * 2 * num_elements;
+        float* tensor_data = static_cast<float*>(malloc(data_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para TF_Tensor\n"); return nullptr; }
+        memcpy(tensor_data, values, data_size);
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_COMPLEX64,
+            dims,
+            num_dims,
+            tensor_data,
+            data_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor complex64\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em CreateTFTensor_complex64: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT void* CreateTFTensor_complex128(double* values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) { fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_complex128\n"); return nullptr; }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        // complex128: 2 doubles per element
+        size_t data_size = sizeof(double) * 2 * num_elements;
+        double* tensor_data = static_cast<double*>(malloc(data_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para TF_Tensor\n"); return nullptr; }
+        memcpy(tensor_data, values, data_size);
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_COMPLEX128,
+            dims,
+            num_dims,
+            tensor_data,
+            data_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor complex128\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em CreateTFTensor_complex128: %s\n", e.what()); return nullptr; }
+}
+
+// Strings: encode each string into TF_STRING buffer
+EXPORT void* CreateTFTensor_string(const char** values, int64_t* dims, int num_dims) {
+    try {
+        if (!values || !dims || num_dims <= 0) { fprintf(stderr, "Erro: Parâmetros inválidos em CreateTFTensor_string\n"); return nullptr; }
+        size_t num_elements = std::accumulate(dims, dims + num_dims, size_t(1), std::multiplies<size_t>());
+        std::vector<std::string> strs;
+        strs.reserve(num_elements);
+        for (size_t i = 0; i < num_elements; ++i) {
+            const char* s = values[i];
+            if (!s) s = "";
+            strs.emplace_back(s);
+        }
+
+        // Fallback placeholder: store concatenated NUL-terminated strings in a TF_UINT8 tensor.
+        size_t byte_size = 0;
+        for (const auto& s : strs) byte_size += s.size() + 1;
+        char* tensor_data = static_cast<char*>(malloc(byte_size));
+        if (!tensor_data) { fprintf(stderr, "Erro: Falha ao alocar memória para tensor string\n"); return nullptr; }
+        char* p = tensor_data;
+        for (const auto& s : strs) {
+            memcpy(p, s.data(), s.size());
+            p += s.size();
+            *p = '\0';
+            p++;
+        }
+        // Create a UINT8 tensor containing concatenated strings as a placeholder representation
+        TF_Tensor* tensor = TF_NewTensor(
+            TF_UINT8,
+            dims,
+            num_dims,
+            tensor_data,
+            byte_size,
+            [](void* data, size_t, void*) { free(data); },
+            nullptr);
+        if (!tensor) { free(tensor_data); fprintf(stderr, "Erro: Falha ao criar TF_Tensor string placeholder\n"); return nullptr; }
+        return static_cast<void*>(tensor);
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em CreateTFTensor_string: %s\n", e.what()); return nullptr; }
+}
+
+// Decode TF_STRING tensor and return array of C strings. Caller must free via FreeStringArray.
+EXPORT char** GetTensorData_string(void* tensor_ptr, int64_t* out_count) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_string\n"); return nullptr; }
+        // We created placeholder string tensors as TF_UINT8 containing NUL-terminated concatenated strings
+        if (TF_TensorType(tensor) != TF_UINT8) { fprintf(stderr, "Erro: expected UINT8 placeholder for string tensor in GetTensorData_string\n"); return nullptr; }
+        int num_dims = TF_NumDims(tensor);
+        size_t num_elements = 1;
+        for (int i = 0; i < num_dims; ++i) num_elements *= TF_Dim(tensor, i);
+        if (out_count) *out_count = static_cast<int64_t>(num_elements);
+
+        unsigned char* data = static_cast<unsigned char*>(TF_TensorData(tensor));
+        if (!data) { fprintf(stderr, "Erro: TF_TensorData retornou nullptr em GetTensorData_string\n"); return nullptr; }
+        size_t total_size = TF_TensorByteSize(tensor);
+
+        // Parse concatenated NUL-terminated strings
+        char** out = static_cast<char**>(malloc(sizeof(char*) * num_elements));
+        if (!out) { fprintf(stderr, "Erro: Falha ao alocar array de strings\n"); return nullptr; }
+
+        size_t idx = 0;
+        size_t pos = 0;
+        for (size_t i = 0; i < num_elements && pos < total_size; ++i) {
+            char* start = reinterpret_cast<char*>(data + pos);
+            size_t len = strnlen(start, total_size - pos);
+            char* s = static_cast<char*>(malloc(len + 1));
+            if (!s) { s = nullptr; }
+            else {
+                memcpy(s, start, len);
+                s[len] = '\0';
+            }
+            out[idx++] = s;
+            pos += len + 1; // skip NUL
+        }
+        // If we allocated fewer strings than expected, fill rest with empty
+        while (idx < num_elements) { out[idx++] = nullptr; }
+        return out;
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_string: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT void FreeStringArray(char** arr, int64_t count) {
+    if (!arr) return;
+    for (int64_t i = 0; i < count; ++i) {
+        if (arr[i]) free(arr[i]);
+    }
+    free(arr);
+}
+
+// ----- Typed Getters -----
+EXPORT double* GetTensorData_double(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_double\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_DOUBLE) { fprintf(stderr, "Erro: Tensor não é TF_DOUBLE em GetTensorData_double\n"); return nullptr; }
+        return static_cast<double*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_double: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT int32_t* GetTensorData_int32(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_int32\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_INT32) { fprintf(stderr, "Erro: Tensor não é TF_INT32 em GetTensorData_int32\n"); return nullptr; }
+        return static_cast<int32_t*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_int32: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT int64_t* GetTensorData_int64(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_int64\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_INT64) { fprintf(stderr, "Erro: Tensor não é TF_INT64 em GetTensorData_int64\n"); return nullptr; }
+        return static_cast<int64_t*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_int64: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT int8_t* GetTensorData_int8(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_int8\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_INT8) { fprintf(stderr, "Erro: Tensor não é TF_INT8 em GetTensorData_int8\n"); return nullptr; }
+        return static_cast<int8_t*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_int8: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT int16_t* GetTensorData_int16(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_int16\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_INT16) { fprintf(stderr, "Erro: Tensor não é TF_INT16 em GetTensorData_int16\n"); return nullptr; }
+        return static_cast<int16_t*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_int16: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT uint8_t* GetTensorData_uint8(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_uint8\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_UINT8) { fprintf(stderr, "Erro: Tensor não é TF_UINT8 em GetTensorData_uint8\n"); return nullptr; }
+        return static_cast<uint8_t*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_uint8: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT uint16_t* GetTensorData_uint16(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_uint16\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_UINT16) { fprintf(stderr, "Erro: Tensor não é TF_UINT16 em GetTensorData_uint16\n"); return nullptr; }
+        return static_cast<uint16_t*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_uint16: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT uint8_t* GetTensorData_bool(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_bool\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_BOOL) { fprintf(stderr, "Erro: Tensor não é TF_BOOL em GetTensorData_bool\n"); return nullptr; }
+        return static_cast<uint8_t*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_bool: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT float* GetTensorData_complex64(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_complex64\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_COMPLEX64) { fprintf(stderr, "Erro: Tensor não é TF_COMPLEX64 em GetTensorData_complex64\n"); return nullptr; }
+        return static_cast<float*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_complex64: %s\n", e.what()); return nullptr; }
+}
+
+EXPORT double* GetTensorData_complex128(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_complex128\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_COMPLEX128) { fprintf(stderr, "Erro: Tensor não é TF_COMPLEX128 em GetTensorData_complex128\n"); return nullptr; }
+        return static_cast<double*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_complex128: %s\n", e.what()); return nullptr; }
+}
+
+// For string placeholder (we used TF_UINT8 to store concatenated strings). Return pointer to data and size via out param.
+EXPORT unsigned char* GetTensorData_string_placeholder(void* tensor_ptr) {
+    try {
+        TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);
+        if (!tensor) { fprintf(stderr, "Erro: Tensor inválido em GetTensorData_string_placeholder\n"); return nullptr; }
+        if (TF_TensorType(tensor) != TF_UINT8) { fprintf(stderr, "Aviso: expected UINT8 placeholder for string tensor\n"); return nullptr; }
+        return static_cast<unsigned char*>(TF_TensorData(tensor));
+    } catch (const std::exception& e) { fprintf(stderr, "Erro em GetTensorData_string_placeholder: %s\n", e.what()); return nullptr; }
+}
+
 EXPORT float* GetTensorData(void* tensor_ptr) {
     try {
         TF_Tensor* tensor = static_cast<TF_Tensor*>(tensor_ptr);

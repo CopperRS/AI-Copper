@@ -2,9 +2,91 @@ use std::ffi::{CStr, CString};
 use std::os::raw::{c_char, c_void, c_int};
 use std::ptr;
 
+// Random utilities
+use rand::{thread_rng, Rng};
+use rand::distributions::Distribution;
+use rand::seq::SliceRandom;
+use rand::distributions::WeightedIndex;
+use rand_distr::{Normal, Gamma};
+
 pub struct FlowTensors {
     ptr: *mut c_void, // Ponteiro para TF_Tensor*
     dims: Vec<i64>,   // Dimensões do tensor (suporta qualquer número de dimensões)
+    dtype: DType,
+}
+
+/// Supported data types for FlowTensors (Rust-side representation).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DType {
+    F32,
+    F64,
+    I32,
+    I64,
+    I8,
+    I16,
+    U8,
+    U16,
+    Bool,
+    Complex64,
+    Complex128,
+    StringPlaceholder,
+    Unknown,
+}
+
+// Binary operator enum at module scope so impls can be referenced from methods below.
+#[derive(Debug, Clone, Copy)]
+pub enum BinaryOp {
+    Add,
+    Sub,
+    Mul,
+    Div,
+}
+
+impl BinaryOp {
+    pub fn apply_f32(&self, a: f32, b: f32) -> f32 {
+        match self {
+            BinaryOp::Add => a + b,
+            BinaryOp::Sub => a - b,
+            BinaryOp::Mul => a * b,
+            BinaryOp::Div => a / b,
+        }
+    }
+
+    pub fn apply_f64(&self, a: f64, b: f64) -> f64 {
+        match self {
+            BinaryOp::Add => a + b,
+            BinaryOp::Sub => a - b,
+            BinaryOp::Mul => a * b,
+            BinaryOp::Div => a / b,
+        }
+    }
+
+    pub fn apply_i32(&self, a: i32, b: i32) -> i32 {
+        match self {
+            BinaryOp::Add => a.wrapping_add(b),
+            BinaryOp::Sub => a.wrapping_sub(b),
+            BinaryOp::Mul => a.wrapping_mul(b),
+            BinaryOp::Div => a / b,
+        }
+    }
+
+    pub fn apply_i64(&self, a: i64, b: i64) -> i64 {
+        match self {
+            BinaryOp::Add => a.wrapping_add(b),
+            BinaryOp::Sub => a.wrapping_sub(b),
+            BinaryOp::Mul => a.wrapping_mul(b),
+            BinaryOp::Div => a / b,
+        }
+    }
+}
+
+// We'll keep the FlowTensors struct backward-compatible but it will carry dtype info.
+impl FlowTensors {
+    fn with_ptr(ptr: *mut c_void, dims: Vec<i64>, dtype: DType) -> Self {
+        FlowTensors { ptr, dims, dtype }
+    }
+    /// Get the recorded dtype
+    pub fn dtype(&self) -> DType { self.dtype }
 }
 
 pub struct TensorFlowModel {
@@ -84,10 +166,7 @@ impl TensorFlowModel {
                     }
                     // Supor dimensões de saída (você deve obter as dimensões reais do modelo)
                     let dims = vec![1, 1]; // Exemplo: ajustar conforme o modelo
-                    Some(FlowTensors {
-                        ptr,
-                        dims,
-                    })
+                            Some(FlowTensors { ptr, dims, dtype: DType::Unknown })
                 })
                 .collect();
 
@@ -122,10 +201,7 @@ impl FlowTensors {
             if tensor_ptr.is_null() {
                 return None;
             }
-            Some(FlowTensors {
-                ptr: tensor_ptr,
-                dims: dims.to_vec(),
-            })
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::F32 })
         }
     }
 
@@ -149,6 +225,239 @@ impl FlowTensors {
     /// Obtém as dimensões do tensor
     pub fn dims(&self) -> &[i64] {
         &self.dims
+    }
+
+    // --- Typed constructors (true dtype support via native FFI) ---
+    pub fn new_f64(values: &[f64], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_double(
+                values.as_ptr(),
+                dims.as_ptr(),
+                dims.len() as c_int,
+            );
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::F64 })
+        }
+    }
+
+    pub fn new_i32(values: &[i32], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_int32(
+                values.as_ptr(), dims.as_ptr(), dims.len() as c_int);
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::I32 })
+        }
+    }
+
+    pub fn new_i64(values: &[i64], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_int64(
+                values.as_ptr(), dims.as_ptr(), dims.len() as c_int);
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::I64 })
+        }
+    }
+
+    pub fn new_i8(values: &[i8], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_int8(
+                values.as_ptr(), dims.as_ptr(), dims.len() as c_int);
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::I8 })
+        }
+    }
+
+    pub fn new_i16(values: &[i16], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_int16(
+                values.as_ptr(), dims.as_ptr(), dims.len() as c_int);
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::I16 })
+        }
+    }
+
+    pub fn new_u8(values: &[u8], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_uint8(
+                values.as_ptr(), dims.as_ptr(), dims.len() as c_int);
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::U8 })
+        }
+    }
+
+    pub fn new_u16(values: &[u16], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_uint16(
+                values.as_ptr(), dims.as_ptr(), dims.len() as c_int);
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::U16 })
+        }
+    }
+
+    pub fn new_bool(values: &[u8], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_bool(
+                values.as_ptr(), dims.as_ptr(), dims.len() as c_int);
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::Bool })
+        }
+    }
+
+    pub fn new_complex64(values: &[f32], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_complex64(
+                values.as_ptr(), dims.as_ptr(), dims.len() as c_int);
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::Complex64 })
+        }
+    }
+
+    pub fn new_complex128(values: &[f64], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_complex128(
+                values.as_ptr(), dims.as_ptr(), dims.len() as c_int);
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::Complex128 })
+        }
+    }
+
+    /// Placeholder: creates a byte-packed string tensor (see C++ note)
+    pub fn new_string(values: &[&str], dims: &[i64]) -> Option<Self> {
+        unsafe {
+            let cstrings: Vec<CString> = values.iter().map(|s| CString::new(*s).unwrap()).collect();
+            let ptrs: Vec<*const c_char> = cstrings.iter().map(|c| c.as_ptr()).collect();
+            let tensor_ptr = crate::tensor_tensorflow::ffi::CreateTFTensor_string(ptrs.as_ptr(), dims.as_ptr(), dims.len() as c_int);
+            if tensor_ptr.is_null() { return None; }
+            Some(FlowTensors { ptr: tensor_ptr, dims: dims.to_vec(), dtype: DType::StringPlaceholder })
+        }
+    }
+
+    // --- Typed accessors ---
+    pub fn data_f64(&self) -> Option<&[f64]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_double(self.ptr);
+            if data_ptr.is_null() { return None; }
+            let size = self.dims.iter().product::<i64>() as usize;
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    pub fn data_i32(&self) -> Option<&[i32]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_int32(self.ptr);
+            if data_ptr.is_null() { return None; }
+            let size = self.dims.iter().product::<i64>() as usize;
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    pub fn data_i64(&self) -> Option<&[i64]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_int64(self.ptr);
+            if data_ptr.is_null() { return None; }
+            let size = self.dims.iter().product::<i64>() as usize;
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    /// Update the contents of this TF_Tensor in-place using a slice of f32 values.
+    /// Returns true on success.
+    // in-place helpers were removed per user request (undo last change).
+
+    pub fn data_i8(&self) -> Option<&[i8]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_int8(self.ptr);
+            if data_ptr.is_null() { return None; }
+            let size = self.dims.iter().product::<i64>() as usize;
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    pub fn data_i16(&self) -> Option<&[i16]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_int16(self.ptr);
+            if data_ptr.is_null() { return None; }
+            let size = self.dims.iter().product::<i64>() as usize;
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    pub fn data_u8(&self) -> Option<&[u8]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_uint8(self.ptr);
+            if data_ptr.is_null() { return None; }
+            let size = self.dims.iter().product::<i64>() as usize;
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    pub fn data_u16(&self) -> Option<&[u16]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_uint16(self.ptr);
+            if data_ptr.is_null() { return None; }
+            let size = self.dims.iter().product::<i64>() as usize;
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    pub fn data_bool(&self) -> Option<&[u8]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_bool(self.ptr);
+            if data_ptr.is_null() { return None; }
+            let size = self.dims.iter().product::<i64>() as usize;
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    /// For complex64 returns interleaved float pairs [re,im, re,im, ...]
+    pub fn data_complex64(&self) -> Option<&[f32]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_complex64(self.ptr);
+            if data_ptr.is_null() { return None; }
+            let size = self.dims.iter().product::<i64>() as usize * 2; // two floats per complex
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    pub fn data_complex128(&self) -> Option<&[f64]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_complex128(self.ptr);
+            if data_ptr.is_null() { return None; }
+            let size = self.dims.iter().product::<i64>() as usize * 2; // two doubles per complex
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    /// Placeholder accessor for string-packed tensors
+    pub fn data_string_placeholder(&self) -> Option<&[u8]> {
+        unsafe {
+            let data_ptr = crate::tensor_tensorflow::ffi::GetTensorData_string_placeholder(self.ptr);
+            if data_ptr.is_null() { return None; }
+            // We do not know exact packed size here; best-effort: compute byte size from dims as upper bound
+            let size = self.dims.iter().product::<i64>() as usize * 8; // heuristic
+            Some(std::slice::from_raw_parts(data_ptr, size))
+        }
+    }
+
+    /// Decode TF_STRING tensor and return Vec<String>
+    pub fn data_strings(&self) -> Option<Vec<String>> {
+        unsafe {
+            let mut count: i64 = 0;
+            let raw = crate::tensor_tensorflow::ffi::GetTensorData_string(self.ptr, &mut count as *mut i64);
+            if raw.is_null() { return None; }
+            let mut out = Vec::with_capacity(count as usize);
+            for i in 0..(count as isize) {
+                let ptr = *raw.offset(i);
+                if ptr.is_null() {
+                    out.push(String::new());
+                } else {
+                    let s = CStr::from_ptr(ptr).to_string_lossy().into_owned();
+                    out.push(s);
+                }
+            }
+            crate::tensor_tensorflow::ffi::FreeStringArray(raw, count);
+            Some(out)
+        }
     }
 
     /// Obtém a versão do TensorFlow
@@ -240,80 +549,205 @@ impl FlowTensors {
 
     /// Operadores aritméticos elemento a elemento
     pub fn add(&self, other: &FlowTensors) -> Option<FlowTensors> {
-        if self.dims != other.dims {
-            eprintln!("Erro: dimensões incompatíveis em FlowTensors::add");
-            return None;
-        }
-        let a = self.data()?;
-        let b = other.data()?;
-        let size = a.len();
-        const PAR_THRESHOLD: usize = 1 << 12;
-        let result: Vec<f32> = if size >= PAR_THRESHOLD {
-            use rayon::prelude::*;
-            a.par_iter().zip(b.par_iter()).map(|(x, y)| x + y).collect()
-        } else {
-            a.iter().zip(b.iter()).map(|(x, y)| x + y).collect()
-        };
-        FlowTensors::new(&result, &self.dims)
+        self.elementwise_binary_op(other, BinaryOp::Add)
     }
 
     pub fn sub(&self, other: &FlowTensors) -> Option<FlowTensors> {
-        if self.dims != other.dims {
-            eprintln!("Erro: dimensões incompatíveis em FlowTensors::sub");
-            return None;
-        }
-        let a = self.data()?;
-        let b = other.data()?;
-        let size = a.len();
-        const PAR_THRESHOLD: usize = 1 << 12;
-        let result: Vec<f32> = if size >= PAR_THRESHOLD {
-            use rayon::prelude::*;
-            a.par_iter().zip(b.par_iter()).map(|(x, y)| x - y).collect()
-        } else {
-            a.iter().zip(b.iter()).map(|(x, y)| x - y).collect()
-        };
-        FlowTensors::new(&result, &self.dims)
+        self.elementwise_binary_op(other, BinaryOp::Sub)
     }
 
     pub fn mul(&self, other: &FlowTensors) -> Option<FlowTensors> {
-        if self.dims != other.dims {
-            eprintln!("Erro: dimensões incompatíveis em FlowTensors::mul");
-            return None;
-        }
-        let a = self.data()?;
-        let b = other.data()?;
-        let size = a.len();
-        const PAR_THRESHOLD: usize = 1 << 12;
-        let result: Vec<f32> = if size >= PAR_THRESHOLD {
-            use rayon::prelude::*;
-            a.par_iter().zip(b.par_iter()).map(|(x, y)| x * y).collect()
-        } else {
-            a.iter().zip(b.iter()).map(|(x, y)| x * y).collect()
-        };
-        FlowTensors::new(&result, &self.dims)
+        self.elementwise_binary_op(other, BinaryOp::Mul)
     }
 
     pub fn div(&self, other: &FlowTensors) -> Option<FlowTensors> {
-        if self.dims != other.dims {
-            eprintln!("Erro: dimensões incompatíveis em FlowTensors::div");
-            return None;
-        }
-        let a = self.data()?;
-        let b = other.data()?;
-        // Reproduz comportamento simples: panic on division by zero
-        if b.iter().any(|&v| v == 0.0) {
-            eprintln!("Erro: divisão por zero em FlowTensors::div");
-            return None;
-        }
-        let size = a.len();
-        const PAR_THRESHOLD: usize = 1 << 12;
-        let result: Vec<f32> = if size >= PAR_THRESHOLD {
-            use rayon::prelude::*;
-            a.par_iter().zip(b.par_iter()).map(|(x, y)| x / y).collect()
-        } else {
-            a.iter().zip(b.iter()).map(|(x, y)| x / y).collect()
+        self.elementwise_binary_op(other, BinaryOp::Div)
+    }
+
+    // DType promotion for binary ops. For Div we prefer floating target types.
+    fn promote_dtype(a: DType, b: DType, is_div: bool) -> DType {
+        use DType::*;
+        // Rank list from highest to lowest
+        let rank = |d: DType| match d {
+            Complex128 => 12,
+            Complex64 => 11,
+            F64 => 10,
+            F32 => 9,
+            I64 => 8,
+            I32 => 7,
+            I16 => 6,
+            I8 => 5,
+            U16 => 4,
+            U8 => 3,
+            Bool => 1,
+            StringPlaceholder => 0,
+            Unknown => 0,
         };
-        FlowTensors::new(&result, &self.dims)
+        let mut target = if rank(a) >= rank(b) { a } else { b };
+        if is_div {
+            // promote integers to float for division
+            target = match target {
+                I64 | I32 | I16 | I8 | U16 | U8 => F64,
+                Bool => F32,
+                other => other,
+            };
+        }
+        target
+    }
+
+    // Unified element-wise binary operator dispatcher
+    fn elementwise_binary_op(&self, other: &FlowTensors, op: BinaryOp) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::{:?}", op);
+            return None;
+        }
+        let is_div = matches!(op, BinaryOp::Div);
+        let target = FlowTensors::promote_dtype(self.dtype, other.dtype, is_div);
+        let size = self.dims.iter().product::<i64>() as usize;
+        match target {
+            DType::F32 => {
+                // read both as f32 (fallback casting)
+                let a: Vec<f32> = self.to_f32_vec()?;
+                let b: Vec<f32> = other.to_f32_vec()?;
+                let res: Vec<f32> = if size >= (1<<12) {
+                    use rayon::prelude::*;
+                    a.par_iter().zip(b.par_iter()).map(|(x,y)| op.apply_f32(*x,*y)).collect()
+                } else {
+                    a.iter().zip(b.iter()).map(|(x,y)| op.apply_f32(*x,*y)).collect()
+                };
+                FlowTensors::new(&res, &self.dims)
+            }
+            DType::F64 => {
+                let a: Vec<f64> = self.to_f64_vec()?;
+                let b: Vec<f64> = other.to_f64_vec()?;
+                let res: Vec<f64> = if size >= (1<<12) {
+                    use rayon::prelude::*;
+                    a.par_iter().zip(b.par_iter()).map(|(x,y)| op.apply_f64(*x,*y)).collect()
+                } else {
+                    a.iter().zip(b.iter()).map(|(x,y)| op.apply_f64(*x,*y)).collect()
+                };
+                FlowTensors::new_f64(&res, &self.dims)
+            }
+            DType::I32 => {
+                let a: Vec<i32> = self.to_i32_vec()?;
+                let b: Vec<i32> = other.to_i32_vec()?;
+                let res: Vec<i32> = a.iter().zip(b.iter()).map(|(x,y)| op.apply_i32(*x,*y)).collect();
+                FlowTensors::new_i32(&res, &self.dims)
+            }
+            DType::I64 => {
+                let a: Vec<i64> = self.to_i64_vec()?;
+                let b: Vec<i64> = other.to_i64_vec()?;
+                let res: Vec<i64> = a.iter().zip(b.iter()).map(|(x,y)| op.apply_i64(*x,*y)).collect();
+                FlowTensors::new_i64(&res, &self.dims)
+            }
+            DType::Complex64 => {
+                // operate on interleaved (re,im) pairs
+                let a = self.to_complex64_vec()?;
+                let b = other.to_complex64_vec()?;
+                if a.len() != b.len() {
+                    eprintln!("Erro: tamanhos diferentes para complex arithmetic");
+                    return None;
+                }
+                let mut out_interleaved: Vec<f32> = Vec::with_capacity(a.len() * 2);
+                for (i, (ar, ai)) in a.iter().enumerate() {
+                    let (br, bi) = b[i];
+                    let (rr, ri) = match op {
+                        BinaryOp::Add => (ar + br, ai + bi),
+                        BinaryOp::Sub => (ar - br, ai - bi),
+                        BinaryOp::Mul => (ar * br - ai * bi, ar * bi + ai * br),
+                        BinaryOp::Div => {
+                            let denom = br * br + bi * bi;
+                            if denom == 0.0 {
+                                eprintln!("Erro: divisão por zero em complex Division");
+                                return None;
+                            }
+                            ((ar * br + ai * bi) / denom, (ai * br - ar * bi) / denom)
+                        }
+                    };
+                    out_interleaved.push(rr);
+                    out_interleaved.push(ri);
+                }
+                FlowTensors::new_complex64(&out_interleaved, &self.dims)
+            }
+            _ => {
+                eprintln!("Op for dtype {:?} not implemented yet", target);
+                None
+            }
+        }
+    }
+
+    // Conversion helpers: convert any supported dtype to Vec<T>
+    fn to_f32_vec(&self) -> Option<Vec<f32>> {
+        match self.dtype {
+            DType::F32 => Some(self.data()?.to_vec()),
+            DType::F64 => Some(self.data_f64()?.iter().map(|&v| v as f32).collect()),
+            DType::I32 => Some(self.data_i32()?.iter().map(|&v| v as f32).collect()),
+            DType::I64 => Some(self.data_i64()?.iter().map(|&v| v as f32).collect()),
+            DType::I8 => Some(self.data_i8()?.iter().map(|&v| v as f32).collect()),
+            DType::I16 => Some(self.data_i16()?.iter().map(|&v| v as f32).collect()),
+            DType::U8 => Some(self.data_u8()?.iter().map(|&v| v as f32).collect()),
+            DType::U16 => Some(self.data_u16()?.iter().map(|&v| v as f32).collect()),
+            DType::Bool => Some(self.data_bool()?.iter().map(|&v| if v==0 {0.0} else {1.0}).collect()),
+            _ => None,
+        }
+    }
+
+    fn to_f64_vec(&self) -> Option<Vec<f64>> {
+        match self.dtype {
+            DType::F64 => Some(self.data_f64()?.to_vec()),
+            DType::F32 => Some(self.data()?.iter().map(|&v| v as f64).collect()),
+            DType::I32 => Some(self.data_i32()?.iter().map(|&v| v as f64).collect()),
+            DType::I64 => Some(self.data_i64()?.iter().map(|&v| v as f64).collect()),
+            DType::I8 => Some(self.data_i8()?.iter().map(|&v| v as f64).collect()),
+            DType::I16 => Some(self.data_i16()?.iter().map(|&v| v as f64).collect()),
+            DType::U8 => Some(self.data_u8()?.iter().map(|&v| v as f64).collect()),
+            DType::U16 => Some(self.data_u16()?.iter().map(|&v| v as f64).collect()),
+            DType::Bool => Some(self.data_bool()?.iter().map(|&v| if v==0 {0.0} else {1.0}).collect()),
+            _ => None,
+        }
+    }
+
+    fn to_i32_vec(&self) -> Option<Vec<i32>> {
+        match self.dtype {
+            DType::I32 => Some(self.data_i32()?.to_vec()),
+            DType::F32 => Some(self.data()?.iter().map(|&v| v as i32).collect()),
+            DType::F64 => Some(self.data_f64()?.iter().map(|&v| v as i32).collect()),
+            DType::I64 => Some(self.data_i64()?.iter().map(|&v| v as i32).collect()),
+            DType::I8 => Some(self.data_i8()?.iter().map(|&v| v as i32).collect()),
+            DType::I16 => Some(self.data_i16()?.iter().map(|&v| v as i32).collect()),
+            DType::U8 => Some(self.data_u8()?.iter().map(|&v| v as i32).collect()),
+            DType::U16 => Some(self.data_u16()?.iter().map(|&v| v as i32).collect()),
+            DType::Bool => Some(self.data_bool()?.iter().map(|&v| if v==0 {0} else {1}).collect()),
+            _ => None,
+        }
+    }
+
+    fn to_i64_vec(&self) -> Option<Vec<i64>> {
+        match self.dtype {
+            DType::I64 => Some(self.data_i64()?.to_vec()),
+            DType::I32 => Some(self.data_i32()?.iter().map(|&v| v as i64).collect()),
+            DType::F32 => Some(self.data()?.iter().map(|&v| v as i64).collect()),
+            DType::F64 => Some(self.data_f64()?.iter().map(|&v| v as i64).collect()),
+            DType::I8 => Some(self.data_i8()?.iter().map(|&v| v as i64).collect()),
+            DType::I16 => Some(self.data_i16()?.iter().map(|&v| v as i64).collect()),
+            DType::U8 => Some(self.data_u8()?.iter().map(|&v| v as i64).collect()),
+            DType::U16 => Some(self.data_u16()?.iter().map(|&v| v as i64).collect()),
+            DType::Bool => Some(self.data_bool()?.iter().map(|&v| if v==0 {0} else {1}).collect()),
+            _ => None,
+        }
+    }
+
+    fn to_complex64_vec(&self) -> Option<Vec<(f32,f32)>> {
+        // returns Vec of (real, imag)
+        match self.dtype {
+            DType::Complex64 => {
+                let raw = self.data_complex64()?;
+                let mut out = Vec::with_capacity(raw.len()/2);
+                for i in 0..(raw.len()/2) { out.push((raw[2*i], raw[2*i+1])); }
+                Some(out)
+            }
+            _ => None,
+        }
     }
 
     /// Multiplicação de matrizes (2D)
@@ -668,6 +1102,81 @@ impl FlowTensors {
         FlowTensors::new(&values, dims)
     }
 
+    /// RandomUniform - valores uniformes no intervalo [low, high)
+    pub fn random_uniform(dims: &[i64], low: f32, high: f32) -> Option<Self> {
+        if low >= high {
+            eprintln!("Erro: random_uniform requer low < high");
+            return None;
+        }
+        let size = dims.iter().product::<i64>() as usize;
+        let mut rng = thread_rng();
+        let mut values = Vec::with_capacity(size);
+        for _ in 0..size {
+            values.push(rng.gen_range(low..high));
+        }
+        FlowTensors::new(&values, dims)
+    }
+
+    /// RandomNormal - distribuição normal com média e desvio padrão fornecidos
+    pub fn random_normal(dims: &[i64], mean: f32, std: f32) -> Option<Self> {
+        if std <= 0.0 {
+            eprintln!("Erro: random_normal requer std > 0");
+            return None;
+        }
+        let size = dims.iter().product::<i64>() as usize;
+        let mut rng = thread_rng();
+        let normal = Normal::new(mean as f64, std as f64).ok()?;
+        let mut values = Vec::with_capacity(size);
+        for _ in 0..size {
+            values.push(normal.sample(&mut rng) as f32);
+        }
+        FlowTensors::new(&values, dims)
+    }
+
+    /// TruncatedNormal - amostras da normal truncada dentro de +/- trunc_std * std
+    pub fn truncated_normal(dims: &[i64], mean: f32, std: f32, trunc_std: f32) -> Option<Self> {
+        if std <= 0.0 || trunc_std <= 0.0 {
+            eprintln!("Erro: truncated_normal requer std > 0 e trunc_std > 0");
+            return None;
+        }
+        let size = dims.iter().product::<i64>() as usize;
+        let mut rng = thread_rng();
+        let normal = Normal::new(mean as f64, std as f64).ok()?;
+        let mut values = Vec::with_capacity(size);
+        let lower = mean as f32 - trunc_std * std;
+        let upper = mean as f32 + trunc_std * std;
+        for _ in 0..size {
+            // rejeição simples com limite de tentativas
+            let mut val = normal.sample(&mut rng) as f32;
+            let mut tries = 0;
+            while (val < lower || val > upper) && tries < 10 {
+                val = normal.sample(&mut rng) as f32;
+                tries += 1;
+            }
+            // se ainda inválido após tentativas, clamp como fallback
+            if val < lower { val = lower; }
+            if val > upper { val = upper; }
+            values.push(val);
+        }
+        FlowTensors::new(&values, dims)
+    }
+
+    /// RandomGamma - distribuição Gamma com shape (alpha) e scale (theta)
+    pub fn random_gamma(dims: &[i64], shape: f32, scale: f32) -> Option<Self> {
+        if shape <= 0.0 || scale <= 0.0 {
+            eprintln!("Erro: random_gamma requer shape>0 e scale>0");
+            return None;
+        }
+        let size = dims.iter().product::<i64>() as usize;
+        let mut rng = thread_rng();
+        let gamma = Gamma::new(shape as f64, scale as f64).ok()?;
+        let mut values = Vec::with_capacity(size);
+        for _ in 0..size {
+            values.push(gamma.sample(&mut rng) as f32);
+        }
+        FlowTensors::new(&values, dims)
+    }
+
     /// Reshape do tensor
     pub fn reshape(&self, new_dims: &[i64]) -> Option<FlowTensors> {
         let old_size: i64 = self.dims.iter().product();
@@ -679,6 +1188,63 @@ impl FlowTensors {
 
         let data = self.data()?.to_vec();
         FlowTensors::new(&data, new_dims)
+    }
+
+    /// RandomShuffle - embaralha elementos.
+    /// Para tensores 1D: embaralha todos os elementos.
+    /// Para tensores com >=2 dims: embaralha ao longo da primeira dimensão (linhas).
+    pub fn random_shuffle(&self) -> Option<FlowTensors> {
+        let mut rng = thread_rng();
+        let data = self.data()?.to_vec();
+        if self.dims.len() == 1 {
+            let mut v = data;
+            v.as_mut_slice().shuffle(&mut rng);
+            return FlowTensors::new(&v, &self.dims);
+        }
+
+        // Shuffle along first axis
+        let first = self.dims[0] as usize;
+        let inner_size: usize = self.dims[1..].iter().product::<i64>() as usize;
+        if inner_size == 0 || first == 0 {
+            return FlowTensors::new(&data, &self.dims);
+        }
+        let mut rows: Vec<Vec<f32>> = Vec::with_capacity(first);
+        for i in 0..first {
+            let start = i * inner_size;
+            let end = start + inner_size;
+            rows.push(data[start..end].to_vec());
+        }
+        rows.shuffle(&mut rng);
+        let mut out: Vec<f32> = Vec::with_capacity(data.len());
+        for row in rows.iter() {
+            out.extend_from_slice(row);
+        }
+        FlowTensors::new(&out, &self.dims)
+    }
+
+    /// Multinomial: amostra índices a partir de um vetor de probabilidades (1D)
+    /// Retorna um tensor 1D de inteiros (armazenados como f32) com o índice amostrado.
+    pub fn multinomial(probs: &FlowTensors, num_samples: usize) -> Option<FlowTensors> {
+        // probs deve ser 1D e somar > 0
+        if probs.dims.len() != 1 {
+            eprintln!("Erro: multinomial espera probs 1D");
+            return None;
+        }
+        let p = probs.data()?;
+        if p.is_empty() {
+            eprintln!("Erro: multinomial probs vazio");
+            return None;
+        }
+        // WeightedIndex requer f64 slice
+        let weights: Vec<f64> = p.iter().map(|&v| v as f64).collect();
+        let dist = WeightedIndex::new(weights.as_slice()).ok()?;
+        let mut rng = thread_rng();
+        let mut samples: Vec<f32> = Vec::with_capacity(num_samples);
+        for _ in 0..num_samples {
+            let idx = dist.sample(&mut rng);
+            samples.push(idx as f32);
+        }
+        FlowTensors::new(&samples, &[num_samples as i64])
     }
 }
 

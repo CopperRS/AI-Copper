@@ -52,6 +52,18 @@
 - [ ✅ ] Ceil, Floor, Round, Clip - Arredondamento
 - [ ✅ ] Cast - Conversão de tipos
 
+**OPERAÇÕES ALEATÓRIAS (Random Ops):**
+
+- [ ✅ ] RandomUniform, RandomNormal
+- [ ✅ ] TruncatedNormal, RandomGamma
+- [ ✅ ] RandomShuffle, Multinomial
+
+**OTIMIZADORES (Training Ops):**
+
+- [ ] GradientDescent (SGD)
+- [ ] Adam, Adagrad, RMSProp
+- [ ] Momentum, Adadelta, Ftrl
+
 ### **Structs**
 - `FlowTensors` - tensor do TensorFlow
 - `TensorFlowModel` - modelo SavedModel
@@ -105,7 +117,9 @@ UnifiedTensor::TensorFlow(FlowTensors)
 // Suporta: zeros, ones, rand, from_values, to_backend, shape, as_slice, print
 ```
 ### **Tipos de dados**
-- ✅ f32 (já implementado)
+- [ ✅ ] f32 (já implementado)
+- [ ✅ ] f64 (double), i32, i64, i8, i16, u8, u16
+- [ ✅ ] bool, complex64/128, string
 ---
 
 Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáticos (+, -, *, /) implementados diretamente no FlowTensors.
@@ -135,16 +149,6 @@ Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáti
 - [ ] BiasAdd - Adicionar bias
 - [ ] Dropout - Regularização
 
-**OTIMIZADORES (Training Ops):**
-- [ ] GradientDescent (SGD)
-- [ ] Adam, Adagrad, RMSProp
-- [ ] Momentum, Adadelta, Ftrl
-
-**OPERAÇÕES ALEATÓRIAS (Random Ops):**
-- [ ] RandomUniform, RandomNormal
-- [ ] TruncatedNormal, RandomGamma
-- [ ] RandomShuffle, Multinomial
-
 **OPERAÇÕES DE IMAGEM (Image Ops):**
 - [ ] Resize (Bilinear/Bicubic/NearestNeighbor)
 - [ ] CropAndResize
@@ -156,10 +160,6 @@ Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáti
 - [ ] SparseAdd, SparseTensorDenseMatMul
 - [ ] SparseConcat, SparseSlice
 - [ ] SparseReshape
-
-**TIPOS DE DADOS:**
-- [ ] f64 (double), i32, i64, i8, i16, u8, u16
-- [ ] bool, complex64/128, string
 
 **FUNCIONALIDADES AVANÇADAS:**
 - [ ] Clone nativo para FlowTensors
@@ -174,9 +174,6 @@ Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáti
 **TESTES & DOCS:**
 - [ ] Testes unitários completos
 - [ ] Benchmarks de performance
-- [ ] Exemplos avançados (CNN, RNN)
-- [ ] Documentação rustdoc completa
-- [ ] Tutorial de uso
 
 ### **SEMPRE** atualize a documentação e essa lista
 

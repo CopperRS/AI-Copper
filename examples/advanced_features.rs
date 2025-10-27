@@ -1,6 +1,8 @@
 // Exemplo demonstrando as novas funcionalidades do ai_copper
 use ai_copper::tensor_libortch::tensor::{Tensor, Linear, Optimizer};
 use ai_copper::FlowTensors;
+// Import otimizers implementados para o backend TensorFlow (FlowTensors)
+use ai_copper::tensor_tensorflow::optimizers::{SGD, Adam, Adagrad, RMSProp, Momentum, Adadelta, Ftrl};
 
 fn main() {
     // Demo principal: mostra várias funcionalidades oferecidas pela biblioteca
@@ -78,12 +80,17 @@ fn main() {
     println!("\nTranspose of a:");
     a.transpose().print();
 
-    // CrossEntropyLoss: exemplo simples de cálculo de perda (cross-entropy)
+    // NOTE: CrossEntropyLoss in libtorch expects a 0D or 1D target tensor
+    // containing class indices (LongTensor). The small helper API here
+    // creates 2D float matrices only, so creating a 2D target (shape [N,1])
+    // causes a runtime error. To avoid the panic in this example we use
+    // MSELoss with matching shapes instead. If you want to demo
+    // CrossEntropyLoss later we can add a 1D/Long tensor creator helper.
     let logits = Tensor::from_values(&[2.0, 0.5, 0.1, 0.2, 1.5, 0.3], 3, 2); // 3 samples, 2 classes
-    let targets = Tensor::from_values(&[1.0, 0.0, 1.0], 3, 1); // class indices or one-hot depending on impl
-    println!("\nCrossEntropyLoss(example):");
-    let cel = logits.cross_entropy_loss(&targets);
-    cel.print();
+    let targets = Tensor::from_values(&[1.0, 0.0, 1.0, 0.0, 0.0, 0.0], 3, 2); // same shape as logits
+    println!("\nMSELoss (used here instead of CrossEntropy to avoid dtype/shape mismatch):");
+    let mse = logits.mse_loss(&targets);
+    mse.print();
 
     // ==================== TENSORFLOW - FLOW TENSORS ====================
     // Demonstração das operações disponíveis no wrapper do TensorFlow
@@ -143,7 +150,7 @@ fn main() {
 
     // Comparações elemento-a-elemento
     // As funções retornam um tensor f32 contendo 1.0 para true e 0.0 para false
-    let ft2 = FlowTensors::new(&[0.0_f32, 0.5, 2.0, 4.0], &[2, 2]).unwrap();
+    let ft2 = FlowTensors::new(&[0.0_f32, 0.5, 2.0, 4.0], &[2, 2]).expect("falha ao criar ft2 FlowTensors");
     println!(
         "ft > ft2 : {:?}",
         ft.greater(&ft2)
@@ -205,7 +212,7 @@ fn main() {
     );
 
     // Operações aritméticas entre FlowTensors
-    let ft3 = FlowTensors::new(&[1.0_f32, 2.0, 3.0, 4.0], &[2, 2]).unwrap();
+    let ft3 = FlowTensors::new(&[1.0_f32, 2.0, 3.0, 4.0], &[2, 2]).expect("falha ao criar ft3 FlowTensors");
     println!(
         "ft + ft3: {:?}",
         ft.add(&ft3)
@@ -239,12 +246,95 @@ fn main() {
     // Exemplo grande para acionar paralelismo interno (CPU-only)
     // (útil para demonstrar o uso de rayon em operações element-wise)
     let large_vals = vec![0.1_f32; 5000];
-    let large_ft = FlowTensors::new(&large_vals, &[5000]).unwrap();
-    let large_exp = large_ft.exp().unwrap();
+    let large_ft = FlowTensors::new(&large_vals, &[5000]).expect("falha ao criar large_ft FlowTensors");
+    let large_exp = large_ft.exp().expect("falha ao executar exp() em large_ft");
     println!(
         "Large exp first element: {:?}",
         large_exp.data().expect("failed to get FlowTensors data")[0]
     );
+    
+    // ==================== OTIMIZADORES (Training Ops) - TensorFlow FlowTensors ====================
+    println!("\n8. TENSORFLOW - OTIMIZADORES (Training Ops)");
+    println!("{}", "-".repeat(50));
+
+    // Exemplo simples: parâmetros e gradientes 1D
+    let params = FlowTensors::new(&[0.5_f32, -0.3, 1.0], &[3]).expect("falha ao criar params");
+    let grads = FlowTensors::new(&[0.1_f32, -0.2, 0.05], &[3]).expect("falha ao criar grads");
+
+    println!("Params iniciais: {:?}", params.data().expect("failed"));
+    println!("Grads: {:?}", grads.data().expect("failed"));
+
+    // SGD
+    let sgd = SGD::new(0.1);
+    let params_sgd = sgd.step(&params, &grads).expect("sgd step failed");
+    println!("After SGD step: {:?}", params_sgd.data().expect("failed"));
+
+    // Adam (estadoful)
+    let mut adam = Adam::new(0.1);
+    let mut p = FlowTensors::new(params.data().expect("failed"), params.dims()).expect("failed to clone params");
+    for i in 0..3 {
+        p = adam.step(&p, &grads).expect("adam step failed");
+        println!("After Adam step {}: {:?}", i + 1, p.data().expect("failed"));
+    }
+
+    // Adagrad
+    let mut adg = Adagrad::new(0.1);
+    let params_adg = adg.step(&params, &grads).expect("adagrad failed");
+    println!("After Adagrad step: {:?}", params_adg.data().expect("failed"));
+
+    // RMSProp
+    let mut rms = RMSProp::new(0.01);
+    let params_rms = rms.step(&params, &grads).expect("rmsprop failed");
+    println!("After RMSProp step: {:?}", params_rms.data().expect("failed"));
+
+    // Momentum
+    let mut mom = Momentum::new(0.01, 0.9);
+    let params_mom = mom.step(&params, &grads).expect("momentum failed");
+    println!("After Momentum step: {:?}", params_mom.data().expect("failed"));
+
+    // Adadelta
+    let mut ada = Adadelta::new();
+    let params_ada = ada.step(&params, &grads).expect("adadelta failed");
+    println!("After Adadelta step: {:?}", params_ada.data().expect("failed"));
+
+    // Ftrl (FTRL-Proximal implementado)
+    let mut ftrl = Ftrl::new(0.1);
+    let params_ftrl = ftrl.step(&params, &grads).expect("ftrl failed");
+    println!("After Ftrl step: {:?}", params_ftrl.data().expect("failed"));
+
+    // (In-place update demos removed per user request)
+
+    
+    // ==================== RANDOM OPS (TensorFlow FlowTensors) ====================
+    println!("\n7. TENSORFLOW - RANDOM OPS (FlowTensors)");
+    println!("{}", "-".repeat(50));
+
+    // RandomUniform
+    let ru = FlowTensors::random_uniform(&[2, 3], 0.0, 1.0).expect("random_uniform failed");
+    println!("RandomUniform (2x3): {:?}", ru.data().expect("falha ao obter dados de RandomUniform"));
+
+    // RandomNormal
+    let rn = FlowTensors::random_normal(&[2, 3], 0.0, 1.0).expect("random_normal failed");
+    println!("RandomNormal (2x3): {:?}", rn.data().expect("falha ao obter dados de RandomNormal"));
+
+    // TruncatedNormal
+    let tn = FlowTensors::truncated_normal(&[2, 3], 0.0, 1.0, 2.0).expect("truncated_normal failed");
+    println!("TruncatedNormal (2x3): {:?}", tn.data().expect("falha ao obter dados de TruncatedNormal"));
+
+    // RandomGamma
+    let rg = FlowTensors::random_gamma(&[2, 3], 2.0, 1.0).expect("random_gamma failed");
+    println!("RandomGamma (shape=2, scale=1) (2x3): {:?}", rg.data().expect("falha ao obter dados de RandomGamma"));
+
+    // RandomShuffle (1D)
+    let v = FlowTensors::new(&[1.0_f32, 2.0, 3.0, 4.0, 5.0], &[5]).expect("falha ao criar FlowTensors v");
+    let shuffled = v.random_shuffle().expect("falha ao embaralhar FlowTensors");
+    println!("Original 1D: {:?}", v.data().expect("falha ao obter dados de v"));
+    println!("Shuffled 1D: {:?}", shuffled.data().expect("falha ao obter dados de shuffled"));
+
+    // Multinomial (amostrar 4 índices a partir de probabilidades)
+    let probs = FlowTensors::new(&[0.1_f32, 0.2, 0.3, 0.4], &[4]).expect("falha ao criar FlowTensors probs");
+    let samples = FlowTensors::multinomial(&probs, 4).expect("falha ao executar multinomial");
+    println!("Multinomial samples (indices): {:?}", samples.data().expect("falha ao obter dados de samples"));
     
     // ==================== FUNÇÕES DE ATIVAÇÃO ====================
     println!("\n3. FUNÇÕES DE ATIVAÇÃO");
@@ -317,12 +407,4 @@ fn main() {
         loss.backward();
         optimizer.step();
     }
-    
-    println!("\n=== Demo Completo! ===");
-    println!("\nNovas funcionalidades demonstradas:");
-    println!("  ✓ randn, eye, zeros_like, ones_like");
-    println!("  ✓ sin, cos, exp, log, sqrt, abs, pow");
-    println!("  ✓ relu, sigmoid, tanh");
-    println!("  ✓ std, var, argmax, argmin");
-    println!("  ✓ Adam optimizer");
 }
