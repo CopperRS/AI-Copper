@@ -1262,3 +1262,167 @@ impl Drop for FlowTensors {
 // Garante que FlowTensors é seguro para Send e Sync (necessário para FFI)
 unsafe impl Send for FlowTensors {}
 unsafe impl Sync for FlowTensors {}
+
+/// Lightweight SparseTensor representation (CPU-only helpers)
+/// This is a convenience helper that materializes a dense tensor under the hood
+/// and returns a `FlowTensors` via the existing CreateTFTensor FFI. It is not
+/// a zero-copy sparse implementation but provides the sparse ops listed in the
+/// project TODO as usable examples.
+#[derive(Clone)]
+pub struct SparseTensor {
+    /// Each entry in `indices` is a coordinate vector with length == rank
+    pub indices: Vec<Vec<i64>>,
+    /// Non-zero values corresponding to `indices`
+    pub values: Vec<f32>,
+    /// Dense shape of the sparse tensor
+    pub shape: Vec<i64>,
+}
+
+impl SparseTensor {
+    /// Create a new SparseTensor, returns None if inputs are inconsistent
+    pub fn new(indices: Vec<Vec<i64>>, values: Vec<f32>, shape: Vec<i64>) -> Option<Self> {
+        if indices.len() != values.len() { return None; }
+        if indices.iter().any(|idx| idx.len() != shape.len()) { return None; }
+        Some(SparseTensor { indices, values, shape })
+    }
+
+    /// Materialize as a dense row-major flattened Vec<f32>
+    fn to_dense_flat(&self) -> Option<Vec<f32>> {
+        let size: usize = self.shape.iter().product::<i64>() as usize;
+        if size == 0 { return Some(vec![]); }
+        let mut out = vec![0f32; size];
+        let rank = self.shape.len();
+        for (coord, &val) in self.indices.iter().zip(self.values.iter()) {
+            // compute flat index
+            let mut flat: usize = 0;
+            for (i, &c) in coord.iter().enumerate() {
+                let mut mul: usize = 1;
+                for &s in &self.shape[i+1..] { mul *= s as usize; }
+                flat += (c as usize) * mul;
+            }
+            if flat >= out.len() { return None; }
+            out[flat] = val;
+        }
+        Some(out)
+    }
+
+    /// Convert to FlowTensors (dense) by materializing the sparse tensor
+    pub fn to_flow(&self) -> Option<FlowTensors> {
+        let data = self.to_dense_flat()?;
+        FlowTensors::new(&data, &self.shape)
+    }
+
+    /// SparseAdd: adds two sparse tensors (shape must match) and returns a dense FlowTensors
+    pub fn sparse_add(&self, other: &SparseTensor) -> Option<FlowTensors> {
+        if self.shape != other.shape { eprintln!("sparse_add: shapes differ"); return None; }
+        let a = self.to_dense_flat()?;
+        let b = other.to_dense_flat()?;
+        let mut out = a;
+        for (i, v) in b.into_iter().enumerate() { out[i] += v; }
+        FlowTensors::new(&out, &self.shape)
+    }
+
+    /// SparseTensorDenseMatMul: assumes `self` is 2D (MxK) and `dense` is 2D (KxN).
+    /// Returns dense FlowTensors with shape [M, N].
+    pub fn sparse_tensor_dense_matmul(&self, dense: &FlowTensors) -> Option<FlowTensors> {
+        if self.shape.len() != 2 || dense.dims().len() != 2 { eprintln!("matmul expects 2D tensors"); return None; }
+        let m = self.shape[0] as usize;
+        let k = self.shape[1] as usize;
+        let k2 = dense.dims()[0] as usize;
+        let n = dense.dims()[1] as usize;
+        if k != k2 { eprintln!("matmul inner dims mismatch"); return None; }
+        let a = self.to_dense_flat()?; // length m*k
+        let b = dense.data()?; // length k*n
+        let mut out = vec![0f32; m * n];
+        for i in 0..m {
+            for j in 0..n {
+                let mut sum = 0f32;
+                for p in 0..k {
+                    sum += a[i*k + p] * b[p*n + j];
+                }
+                out[i*n + j] = sum;
+            }
+        }
+        FlowTensors::new(&out, &[m as i64, n as i64])
+    }
+
+    /// SparseConcat along the first axis (axis=0). Returns a dense FlowTensors result.
+    pub fn sparse_concat_axis0(tensors: &[SparseTensor]) -> Option<FlowTensors> {
+        if tensors.is_empty() { return None; }
+        let rank = tensors[0].shape.len();
+        if rank == 0 { return None; }
+        // ensure shapes compatible on axes 1..rank
+        for t in tensors.iter() {
+            if t.shape.len() != rank { return None; }
+            if t.shape[1..] != tensors[0].shape[1..] { return None; }
+        }
+        let mut concatenated_indices: Vec<Vec<i64>> = Vec::new();
+        let mut concatenated_values: Vec<f32> = Vec::new();
+        let mut offset: i64 = 0;
+        for t in tensors.iter() {
+            for (idx, &val) in t.indices.iter().zip(t.values.iter()) {
+                let mut new_idx = idx.clone();
+                new_idx[0] += offset;
+                concatenated_indices.push(new_idx);
+                concatenated_values.push(val);
+            }
+            offset += t.shape[0];
+        }
+        let mut new_shape = tensors[0].shape.clone();
+        new_shape[0] = offset;
+        let st = SparseTensor::new(concatenated_indices, concatenated_values, new_shape)?;
+        st.to_flow()
+    }
+
+    /// SparseSlice: returns a dense FlowTensors corresponding to the slice defined by `begin` and `size`
+    /// `begin` and `size` must have the same rank as the tensor
+    pub fn sparse_slice(&self, begin: &[i64], size: &[i64]) -> Option<FlowTensors> {
+        if begin.len() != self.shape.len() || size.len() != self.shape.len() { return None; }
+        // compute new indices/values inside slice
+        let mut new_indices: Vec<Vec<i64>> = Vec::new();
+        let mut new_values: Vec<f32> = Vec::new();
+        for (idx, &val) in self.indices.iter().zip(self.values.iter()) {
+            let mut inside = true;
+            for d in 0..idx.len() {
+                if idx[d] < begin[d] || idx[d] >= begin[d] + size[d] { inside = false; break; }
+            }
+            if inside {
+                let new_idx: Vec<i64> = idx.iter().enumerate().map(|(d,&c)| c - begin[d]).collect();
+                new_indices.push(new_idx);
+                new_values.push(val);
+            }
+        }
+        let st = SparseTensor::new(new_indices, new_values, size.to_vec())?;
+        st.to_flow()
+    }
+
+    /// SparseReshape: reshape sparse tensor to new_shape (same number of elements)
+    pub fn sparse_reshape(&self, new_shape: &[i64]) -> Option<FlowTensors> {
+        let old_count: i64 = self.shape.iter().product();
+        let new_count: i64 = new_shape.iter().product();
+        if old_count != new_count { return None; }
+        // map each indexed element by flat index -> new multi-index
+        let mut new_indices: Vec<Vec<i64>> = Vec::with_capacity(self.indices.len());
+        for idx in self.indices.iter() {
+            // compute flat
+            let mut flat: i64 = 0;
+            for (i, &c) in idx.iter().enumerate() {
+                let mut mul: i64 = 1;
+                for &s in &self.shape[i+1..] { mul *= s; }
+                flat += c * mul;
+            }
+            // compute new multi-index
+            let mut rem = flat;
+            let mut new_idx = vec![0i64; new_shape.len()];
+            for i in 0..new_shape.len() {
+                let mut mul: i64 = 1;
+                for &s in &new_shape[i+1..] { mul *= s; }
+                new_idx[i] = rem / mul;
+                rem = rem % mul;
+            }
+            new_indices.push(new_idx);
+        }
+        let st = SparseTensor::new(new_indices, self.values.clone(), new_shape.to_vec())?;
+        st.to_flow()
+    }
+}

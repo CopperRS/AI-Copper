@@ -60,15 +60,23 @@
 
 **OTIMIZADORES (Training Ops):**
 
-- [ ] GradientDescent (SGD)
-- [ ] Adam, Adagrad, RMSProp
-- [ ] Momentum, Adadelta, Ftrl
+- [ ✅ ] GradientDescent (SGD)
+- [ ✅ ] Adam, Adagrad, RMSProp
+- [ ✅ ] Momentum, Adadelta, Ftrl
+
+**SPARSE TENSORS (Sparse Ops):**
+
+- [ ✅ ] SparseAdd, SparseTensorDenseMatMul
+- [ ✅ ] SparseConcat, SparseSlice
+- [ ✅ ] SparseReshape
 
 ### **Structs**
+
 - `FlowTensors` - tensor do TensorFlow
 - `TensorFlowModel` - modelo SavedModel
 
 ### **Métodos de FlowTensors**
+
 ```rust
 // Criação
 new(values: &[f32], dims: &[i64])
@@ -95,12 +103,14 @@ version_tf() -> String
 ```
 
 ### **Métodos de TensorFlowModel**
+
 ```rust
 load(model_path: &str, tags: &str) -> Option<Self>
 run(input_names: &[&str], input_tensors: &[&FlowTensors], output_names: &[&str]) -> Option<Vec<FlowTensors>>
 ```
 
 ### **FFI (C++ Bindings)**
+
 ```rust
 VersionTF()
 LoadSavedModel()
@@ -112,14 +122,18 @@ FreeModel()
 ```
 
 ### **Integração Unificada**
+
 ```rust
 UnifiedTensor::TensorFlow(FlowTensors)
 // Suporta: zeros, ones, rand, from_values, to_backend, shape, as_slice, print
 ```
+
 ### **Tipos de dados**
+
 - [ ✅ ] f32 (já implementado)
 - [ ✅ ] f64 (double), i32, i64, i8, i16, u8, u16
 - [ ✅ ] bool, complex64/128, string
+
 ---
 
 Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáticos (+, -, *, /) implementados diretamente no FlowTensors.
@@ -127,6 +141,7 @@ Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáti
 #### 🚀 A fazer
 
 **OPERAÇÕES DE ARRAY (Array Ops):**
+
 - [ ] Concat - Concatenar tensors
 - [ ] Stack/Unstack - Empilhar/desempilhar
 - [ ] Split - Dividir tensor
@@ -140,6 +155,7 @@ Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáti
 - [ ] Where - Selecionar por condição
 
 **REDES NEURAIS (NN Ops):**
+
 - [ ] Relu, Relu6, Elu, Selu - Ativações
 - [ ] Softmax, LogSoftmax - Normalização
 - [ ] Conv2D/Conv3D - Convolução
@@ -150,18 +166,15 @@ Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáti
 - [ ] Dropout - Regularização
 
 **OPERAÇÕES DE IMAGEM (Image Ops):**
+
 - [ ] Resize (Bilinear/Bicubic/NearestNeighbor)
 - [ ] CropAndResize
 - [ ] Decode/Encode (Jpeg/Png)
 - [ ] AdjustContrast/Hue/Saturation
 - [ ] RGBToHSV/HSVToRGB
 
-**SPARSE TENSORS (Sparse Ops):**
-- [ ] SparseAdd, SparseTensorDenseMatMul
-- [ ] SparseConcat, SparseSlice
-- [ ] SparseReshape
-
 **FUNCIONALIDADES AVANÇADAS:**
+
 - [ ] Clone nativo para FlowTensors
 - [ ] Gradientes/Autograd (GradientTape)
 - [ ] GPU support (Device management)
@@ -172,8 +185,8 @@ Apenas f32, apenas 2D para transpose, sem Clone nativo, sem operadores matemáti
 - [ ] Dataset API
 
 **TESTES & DOCS:**
+
 - [ ] Testes unitários completos
 - [ ] Benchmarks de performance
 
 ### **SEMPRE** atualize a documentação e essa lista
-

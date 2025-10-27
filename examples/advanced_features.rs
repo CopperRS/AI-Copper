@@ -1,6 +1,7 @@
 // Exemplo demonstrando as novas funcionalidades do ai_copper
 use ai_copper::tensor_libortch::tensor::{Tensor, Linear, Optimizer};
 use ai_copper::FlowTensors;
+use ai_copper::tensor_tensorflow::tensors_flow::SparseTensor;
 // Import otimizers implementados para o backend TensorFlow (FlowTensors)
 use ai_copper::tensor_tensorflow::optimizers::{SGD, Adam, Adagrad, RMSProp, Momentum, Adadelta, Ftrl};
 
@@ -252,6 +253,69 @@ fn main() {
         "Large exp first element: {:?}",
         large_exp.data().expect("failed to get FlowTensors data")[0]
     );
+    
+    // ==================== SPARSE TENSORS (Sparse Ops) ====================
+    println!("\n9. TENSORFLOW - SPARSE TENSORS (Simulated)");
+    println!("{}", "-".repeat(50));
+
+    // Construir dois SparseTensors 2x3 com alguns elementos não nulos
+    // Indices are coordinates per element, values are f32, shape is [2,3]
+    let indices_a = vec![vec![0_i64, 1_i64], vec![1, 2]];
+    let values_a = vec![10.0_f32, 3.0_f32];
+    let shape = vec![2_i64, 3_i64];
+    let sp_a = SparseTensor::new(indices_a, values_a, shape.clone())
+        .expect("failed to create sparse A");
+
+    let indices_b = vec![vec![0_i64, 0_i64], vec![1, 2_i64]];
+    let values_b = vec![1.5_f32, 2.5_f32];
+    let sp_b = SparseTensor::new(indices_b, values_b, shape.clone())
+        .expect("failed to create sparse B");
+
+    // SparseAdd (materializes dense result)
+    let added = sp_a.sparse_add(&sp_b).expect("sparse_add failed");
+    println!("SparseAdd result (dense): {:?}", added.data().expect("failed to get data"));
+
+    // SparseTensorDenseMatMul - create a dense matrix (KxN) to multiply
+    // For this example treat sparse as shape [2,3], so K=3. Dense must be [3,2]
+    let dense = FlowTensors::new(&[1.0_f32, 0.0, 0.0, 1.0, 1.0, 1.0], &[3, 2])
+        .expect("failed to create dense mat");
+    let matmul_res = sp_a.sparse_tensor_dense_matmul(&dense).expect("sparse matmul failed");
+    println!("SparseTensorDenseMatMul result: {:?}", matmul_res.data().expect("failed to get data"));
+
+    // SparseConcat along axis 0 (concatenate two sparse tensors into 4x3)
+    let concat_res = SparseTensor::sparse_concat_axis0(&[sp_a.clone(), sp_b.clone()])
+        .expect("sparse_concat failed");
+    println!("SparseConcat (axis0) dense result: {:?}", concat_res.data().expect("failed to get data"));
+
+    // SparseSlice: take first row of the concatenated tensor
+    let slice_begin = &[0_i64, 0_i64];
+    let slice_size = &[1_i64, 3_i64];
+    // build SparseTensor from concat result by recreating sparse from dense (cheap way for example)
+    let concat_dense = concat_res.data().expect("failed");
+    // convert dense back to a SparseTensor representation
+    let mut idxs = Vec::new();
+    let mut vals = Vec::new();
+    for i in 0..(concat_res.dims()[0] as usize) {
+        for j in 0..(concat_res.dims()[1] as usize) {
+            let v = concat_dense[i * (concat_res.dims()[1] as usize) + j];
+            if v != 0.0 {
+                idxs.push(vec![i as i64, j as i64]);
+                vals.push(v);
+            }
+        }
+    }
+    let concat_sparse = SparseTensor::new(idxs, vals, concat_res.dims().to_vec())
+        .expect("failed to build sparse from dense");
+    let sliced = concat_sparse.sparse_slice(slice_begin, slice_size).expect("sparse_slice failed");
+    println!("SparseSlice dense result: {:?}", sliced.data().expect("failed"));
+
+    // SparseReshape: reshape slice to shape [3] (flatten) and show result
+    let reshaped = SparseTensor::new(
+        vec![vec![0_i64, 0_i64]], vec![1.0_f32], vec![1_i64, 3_i64]
+    ).and_then(|s| s.sparse_reshape(&[3_i64]));
+    if let Some(r) = reshaped {
+        println!("SparseReshape result: {:?}", r.data().expect("failed"));
+    }
     
     // ==================== OTIMIZADORES (Training Ops) - TensorFlow FlowTensors ====================
     println!("\n8. TENSORFLOW - OTIMIZADORES (Training Ops)");
