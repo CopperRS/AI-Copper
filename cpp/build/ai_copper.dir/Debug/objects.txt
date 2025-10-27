@@ -1,1 +1,1 @@
-D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/ai_copper.dir/Debug/lib.obj
+D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/ai_copper.dir/Debug/lib.obj

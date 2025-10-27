@@ -220,10 +220,21 @@ impl FlowTensors {
     /// Aplica uma função a cada elemento
     pub fn map<F>(&self, f: F) -> Option<FlowTensors>
     where
-        F: Fn(f32) -> f32,
+        F: Fn(f32) -> f32 + Sync + Send,
     {
         let data = self.data()?;
-        let mapped: Vec<f32> = data.iter().map(|&x| f(x)).collect();
+        let size = data.len();
+        // Threshold to decide between sequential and parallel
+        const PAR_THRESHOLD: usize = 1 << 12; // 4096
+
+        let mapped: Vec<f32> = if size >= PAR_THRESHOLD {
+            // Use rayon parallel iterator for large tensors (CPU-only parallelism)
+            use rayon::prelude::*;
+            data.par_iter().map(|&x| f(x)).collect()
+        } else {
+            data.iter().map(|&x| f(x)).collect()
+        };
+
         FlowTensors::new(&mapped, &self.dims)
     }
 
@@ -235,7 +246,14 @@ impl FlowTensors {
         }
         let a = self.data()?;
         let b = other.data()?;
-        let result: Vec<f32> = a.iter().zip(b.iter()).map(|(x, y)| x + y).collect();
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter().zip(b.par_iter()).map(|(x, y)| x + y).collect()
+        } else {
+            a.iter().zip(b.iter()).map(|(x, y)| x + y).collect()
+        };
         FlowTensors::new(&result, &self.dims)
     }
 
@@ -246,7 +264,14 @@ impl FlowTensors {
         }
         let a = self.data()?;
         let b = other.data()?;
-        let result: Vec<f32> = a.iter().zip(b.iter()).map(|(x, y)| x - y).collect();
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter().zip(b.par_iter()).map(|(x, y)| x - y).collect()
+        } else {
+            a.iter().zip(b.iter()).map(|(x, y)| x - y).collect()
+        };
         FlowTensors::new(&result, &self.dims)
     }
 
@@ -257,7 +282,14 @@ impl FlowTensors {
         }
         let a = self.data()?;
         let b = other.data()?;
-        let result: Vec<f32> = a.iter().zip(b.iter()).map(|(x, y)| x * y).collect();
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter().zip(b.par_iter()).map(|(x, y)| x * y).collect()
+        } else {
+            a.iter().zip(b.iter()).map(|(x, y)| x * y).collect()
+        };
         FlowTensors::new(&result, &self.dims)
     }
 
@@ -273,7 +305,14 @@ impl FlowTensors {
             eprintln!("Erro: divisão por zero em FlowTensors::div");
             return None;
         }
-        let result: Vec<f32> = a.iter().zip(b.iter()).map(|(x, y)| x / y).collect();
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter().zip(b.par_iter()).map(|(x, y)| x / y).collect()
+        } else {
+            a.iter().zip(b.iter()).map(|(x, y)| x / y).collect()
+        };
         FlowTensors::new(&result, &self.dims)
     }
 
@@ -352,6 +391,167 @@ impl FlowTensors {
         FlowTensors::new(&result, &dims)
     }
 
+    /// Operações de comparação elemento a elemento
+    /// Retornam um tensor f32 com 1.0 para true e 0.0 para false
+    pub fn equal(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::equal");
+            return None;
+        }
+        let a = self.data()?;
+        let b = other.data()?;
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter()
+                .zip(b.par_iter())
+                .map(|(x, y)| if x == y { 1.0f32 } else { 0.0f32 })
+                .collect()
+        } else {
+            a.iter()
+                .zip(b.iter())
+                .map(|(x, y)| if x == y { 1.0f32 } else { 0.0f32 })
+                .collect()
+        };
+        FlowTensors::new(&result, &self.dims)
+    }
+
+    pub fn not_equal(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::not_equal");
+            return None;
+        }
+        let a = self.data()?;
+        let b = other.data()?;
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter()
+                .zip(b.par_iter())
+                .map(|(x, y)| if x != y { 1.0f32 } else { 0.0f32 })
+                .collect()
+        } else {
+            a.iter()
+                .zip(b.iter())
+                .map(|(x, y)| if x != y { 1.0f32 } else { 0.0f32 })
+                .collect()
+        };
+        FlowTensors::new(&result, &self.dims)
+    }
+
+    /// Operadores lógicos (tratando qualquer valor != 0.0 como true)
+    /// Retornam tensor f32 com 1.0 para true e 0.0 para false
+    pub fn logical_and(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::logical_and");
+            return None;
+        }
+        let a = self.data()?;
+        let b = other.data()?;
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter()
+                .zip(b.par_iter())
+                .map(|(x, y)| if *x != 0.0 && *y != 0.0 { 1.0f32 } else { 0.0f32 })
+                .collect()
+        } else {
+            a.iter()
+                .zip(b.iter())
+                .map(|(x, y)| if *x != 0.0 && *y != 0.0 { 1.0f32 } else { 0.0f32 })
+                .collect()
+        };
+        FlowTensors::new(&result, &self.dims)
+    }
+
+    pub fn logical_or(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::logical_or");
+            return None;
+        }
+        let a = self.data()?;
+        let b = other.data()?;
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter()
+                .zip(b.par_iter())
+                .map(|(x, y)| if *x != 0.0 || *y != 0.0 { 1.0f32 } else { 0.0f32 })
+                .collect()
+        } else {
+            a.iter()
+                .zip(b.iter())
+                .map(|(x, y)| if *x != 0.0 || *y != 0.0 { 1.0f32 } else { 0.0f32 })
+                .collect()
+        };
+        FlowTensors::new(&result, &self.dims)
+    }
+
+    pub fn logical_not(&self) -> Option<FlowTensors> {
+        let a = self.data()?;
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter().map(|x| if *x == 0.0 { 1.0f32 } else { 0.0f32 }).collect()
+        } else {
+            a.iter().map(|x| if *x == 0.0 { 1.0f32 } else { 0.0f32 }).collect()
+        };
+        FlowTensors::new(&result, &self.dims)
+    }
+
+    pub fn greater(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::greater");
+            return None;
+        }
+        let a = self.data()?;
+        let b = other.data()?;
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter()
+                .zip(b.par_iter())
+                .map(|(x, y)| if x > y { 1.0f32 } else { 0.0f32 })
+                .collect()
+        } else {
+            a.iter()
+                .zip(b.iter())
+                .map(|(x, y)| if x > y { 1.0f32 } else { 0.0f32 })
+                .collect()
+        };
+        FlowTensors::new(&result, &self.dims)
+    }
+
+    pub fn less(&self, other: &FlowTensors) -> Option<FlowTensors> {
+        if self.dims != other.dims {
+            eprintln!("Erro: dimensões incompatíveis em FlowTensors::less");
+            return None;
+        }
+        let a = self.data()?;
+        let b = other.data()?;
+        let size = a.len();
+        const PAR_THRESHOLD: usize = 1 << 12;
+        let result: Vec<f32> = if size >= PAR_THRESHOLD {
+            use rayon::prelude::*;
+            a.par_iter()
+                .zip(b.par_iter())
+                .map(|(x, y)| if x < y { 1.0f32 } else { 0.0f32 })
+                .collect()
+        } else {
+            a.iter()
+                .zip(b.iter())
+                .map(|(x, y)| if x < y { 1.0f32 } else { 0.0f32 })
+                .collect()
+        };
+        FlowTensors::new(&result, &self.dims)
+    }
+
     /// Funções matemáticas
     pub fn pow(&self, exponent: f32) -> Option<FlowTensors> {
         self.map(|x| x.powf(exponent))
@@ -361,12 +561,97 @@ impl FlowTensors {
         self.map(|x| x.sqrt())
     }
 
+    /// Arredondamentos e clip
+    pub fn ceil(&self) -> Option<FlowTensors> {
+        self.map(|x| x.ceil())
+    }
+
+    pub fn floor(&self) -> Option<FlowTensors> {
+        self.map(|x| x.floor())
+    }
+
+    pub fn round(&self) -> Option<FlowTensors> {
+        self.map(|x| x.round())
+    }
+
+    /// Clip - limita valores entre min e max
+    pub fn clip(&self, min: f32, max: f32) -> Option<FlowTensors> {
+        self.map(|x| {
+            if x.is_nan() {
+                x
+            } else {
+                if x < min { min } else if x > max { max } else { x }
+            }
+        })
+    }
+
+    /// Cast simples: converte para inteiros mantendo armazenado como f32 (truncamento)
+    pub fn cast_to_int(&self) -> Option<FlowTensors> {
+        self.map(|x| x.trunc())
+    }
+
+    /// Cast para booleano (1.0/0.0)
+    pub fn cast_to_bool(&self) -> Option<FlowTensors> {
+        self.map(|x| if x != 0.0 { 1.0f32 } else { 0.0f32 })
+    }
+
     pub fn square(&self) -> Option<FlowTensors> {
         self.map(|x| x * x)
     }
 
     pub fn abs(&self) -> Option<FlowTensors> {
         self.map(|x| x.abs())
+    }
+
+    /// Exponenciais e funções relacionadas
+    pub fn exp(&self) -> Option<FlowTensors> {
+        self.map(|x| x.exp())
+    }
+
+    /// Logaritmo natural
+    pub fn ln(&self) -> Option<FlowTensors> {
+        self.map(|x| x.ln())
+    }
+
+    /// log(1 + x) — implementado como (1+x).ln()
+    pub fn log1p(&self) -> Option<FlowTensors> {
+        // Use a numerically stable implementation for log1p via libm
+        self.map(|x| libm::log1pf(x))
+    }
+
+    /// Sigmoid: 1 / (1 + e^{-x})
+    pub fn sigmoid(&self) -> Option<FlowTensors> {
+        self.map(|x| 1.0f32 / (1.0f32 + (-x).exp()))
+    }
+
+    /// Tangente hiperbólica
+    pub fn tanh(&self) -> Option<FlowTensors> {
+        self.map(|x| x.tanh())
+    }
+
+    /// Funções trigonométricas
+    pub fn sin(&self) -> Option<FlowTensors> {
+        self.map(|x| x.sin())
+    }
+
+    pub fn cos(&self) -> Option<FlowTensors> {
+        self.map(|x| x.cos())
+    }
+
+    pub fn tan(&self) -> Option<FlowTensors> {
+        self.map(|x| x.tan())
+    }
+
+    pub fn asin(&self) -> Option<FlowTensors> {
+        self.map(|x| x.asin())
+    }
+
+    pub fn acos(&self) -> Option<FlowTensors> {
+        self.map(|x| x.acos())
+    }
+
+    pub fn atan(&self) -> Option<FlowTensors> {
+        self.map(|x| x.atan())
     }
 
     /// Cria tensor de zeros

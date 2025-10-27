@@ -7,7 +7,7 @@ events:
       - "C:/Program Files/CMake/share/cmake-4.1/Modules/CMakeDetermineSystem.cmake:212 (message)"
       - "CMakeLists.txt:2 (project)"
     message: |
-      The system is: Windows - 10.0.26100 - AMD64
+      The system is: Windows - 10.0.26200 - AMD64
   -
     kind: "find-v1"
     backtrace:
@@ -37,8 +37,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -74,9 +74,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
   -
     kind: "message-v1"
     backtrace:
@@ -93,9 +94,9 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 17.14.14+a129329f1 para .NET Framework
-      Compila├º├úo de 25/10/2025 02:28:06 iniciada.
+      Compila├º├úo de 26/10/2025 23:15:38 iniciada.
       
-      Projeto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdC\\CompilerIdC.vcxproj" no n├│ 1 (destinos padr├úo).
+      Projeto "D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdC\\CompilerIdC.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
         Criando o diret├│rio "Debug\\".
         Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
@@ -108,7 +109,7 @@ events:
         CMakeCCompilerId.c
       Link:
         C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
-        CompilerIdC.vcxproj -> D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdC\\CompilerIdC.exe
+        CompilerIdC.vcxproj -> D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdC\\CompilerIdC.exe
       PostBuildEvent:
         for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
         :VCEnd
@@ -116,13 +117,13 @@ events:
       FinalizeBuildStatus:
         Excluindo o arquivo "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
         Tocando "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
-      Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdC\\CompilerIdC.vcxproj" (destinos padr├úo).
+      Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdC\\CompilerIdC.vcxproj" (destinos padr├úo).
       
       Compila├º├úo com ├¬xito.
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:00.72
+      Tempo Decorrido 00:00:01.55
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -130,7 +131,7 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
       
       The C compiler identification is MSVC, found in:
-        D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CompilerIdC/CompilerIdC.exe
+        D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CompilerIdC/CompilerIdC.exe
       
   -
     kind: "find-v1"
@@ -155,8 +156,8 @@ events:
       - "link"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
       - "C:/devkitPro/msys2/usr/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
@@ -189,9 +190,10 @@ events:
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/"
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/Console/"
       - "C:/Users/domen/.copper/bin/"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.com"
     found: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.exe"
@@ -199,8 +201,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -236,9 +238,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
   -
     kind: "find-v1"
     backtrace:
@@ -262,8 +265,8 @@ events:
       - "lld-link"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
       - "C:/devkitPro/msys2/usr/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
@@ -296,19 +299,20 @@ events:
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/"
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/Console/"
       - "C:/Users/domen/.copper/bin/"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.com"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.exe"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/lld-link.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/lld-link.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/lld-link"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/lld-link.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/lld-link.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/lld-link"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/lld-link.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/lld-link.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/lld-link"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/lld-link.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/lld-link.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/lld-link"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/lld-link.com"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/lld-link.exe"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/lld-link"
@@ -405,22 +409,25 @@ events:
       - "C:/Users/domen/.copper/bin/lld-link.com"
       - "C:/Users/domen/.copper/bin/lld-link.exe"
       - "C:/Users/domen/.copper/bin/lld-link"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link.com"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link.exe"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/lld-link.com"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/lld-link.exe"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/lld-link"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/lld-link.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/lld-link.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/lld-link"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/lld-link.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/lld-link.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/lld-link"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/lld-link.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/lld-link.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/lld-link"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/lld-link.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/lld-link.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/lld-link"
     found: false
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -456,9 +463,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
   -
     kind: "find-v1"
     backtrace:
@@ -480,8 +488,8 @@ events:
       - "link"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
       - "C:/devkitPro/msys2/usr/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
@@ -514,9 +522,10 @@ events:
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/"
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/Console/"
       - "C:/Users/domen/.copper/bin/"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.com"
     found: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/link.exe"
@@ -524,8 +533,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -561,9 +570,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
   -
     kind: "find-v1"
     backtrace:
@@ -585,8 +595,8 @@ events:
       - "mt"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
       - "C:/devkitPro/msys2/usr/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
@@ -619,19 +629,20 @@ events:
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/"
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/Console/"
       - "C:/Users/domen/.copper/bin/"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt.com"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt.exe"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/mt"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/mt.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/mt.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/mt"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/mt.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/mt.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/mt"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/mt.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/mt.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/mt"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/mt.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/mt.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/mt"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/mt.com"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/mt.exe"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/mt"
@@ -728,22 +739,25 @@ events:
       - "C:/Users/domen/.copper/bin/mt.com"
       - "C:/Users/domen/.copper/bin/mt.exe"
       - "C:/Users/domen/.copper/bin/mt"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt.com"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt.exe"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/mt.com"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/mt.exe"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/mt"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/mt.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/mt.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/mt"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/mt.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/mt.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/mt"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/mt.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/mt.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/mt"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/mt.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/mt.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/mt"
     found: false
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -779,9 +793,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
   -
     kind: "find-v1"
     backtrace:
@@ -803,8 +818,8 @@ events:
       - "lib"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
       - "C:/devkitPro/msys2/usr/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
@@ -837,9 +852,10 @@ events:
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/"
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/Console/"
       - "C:/Users/domen/.copper/bin/"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lib.com"
     found: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lib.exe"
@@ -847,8 +863,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -884,9 +900,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
   -
     kind: "find-v1"
     backtrace:
@@ -916,8 +933,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -953,9 +970,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
   -
     kind: "message-v1"
     backtrace:
@@ -972,9 +990,9 @@ events:
       The output was:
       0
       Vers├úo do MSBuild 17.14.14+a129329f1 para .NET Framework
-      Compila├º├úo de 25/10/2025 02:28:07 iniciada.
+      Compila├º├úo de 26/10/2025 23:15:40 iniciada.
       
-      Projeto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" no n├│ 1 (destinos padr├úo).
+      Projeto "D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" no n├│ 1 (destinos padr├úo).
       PrepareForBuild:
         Criando o diret├│rio "Debug\\".
         Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
@@ -987,7 +1005,7 @@ events:
         CMakeCXXCompilerId.cpp
       Link:
         C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
-        CompilerIdCXX.vcxproj -> D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdCXX\\CompilerIdCXX.exe
+        CompilerIdCXX.vcxproj -> D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdCXX\\CompilerIdCXX.exe
       PostBuildEvent:
         for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
         :VCEnd
@@ -995,13 +1013,13 @@ events:
       FinalizeBuildStatus:
         Excluindo o arquivo "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
         Tocando "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
-      Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (destinos padr├úo).
+      Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\4.1.0-rc1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (destinos padr├úo).
       
       Compila├º├úo com ├¬xito.
           0 Aviso(s)
           0 Erro(s)
       
-      Tempo Decorrido 00:00:00.82
+      Tempo Decorrido 00:00:01.78
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -1009,7 +1027,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
       
       The CXX compiler identification is MSVC, found in:
-        D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CompilerIdCXX/CompilerIdCXX.exe
+        D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CompilerIdCXX/CompilerIdCXX.exe
       
   -
     kind: "find-v1"
@@ -1034,8 +1052,8 @@ events:
       - "lld-link"
     candidate_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
       - "C:/devkitPro/msys2/usr/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
@@ -1068,19 +1086,20 @@ events:
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/"
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/Console/"
       - "C:/Users/domen/.copper/bin/"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/"
     searched_directories:
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.com"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link.exe"
       - "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/lld-link"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/lld-link.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/lld-link.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/lld-link"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/lld-link.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/lld-link.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/lld-link"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/lld-link.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/lld-link.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/lld-link"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/lld-link.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/lld-link.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/lld-link"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/lld-link.com"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/lld-link.exe"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/lld-link"
@@ -1177,22 +1196,25 @@ events:
       - "C:/Users/domen/.copper/bin/lld-link.com"
       - "C:/Users/domen/.copper/bin/lld-link.exe"
       - "C:/Users/domen/.copper/bin/lld-link"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link.com"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link.exe"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/lld-link.com"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/lld-link.exe"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/lld-link"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/lld-link.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/lld-link.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/lld-link"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/lld-link.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/lld-link.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/lld-link"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/lld-link.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/lld-link.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/lld-link"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/lld-link.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/lld-link.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/lld-link"
     found: false
     search_context:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -1228,9 +1250,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
   -
     kind: "find-v1"
     backtrace:
@@ -1257,8 +1280,8 @@ events:
       - "C:/libtorch/bin/"
       - "C:/libtorch/sbin/"
       - "C:/libtorch/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
       - "C:/devkitPro/msys2/usr/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
@@ -1291,9 +1314,10 @@ events:
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/"
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/Console/"
       - "C:/Users/domen/.copper/bin/"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/"
       - "C:/Program Files/bin/"
       - "C:/Program Files/sbin/"
       - "C:/Program Files/"
@@ -1316,12 +1340,12 @@ events:
       - "C:/libtorch/rc.com"
       - "C:/libtorch/rc.exe"
       - "C:/libtorch/rc"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/rc.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/rc.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/rc"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/rc.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/rc.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/rc"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/rc.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/rc.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/rc"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/rc.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/rc.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/rc"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/rc.com"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/rc.exe"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/rc"
@@ -1418,15 +1442,18 @@ events:
       - "C:/Users/domen/.copper/bin/rc.com"
       - "C:/Users/domen/.copper/bin/rc.exe"
       - "C:/Users/domen/.copper/bin/rc"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc.com"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc.exe"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/rc.com"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/rc.exe"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/rc"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/rc.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/rc.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/rc"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/rc.com"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/rc.exe"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/rc"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/rc.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/rc.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/rc"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/rc.com"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/rc.exe"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/rc"
       - "C:/Program Files/bin/rc.com"
       - "C:/Program Files/bin/rc.exe"
       - "C:/Program Files/bin/rc"
@@ -1468,8 +1495,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -1505,9 +1532,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
       CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -1523,8 +1551,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-yw9vjs"
-      binary: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-yw9vjs"
+      source: "D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ky03jo"
+      binary: "D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ky03jo"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1533,40 +1561,40 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-yw9vjs'
+        Change Dir: 'D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ky03jo'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_58bd8.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2e92e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         Vers├úo do MSBuild 17.14.14+a129329f1 para .NET Framework
-        Compila├º├úo de 25/10/2025 02:28:08 iniciada.
+        Compila├º├úo de 26/10/2025 23:15:43 iniciada.
         
-        Projeto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yw9vjs\\cmTC_58bd8.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ky03jo\\cmTC_2e92e.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
-          Criando o diret├│rio "cmTC_58bd8.dir\\Debug\\".
+          Criando o diret├│rio "cmTC_2e92e.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Criando o diret├│rio "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yw9vjs\\Debug\\".
-          Criando o diret├│rio "cmTC_58bd8.dir\\Debug\\cmTC_58bd8.tlog\\".
+          Criando o diret├│rio "D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ky03jo\\Debug\\".
+          Criando o diret├│rio "cmTC_2e92e.dir\\Debug\\cmTC_2e92e.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_58bd8.dir\\Debug\\cmTC_58bd8.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_58bd8.dir\\Debug\\cmTC_58bd8.tlog\\unsuccessfulbuild".
+          Criando "cmTC_2e92e.dir\\Debug\\cmTC_2e92e.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_2e92e.dir\\Debug\\cmTC_2e92e.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_58bd8.dir\\Debug\\\\" /Fd"cmTC_58bd8.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_2e92e.dir\\Debug\\\\" /Fd"cmTC_2e92e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35211 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_58bd8.dir\\Debug\\\\" /Fd"cmTC_58bd8.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_2e92e.dir\\Debug\\\\" /Fd"cmTC_2e92e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yw9vjs\\Debug\\cmTC_58bd8.exe" /INCREMENTAL /ILK:"cmTC_58bd8.dir\\Debug\\cmTC_58bd8.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-yw9vjs/Debug/cmTC_58bd8.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-yw9vjs/Debug/cmTC_58bd8.lib" /MACHINE:X64  /machine:x64 cmTC_58bd8.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_58bd8.vcxproj -> D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yw9vjs\\Debug\\cmTC_58bd8.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ky03jo\\Debug\\cmTC_2e92e.exe" /INCREMENTAL /ILK:"cmTC_2e92e.dir\\Debug\\cmTC_2e92e.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ky03jo/Debug/cmTC_2e92e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-ky03jo/Debug/cmTC_2e92e.lib" /MACHINE:X64  /machine:x64 cmTC_2e92e.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_2e92e.vcxproj -> D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ky03jo\\Debug\\cmTC_2e92e.exe
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_58bd8.dir\\Debug\\cmTC_58bd8.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_58bd8.dir\\Debug\\cmTC_58bd8.tlog\\cmTC_58bd8.lastbuildstate".
-        Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-yw9vjs\\cmTC_58bd8.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_2e92e.dir\\Debug\\cmTC_2e92e.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_2e92e.dir\\Debug\\cmTC_2e92e.tlog\\cmTC_2e92e.lastbuildstate".
+        Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ky03jo\\cmTC_2e92e.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:00.69
+        Tempo Decorrido 00:00:01.65
         
       exitCode: 0
   -
@@ -1606,8 +1634,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-wa80kt"
-      binary: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-wa80kt"
+      source: "D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-5ldgdj"
+      binary: "D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-5ldgdj"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1617,40 +1645,40 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-wa80kt'
+        Change Dir: 'D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-5ldgdj'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_ef8ec.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_3843b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         Vers├úo do MSBuild 17.14.14+a129329f1 para .NET Framework
-        Compila├º├úo de 25/10/2025 02:28:10 iniciada.
+        Compila├º├úo de 26/10/2025 23:15:45 iniciada.
         
-        Projeto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wa80kt\\cmTC_ef8ec.vcxproj" no n├│ 1 (destinos padr├úo).
+        Projeto "D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5ldgdj\\cmTC_3843b.vcxproj" no n├│ 1 (destinos padr├úo).
         PrepareForBuild:
-          Criando o diret├│rio "cmTC_ef8ec.dir\\Debug\\".
+          Criando o diret├│rio "cmTC_3843b.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Criando o diret├│rio "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wa80kt\\Debug\\".
-          Criando o diret├│rio "cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.tlog\\".
+          Criando o diret├│rio "D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5ldgdj\\Debug\\".
+          Criando o diret├│rio "cmTC_3843b.dir\\Debug\\cmTC_3843b.tlog\\".
         InitializeBuildStatus:
-          Criando "cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
-          Tocando "cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.tlog\\unsuccessfulbuild".
+          Criando "cmTC_3843b.dir\\Debug\\cmTC_3843b.tlog\\unsuccessfulbuild" porque "AlwaysCreate" foi especificado.
+          Tocando "cmTC_3843b.dir\\Debug\\cmTC_3843b.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_ef8ec.dir\\Debug\\\\" /Fd"cmTC_ef8ec.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_3843b.dir\\Debug\\\\" /Fd"cmTC_3843b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35211 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_ef8ec.dir\\Debug\\\\" /Fd"cmTC_ef8ec.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /GR /Fo"cmTC_3843b.dir\\Debug\\\\" /Fd"cmTC_3843b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wa80kt\\Debug\\cmTC_ef8ec.exe" /INCREMENTAL /ILK:"cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-wa80kt/Debug/cmTC_ef8ec.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-wa80kt/Debug/cmTC_ef8ec.lib" /MACHINE:X64  /machine:x64 cmTC_ef8ec.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_ef8ec.vcxproj -> D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wa80kt\\Debug\\cmTC_ef8ec.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5ldgdj\\Debug\\cmTC_3843b.exe" /INCREMENTAL /ILK:"cmTC_3843b.dir\\Debug\\cmTC_3843b.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-5ldgdj/Debug/cmTC_3843b.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/CMakeScratch/TryCompile-5ldgdj/Debug/cmTC_3843b.lib" /MACHINE:X64  /machine:x64 cmTC_3843b.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_3843b.vcxproj -> D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5ldgdj\\Debug\\cmTC_3843b.exe
         FinalizeBuildStatus:
-          Excluindo o arquivo "cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.tlog\\unsuccessfulbuild".
-          Tocando "cmTC_ef8ec.dir\\Debug\\cmTC_ef8ec.tlog\\cmTC_ef8ec.lastbuildstate".
-        Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-wa80kt\\cmTC_ef8ec.vcxproj" (destinos padr├úo).
+          Excluindo o arquivo "cmTC_3843b.dir\\Debug\\cmTC_3843b.tlog\\unsuccessfulbuild".
+          Tocando "cmTC_3843b.dir\\Debug\\cmTC_3843b.tlog\\cmTC_3843b.lastbuildstate".
+        Projeto de compila├º├úo pronto "D:\\workspace\\Codespaces\\Copper\\AI-Copper\\cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5ldgdj\\cmTC_3843b.vcxproj" (destinos padr├úo).
         
         Compila├º├úo com ├¬xito.
             0 Aviso(s)
             0 Erro(s)
         
-        Tempo Decorrido 00:00:00.81
+        Tempo Decorrido 00:00:01.39
         
       exitCode: 0
   -
@@ -1720,11 +1748,11 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/MKLConfig.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/MKLConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/mkl-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/mkl-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -1744,19 +1772,19 @@ events:
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/MKLConfig.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/MKLConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/mkl-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/mkl-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/MKLConfig.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/MKLConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/mkl-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/mkl-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -1960,6 +1988,14 @@ events:
         mode: "config"
         reason: "no_exist"
       -
+        path: "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/MKLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mkl-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
         path: "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/MKLConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -1968,19 +2004,19 @@ events:
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/MKLConfig.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/MKLConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/mkl-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/mkl-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/MKLConfig.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/MKLConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/mkl-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/mkl-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2012,8 +2048,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -2049,9 +2085,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
       CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -2097,11 +2134,11 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/MKLDNNConfig.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/MKLDNNConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/mkldnn-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/mkldnn-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2121,19 +2158,19 @@ events:
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/MKLDNNConfig.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/MKLDNNConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/mkldnn-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/mkldnn-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/MKLDNNConfig.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/MKLDNNConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/mkldnn-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/mkldnn-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2337,6 +2374,14 @@ events:
         mode: "config"
         reason: "no_exist"
       -
+        path: "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/MKLDNNConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mkldnn-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
         path: "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/MKLDNNConfig.cmake"
         mode: "config"
         reason: "no_exist"
@@ -2345,19 +2390,19 @@ events:
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/MKLDNNConfig.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/MKLDNNConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/mkldnn-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/mkldnn-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/MKLDNNConfig.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/MKLDNNConfig.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/mkldnn-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/mkldnn-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2389,8 +2434,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -2426,9 +2471,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
       CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -2474,11 +2520,11 @@ events:
         CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
     candidates:
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/Caffe2Config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/Caffe2Config.cmake"
         mode: "config"
         reason: "no_exist"
       -
-        path: "D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/caffe2-config.cmake"
+        path: "D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/pkgRedirects/caffe2-config.cmake"
         mode: "config"
         reason: "no_exist"
       -
@@ -2505,8 +2551,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -2542,9 +2588,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
       CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -2573,8 +2620,8 @@ events:
     candidate_directories:
       - "C:/libtorch/lib/"
       - "C:/libtorch/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
       - "C:/devkitPro/msys2/usr/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
@@ -2607,9 +2654,10 @@ events:
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/"
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/Console/"
       - "C:/Users/domen/.copper/bin/"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/"
       - "C:/Program Files/lib/"
       - "C:/Program Files/"
       - "C:/Program Files (x86)/lib/"
@@ -2626,8 +2674,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -2663,9 +2711,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
       CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -2698,8 +2747,8 @@ events:
     candidate_directories:
       - "C:/libtorch/lib/"
       - "C:/libtorch/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
       - "C:/devkitPro/msys2/usr/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
@@ -2732,9 +2781,10 @@ events:
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/"
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/Console/"
       - "C:/Users/domen/.copper/bin/"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/"
       - "C:/Program Files/lib/"
       - "C:/Program Files/"
       - "C:/Program Files (x86)/lib/"
@@ -2751,8 +2801,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -2788,9 +2838,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
       CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -2822,8 +2873,8 @@ events:
     candidate_directories:
       - "C:/libtorch/lib/"
       - "C:/libtorch/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/deps/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/deps/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/lib/rustlib/x86_64-pc-windows-msvc/lib/"
       - "C:/devkitPro/msys2/usr/bin/"
       - "C:/Program Files/Common Files/Oracle/Java/javapath/"
@@ -2856,9 +2907,10 @@ events:
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/"
       - "C:/Program Files (x86)/Steam/steamapps/common/DSX/Main_v3_Beta/Console/"
       - "C:/Users/domen/.copper/bin/"
+      - "C:/Users/domen/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "C:/Users/domen/.rustup/toolchains/stable-x86_64-pc-windows-msvc/bin/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/bzip2-sys-b3b106062f67df3b/out/lib/"
-      - "D:/workspace/Codespaces/libtesting/AI-Copper/target/debug/build/zstd-sys-f55a8debe3dd1c11/out/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/bzip2-sys-1ce0f6125443e9ff/out/lib/"
+      - "D:/workspace/Codespaces/Copper/AI-Copper/target/debug/build/zstd-sys-5ce343737663f623/out/"
       - "C:/Program Files/lib/"
       - "C:/Program Files/"
       - "C:/Program Files (x86)/lib/"
@@ -2875,8 +2927,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -2912,9 +2964,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
       CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -2950,8 +3003,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -2987,9 +3040,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
       CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"
@@ -3024,8 +3078,8 @@ events:
       CMAKE_PREFIX_PATH:
         - "C:\\libtorch"
       ENV{PATH}:
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\deps"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\deps"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\lib\\rustlib\\x86_64-pc-windows-msvc\\lib"
         - "c:\\devkitPro\\msys2\\usr\\bin"
         - "C:\\Program Files\\Common Files\\Oracle\\Java\\javapath"
@@ -3061,9 +3115,10 @@ events:
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\"
         - "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DSX\\Main_v3_Beta\\Console"
         - "C:\\Users\\domen\\.copper\\bin"
+        - "c:\\Users\\domen\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
         - "C:\\Users\\domen\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\bzip2-sys-b3b106062f67df3b\\out\\lib"
-        - "D:\\workspace\\Codespaces\\libtesting\\AI-Copper\\target\\debug\\build\\zstd-sys-f55a8debe3dd1c11\\out"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\bzip2-sys-1ce0f6125443e9ff\\out\\lib"
+        - "d:\\workspace\\Codespaces\\Copper\\AI-Copper\\target\\debug\\build\\zstd-sys-5ce343737663f623\\out"
       CMAKE_INSTALL_PREFIX: "C:/Program Files/ai_copper"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "C:/Program Files"

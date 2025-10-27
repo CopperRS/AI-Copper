@@ -121,8 +121,8 @@ C:/libtorch/share/cmake/Caffe2/public/mkldnn.cmake
 C:/libtorch/share/cmake/Caffe2/public/utils.cmake
 C:/libtorch/share/cmake/Torch/TorchConfig.cmake
 C:/libtorch/share/cmake/Torch/TorchConfigVersion.cmake
-D:/workspace/Codespaces/libtesting/AI-Copper/cpp/CMakeLists.txt
-D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeCCompiler.cmake
-D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeCXXCompiler.cmake
-D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeRCCompiler.cmake
-D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeSystem.cmake
+D:/workspace/Codespaces/Copper/AI-Copper/cpp/CMakeLists.txt
+D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeCCompiler.cmake
+D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeCXXCompiler.cmake
+D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeRCCompiler.cmake
+D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/4.1.0-rc1/CMakeSystem.cmake

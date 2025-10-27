@@ -2,13 +2,13 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\workspace\Codespaces\libtesting\AI-Copper\cpp\build\x64\Debug\ZERO_CHECK</FullPath>
+      <FullPath>D:\workspace\Codespaces\Copper\AI-Copper\cpp\build\x64\Debug\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>D:\workspace\Codespaces\libtesting\AI-Copper\cpp\build\Release\Debug\ai_copper.dll</FullPath>
+      <FullPath>D:\workspace\Codespaces\Copper\AI-Copper\cpp\build\Release\Debug\ai_copper.dll</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>D:\workspace\Codespaces\libtesting\AI-Copper\cpp\build\x64\Debug\ALL_BUILD</FullPath>
+      <FullPath>D:\workspace\Codespaces\Copper\AI-Copper\cpp\build\x64\Debug\ALL_BUILD</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

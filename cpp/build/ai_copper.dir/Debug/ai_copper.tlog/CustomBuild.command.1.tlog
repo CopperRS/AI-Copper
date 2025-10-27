@@ -1,6 +1,6 @@
-^D:\WORKSPACE\CODESPACES\LIBTESTING\AI-COPPER\CPP\CMAKELISTS.TXT
+^D:\WORKSPACE\CODESPACES\COPPER\AI-COPPER\CPP\CMAKELISTS.TXT
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SD:/workspace/Codespaces/libtesting/AI-Copper/cpp -BD:/workspace/Codespaces/libtesting/AI-Copper/cpp/build --check-stamp-file D:/workspace/Codespaces/libtesting/AI-Copper/cpp/build/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/workspace/Codespaces/Copper/AI-Copper/cpp -BD:/workspace/Codespaces/Copper/AI-Copper/cpp/build --check-stamp-file D:/workspace/Codespaces/Copper/AI-Copper/cpp/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
