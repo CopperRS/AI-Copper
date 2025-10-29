@@ -1,12 +1,16 @@
-#  AI Copper
+<div style="text-align: center;">
+<img src="./Copper mind - blank.png" width=100px></img>
+<h1>Copper Mind</h1>
+</div>
 
-**AI Copper** é uma biblioteca Rust unificada que combina as capacidades do **LibTorch** (PyTorch C++) e **TensorFlow C API** em uma interface única. 
+**Copper Mind** é uma biblioteca Rust unificada que combina as capacidades do **LibTorch** (PyTorch C++) e **TensorFlow C API** em uma interface única.
 
 Crie modelos de machine learning e deep learning usando o melhor das duas bibliotecas!
 
 ## 🎨 Características
 
 ### 🔥 Dual Backend Support
+
 - **LibTorch Backend**: Acesso completo às funcionalidades do PyTorch em C++
 - **TensorFlow Backend**: Suporte nativo para TensorFlow C API
 - **API Unificada**: Troque entre backends sem alterar seu código
@@ -14,6 +18,7 @@ Crie modelos de machine learning e deep learning usando o melhor das duas biblio
 ### 🎯 Funcionalidades Principais
 
 #### Tensor Operations
+
 - ✅ Criação de tensores (zeros, ones, rand, randn, eye, from_values)
 - ✅ Operações aritméticas (+, -, *, /)
 - ✅ Operações matriciais (matmul, transpose)
@@ -24,6 +29,7 @@ Crie modelos de machine learning e deep learning usando o melhor das duas biblio
 - ✅ Conversão entre backends
 
 #### Neural Networks (LibTorch)
+
 - ✅ Camadas Linear
 - ✅ Funções de perda (MSE Loss, Cross Entropy Loss)
 - ✅ Funções de ativação (ReLU, Sigmoid, Tanh)
@@ -32,6 +38,7 @@ Crie modelos de machine learning e deep learning usando o melhor das duas biblio
 - ✅ Treinamento de modelos
 
 #### TensorFlow Integration
+
 - ✅ Carregar modelos SavedModel
 - ✅ Executar inferência
 - ✅ Manipulação de tensores multi-dimensionais
@@ -41,14 +48,10 @@ Crie modelos de machine learning e deep learning usando o melhor das duas biblio
 
 ####   Adicione ao seu `Cargo.toml`:
 
-
-
 ```toml
 [dependencies]
-ai_copper = { git = "" }
+copper_mind = { git = "" }
 ```
-
-
 
 ### Build do Projeto
 
@@ -64,10 +67,12 @@ ai_copper = { git = "" }
 # Apenas LibTorch
 cargo build --features libtorch
 ```
+
 ```bash
 # Apenas TensorFlow
 cargo build --features tensorflow
 ```
+
 ```bash
 # Com ambos os backends
 cargo build
@@ -98,21 +103,26 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-ai_copper = { git = "https://github.com/CopperRS/AI-Copper.git", branch = "main" }
+copper_mind = { git = "https://github.com/CopperRS/AI-Copper.git", branch = "main" }
 
 [[bin]]
 name = "main"
 path = "main.crs"
 ```
+
 - Builde e Compile o projeto:
+
 ```bash
 # Para Buildar e Rodar
   cforge run main.crs
 ```
+
 > [!NOTE]
 > Aguarde de 1 a 2 minutos antes de fechar o terminal ou ambiente de desenvolvimento para as variaveis de ambiente serem aplicadas.
+
 - Reinicie o ambiente de desenvolvimento e/ou terminais.
 - Builde e Compile o projeto novamente:
+
 ```bash
   cforge run main.crs
 ```
@@ -125,7 +135,6 @@ path = "main.crs"
 - **[Exemplos](examples.md)** - Exemplos de uso da biblioteca no Rust
 - **[Copper Usage](examples/copper.crs)** - Exemplos de uso da biblioteca no Copper
 
-
 # Para Contribuidores
 > [!NOTE]
 > Linux & MacOS ainda estão em desenvolvimento, aguarde novos patches.
@@ -137,7 +146,7 @@ path = "main.crs"
 - Compilador C++ compatível
 - Visual Studio Installer ( Ferramentas de desenvolvimento desktop com C++ )
 
-## 🐧 Requisitos Linux 
+## 🐧 Requisitos Linux
 
 - Rust ( 2021 ou superior )
 - Clang
@@ -147,7 +156,6 @@ path = "main.crs"
 - pkg-config
 - Tar, Unzip & Bsdtar
 - g++
-
 
 ## 🍎 Requisitos MacOS
 
@@ -161,25 +169,7 @@ path = "main.crs"
 - pkg-config
 - tar, unzip & curl
 
-
-##  💻 Compilar Windows
-
-```bash
-# Clone o repositório
-git clone https://github.com/CopperRS/AI-Copper.git
-cd AI_Copper
-
-# Compile
-cargo build 
-
-# Execute exemplos
-cargo run --example advanced_features
-
-# Execute
-cargo run
-```
-
-## 🐧 Compilar Linux 
+## 💻 Compilar Windows
 
 ```bash
 # Clone o repositório
@@ -196,7 +186,24 @@ cargo run --example advanced_features
 cargo run
 ```
 
-##  🍎 Compilar MacOS
+## 🐧 Compilar Linux
+
+```bash
+# Clone o repositório
+git clone https://github.com/CopperRS/AI-Copper.git
+cd AI_Copper
+
+# Compile
+cargo build 
+
+# Execute exemplos
+cargo run --example advanced_features
+
+# Execute
+cargo run
+```
+
+## 🍎 Compilar MacOS
 
 ```bash
 # Clone o repositório
