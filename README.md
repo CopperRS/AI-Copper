@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-<img src="./Copper mind - blank.png" width=100px></img>
+<img src="Copper mind - blank.png" width=100px></img>
 <h1>Copper Mind</h1>
 </div>
 
